@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>On Top — Consultoría & growth delivery</title>
-<meta name="description" content="On Top: hacemos las cosas al 110%. Asesorías para restaurantes en Rappi, Uber Eats y PedidosYa, y páginas y sistemas web a medida.">
+<meta name="description" content="On Top: hacemos las cosas On Top. Asesorías para restaurantes en Rappi, Uber Eats y PedidosYa, y páginas y sistemas web a medida.">
 <meta name="theme-color" content="#020B13">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%2300C2D8'/%3E%3Cpath d='M16 24V9M10 15l6-6 6 6' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,6 +49,16 @@
   --a-b2:#2A1B12;       /* café oscuro */
   --a-muted:#B3A391;
 
+  /* --- Páginas web (código / terminal) --- */
+  --c-bg:#0A0505;       /* negro */
+  --c-bg2:#140A09;
+  --c-o:#FF6A3D;        /* naranja */
+  --c-o2:#FF9466;
+  --c-r:#E0301E;        /* rojo */
+  --c-blood:#8A0F12;    /* rojo sangre */
+  --c-w:#F7EDE8;        /* blanco */
+  --c-muted:#B39A93;
+
   /* --- Tipografías --- */
   --f-display:'Unbounded','Arial Black',sans-serif;
   --f-body:'Outfit',system-ui,sans-serif;
@@ -66,7 +76,17 @@ body[data-view="asesorias"]{
   --logo-glow:rgba(201,103,58,.55);
   --tt-prog:var(--a-y);
   --bar:linear-gradient(90deg,var(--a-o),var(--a-y),var(--a-w));
+  --v-acc:var(--a-y);--v-acc-rgb:212,175,79;
   background:var(--a-bg);
+}
+body[data-view="web"]{
+  --logo-fg:var(--c-w);
+  --logo-o:radial-gradient(circle at 32% 26%,#FF9466 0%,var(--c-r) 48%,var(--c-blood) 100%);
+  --logo-glow:rgba(224,48,30,.55);
+  --tt-prog:var(--c-o);
+  --bar:linear-gradient(90deg,var(--c-blood),var(--c-r),var(--c-o));
+  --v-acc:var(--c-o);--v-acc-rgb:255,106,61;
+  background:var(--c-bg);
 }
 
 /* ===== Base ===== */
@@ -113,6 +133,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:radial-gradient(circle,var(--ice-2) 0%,var(--turq) 30%,var(--turq-d) 62%,var(--turq-dd) 85%,var(--ink) 100%)}
 #app{position:relative;z-index:60;background:var(--ink)}
 body[data-view="asesorias"] #app{background:var(--a-bg)}
+body[data-view="web"] #app{background:var(--c-bg)}
 .intro-on #app{clip-path:circle(0px at 50% 50%)}
 
 /* ===== Botones ===== */
@@ -134,14 +155,15 @@ body[data-view="asesorias"] #app{background:var(--a-bg)}
 .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--turq);transform:scaleX(0);transform-origin:right;transition:transform .4s}
 .nav-links a:hover{color:var(--ice)}
 .nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
-.nav-back{display:none;align-items:center;gap:8px;font-size:.9rem;font-weight:500;color:var(--a-y);padding:9px 16px;border-radius:99px;border:1px solid rgba(212,175,79,.3);transition:background .3s}
-.nav-back:hover{background:rgba(212,175,79,.1)}
+.nav-back{display:none;align-items:center;gap:8px;font-size:.9rem;font-weight:500;color:var(--v-acc);padding:9px 16px;border-radius:99px;border:1px solid rgba(var(--v-acc-rgb),.3);transition:background .3s}
+.nav-back:hover{background:rgba(var(--v-acc-rgb),.1)}
 .nav-back svg{width:16px;height:16px}
-body[data-view="asesorias"] .nav-back{display:inline-flex}
-body[data-view="asesorias"] .nav-links{display:none}
+body:not([data-view="home"]) .nav-back{display:inline-flex}
+body:not([data-view="home"]) .nav-links{display:none}
+body[data-view="web"] .nav.scrolled{background:rgba(10,5,5,.78);border-color:rgba(255,106,61,.12)}
 body[data-view="asesorias"] .nav.scrolled{background:rgba(12,10,8,.72);border-color:rgba(212,175,79,.12)}
-body[data-view="asesorias"] .btn-ghost{color:var(--a-y);border-color:rgba(212,175,79,.3)}
-body[data-view="asesorias"] .btn-ghost:hover{background:rgba(212,175,79,.1)}
+body:not([data-view="home"]) .btn-ghost{color:var(--v-acc);border-color:rgba(var(--v-acc-rgb),.3)}
+body:not([data-view="home"]) .btn-ghost:hover{background:rgba(var(--v-acc-rgb),.1)}
 
 /* ===== Hero / Inicio ===== */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:110px clamp(16px,4vw,40px) 70px;overflow:hidden;isolation:isolate}
@@ -220,21 +242,23 @@ body[data-view="asesorias"] .btn-ghost:hover{background:rgba(212,175,79,.1)}
 /* ===== 110% ===== */
 .metodo{min-height:100vh;display:flex;align-items:center;
   background:radial-gradient(ellipse at 18% 50%,rgba(0,128,143,.2),transparent 58%),linear-gradient(180deg,var(--ink),#031522 50%,var(--ink))}
-.metodo-inner{width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(260px,430px) 1fr;gap:clamp(36px,6vw,96px);align-items:center}
-.ring-wrap{position:relative;width:100%;max-width:430px;aspect-ratio:1;margin:auto}
-.ring{width:100%;height:100%;overflow:visible}
-.ring .track{fill:none;stroke:rgba(168,242,250,.08);stroke-width:14}
-.ring .ticks{fill:none;stroke:rgba(168,242,250,.18);stroke-width:6;stroke-dasharray:1.5 21.06}
-.ring .arc1{fill:none;stroke:url(#gTurq);stroke-width:14;stroke-linecap:round}
-.ring .track2{fill:none;stroke:rgba(215,250,60,.12);stroke-width:2;stroke-dasharray:2 9}
-.ring .arc2{fill:none;stroke:var(--lime);stroke-width:7;stroke-linecap:round}
-@media (hover:hover){.ring .arc1{filter:drop-shadow(0 0 10px rgba(0,194,216,.55))}.ring .arc2{filter:drop-shadow(0 0 8px rgba(215,250,60,.8))}}
-.counter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:900;letter-spacing:-.05em;color:#fff;transition:color .4s,text-shadow .4s}
-.counter .num{font-size:clamp(3.2rem,7.6vw,6.2rem);line-height:1;font-variant-numeric:tabular-nums}
-.counter sup{font-size:.42em;vertical-align:top;color:var(--turq);margin-left:.04em}
-.counter small{font-family:var(--f-body);font-weight:500;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:12px}
-.ring-wrap.over .counter{color:var(--lime);text-shadow:0 0 40px rgba(215,250,60,.45)}
-.ring-wrap.over sup{color:var(--lime)}
+.metodo-inner{width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:clamp(36px,6vw,96px);align-items:center}
+.climb{position:relative;width:100%;max-width:420px;height:min(480px,62vh);min-height:340px;margin:auto}
+.climb-track{position:absolute;left:38px;top:28px;bottom:28px;width:4px;border-radius:4px;background:rgba(168,242,250,.1)}
+.climb-fill{position:absolute;inset:0;border-radius:4px;background:linear-gradient(to top,var(--turq-d),var(--turq) 60%,var(--lime));transform-origin:bottom;transform:scaleY(1);box-shadow:0 0 18px rgba(0,194,216,.6)}
+.climb-levels{position:absolute;left:96px;right:0;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between}
+.lv{padding:4px 0;opacity:1;transition:opacity .5s,transform .5s}
+.lv b{display:block;font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,2.5vw,2.1rem);letter-spacing:-.02em;color:#fff;transition:color .5s,text-shadow .5s}
+.lv span{color:var(--muted);font-size:.9rem}
+.climb.anim .lv{opacity:.25;transform:translateX(12px)}
+.climb.anim .lv.on{opacity:1;transform:none}
+.lv[data-lv="2"] b{color:var(--lime);text-shadow:0 0 30px rgba(215,250,60,.4)}
+.climb.anim .lv[data-lv="2"]:not(.on) b{color:#fff;text-shadow:none}
+.climb-ball{position:absolute;left:40px;bottom:28px;width:64px;height:64px;margin:0 0 -32px -32px;border-radius:50%;background:var(--logo-o);
+  box-shadow:0 0 30px var(--logo-glow);display:grid;place-items:center;color:#fff;will-change:transform;transition:box-shadow .5s}
+.climb-ball svg{width:55%;height:55%}
+.climb:not(.anim) .climb-ball{bottom:calc(100% - 28px)}
+.climb.top .climb-ball,.climb:not(.anim) .climb-ball{box-shadow:0 0 50px rgba(215,250,60,.7),0 0 0 7px rgba(215,250,60,.22)}
 .pillars{list-style:none;margin-top:36px;display:grid;gap:4px}
 .pillars li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:18px 0;border-top:1px solid rgba(168,242,250,.1)}
 .pillars .pn{font-family:var(--f-display);font-size:.78rem;color:var(--turq);padding-top:3px}
@@ -476,9 +500,151 @@ body[data-view="asesorias"] .btn-ghost:hover{background:rgba(212,175,79,.1)}
 .va-back{margin-top:28px;color:var(--a-muted);font-size:.92rem;border-bottom:1px solid rgba(246,239,227,.2);padding-bottom:2px;transition:color .3s}
 .va-back:hover{color:var(--a-w)}
 
+/* =========================================================
+   PÁGINAS WEB (interfaz 3) — ambiente de terminal
+   ========================================================= */
+.view-code{background:var(--c-bg);color:var(--c-w)}
+.view-code .hl{color:var(--c-o)}
+.view-code ::selection{background:var(--c-o);color:var(--c-bg)}
+.btn-o{background:var(--c-o);color:#170806;box-shadow:0 10px 40px -10px rgba(255,106,61,.6)}
+.btn-o:hover{box-shadow:0 14px 50px -8px rgba(255,106,61,.85)}
+.btn-o[disabled]{opacity:.35;pointer-events:none}
+.btn-line-c{border:1px solid rgba(247,237,232,.2);color:var(--c-w)}
+.btn-line-c:hover{background:rgba(247,237,232,.06)}
+.vw-section{position:relative;padding:clamp(90px,13vh,150px) clamp(18px,5vw,64px)}
+.vw-wrap{width:min(1180px,100%);margin:0 auto}
+.vw-eye{display:block;font-family:var(--f-mono);font-size:.82rem;color:var(--c-o);margin-bottom:18px}
+.vw-h2{font-family:var(--f-display);font-weight:800;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.04;letter-spacing:-.03em}
+.vw-lead{color:var(--c-muted);font-size:clamp(1.02rem,1.3vw,1.16rem);max-width:54ch;margin-top:18px}
+
+/* Hero */
+.vw-hero{position:relative;min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;
+  padding:120px clamp(18px,5vw,64px) 80px;overflow:hidden;isolation:isolate}
+#vwRain{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:.5}
+.vw-hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at 18% 30%,rgba(224,48,30,.2),transparent 55%),radial-gradient(ellipse at 85% 75%,rgba(255,106,61,.12),transparent 55%),linear-gradient(to bottom,transparent 65%,var(--c-bg))}
+.vw-text{position:relative}
+.vw-logo{font-size:clamp(2.2rem,6.2vw,5.2rem)}
+.vw-tag{font-family:var(--f-display);font-weight:500;font-size:clamp(.6rem,.95vw,.8rem);letter-spacing:.4em;text-transform:uppercase;color:var(--c-o);margin:14px 0 30px}
+.vw-eyebrow{display:block;font-family:var(--f-mono);font-size:.82rem;color:var(--c-muted);margin-bottom:16px}
+.vw-h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2.1rem,4.7vw,4.2rem);line-height:1.02;letter-spacing:-.03em;max-width:13ch}
+.vw-sub{color:var(--c-muted);font-size:clamp(1.02rem,1.3vw,1.18rem);max-width:48ch;margin-top:20px}
+.vw-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.vw-term-wrap{perspective:1200px}
+.term{border-radius:18px;background:rgba(8,3,3,.9);border:1px solid rgba(255,106,61,.22);overflow:hidden;font-family:var(--f-mono);font-size:clamp(.72rem,.95vw,.88rem);
+  box-shadow:0 50px 120px -30px rgba(224,48,30,.42),inset 0 1px 0 rgba(255,255,255,.04)}
+.term-bar{display:flex;align-items:center;gap:7px;padding:12px 14px;border-bottom:1px solid rgba(255,106,61,.12);color:var(--c-muted);font-size:.72rem}
+.term-bar i{width:10px;height:10px;border-radius:50%;background:var(--c-o)}
+.term-bar i:nth-child(2){background:var(--c-r)}.term-bar i:nth-child(3){background:var(--c-blood)}
+.term-bar span{margin:0 auto;padding-right:40px}
+#vwTerm{padding:18px 20px;min-height:16.5em;white-space:pre-wrap;line-height:1.75;color:#F1D9CF}
+.t-p{color:var(--c-o)}.t-dim{color:#6f5650}.t-ok{color:var(--c-o2)}.t-spin{color:var(--c-r)}
+.t-live{color:var(--c-o);animation:blink 1.2s steps(1) infinite}
+.t-caret{display:inline-block;width:.6em;height:1.1em;background:var(--c-o);vertical-align:-.2em;animation:blink 1s steps(1) infinite}
+
+/* Lo que construimos */
+#vwBuildTitle{min-height:2.1em}
+.builds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+.build{border-radius:22px;border:1px solid rgba(255,106,61,.14);background:linear-gradient(160deg,rgba(138,15,18,.18),rgba(20,10,9,.92));overflow:hidden;transition:border-color .4s}
+.build:hover{border-color:rgba(255,106,61,.4)}
+.win{margin:14px;border-radius:12px;background:#0B0606;border:1px solid rgba(247,237,232,.08);overflow:hidden}
+.win-bar{display:flex;gap:5px;padding:8px 10px;border-bottom:1px solid rgba(247,237,232,.06)}
+.win-bar i{width:7px;height:7px;border-radius:50%;background:rgba(247,237,232,.18)}
+.win svg{display:block;width:100%;height:auto}
+.wf{fill:none;stroke:rgba(255,106,61,.55);stroke-width:1.2}
+.fl{transform-box:fill-box;transform-origin:center}
+.build-body{padding:6px 22px 24px}
+.build-body h3{font-family:var(--f-display);font-size:1.12rem}
+.build-body p{color:var(--c-muted);font-size:.94rem;margin-top:8px}
+.build-body ul{list-style:none;margin-top:14px;display:grid;gap:6px;font-family:var(--f-mono);font-size:.8rem;color:#e7cfc6}
+.build-body li::before{content:"→ ";color:var(--c-o)}
+
+/* Cotizador */
+.quote{position:relative;margin-top:40px;border-radius:26px;padding:clamp(20px,3vw,40px);
+  background:linear-gradient(160deg,rgba(138,15,18,.2),rgba(20,10,9,.94));border:1px solid rgba(255,106,61,.18);box-shadow:0 40px 100px -40px rgba(224,48,30,.38)}
+.q-steps{list-style:none;display:flex;gap:10px;flex-wrap:wrap}
+.q-steps li{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:99px;border:1px solid rgba(247,237,232,.1);color:var(--c-muted);font-size:.88rem;cursor:pointer;transition:all .3s}
+.q-steps li span{font-family:var(--f-mono);font-size:.75rem;color:var(--c-o)}
+.q-steps li.on{border-color:rgba(255,106,61,.55);color:var(--c-w);background:rgba(255,106,61,.1)}
+.q-steps li.done{color:var(--c-w)}
+.q-progress{height:3px;border-radius:3px;background:rgba(247,237,232,.08);margin:22px 0 28px;overflow:hidden}
+.q-progress i{display:block;height:100%;width:33.33%;background:linear-gradient(90deg,var(--c-blood),var(--c-r),var(--c-o));box-shadow:0 0 12px var(--c-r);transition:width .6s cubic-bezier(.2,1,.3,1)}
+.q-panel h3{font-family:var(--f-display);font-size:clamp(1.2rem,2vw,1.6rem)}
+.q-hint{color:var(--c-muted);margin-top:6px;font-size:.95rem}
+.q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.q-opt{position:relative;display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:18px;border:1px solid rgba(247,237,232,.1);background:rgba(10,5,5,.6);cursor:pointer;transition:border-color .3s,background .3s,transform .3s,box-shadow .3s}
+.q-opt:hover{border-color:rgba(255,106,61,.4);transform:translateY(-2px)}
+.q-opt input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.q-opt .qi{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,106,61,.12);color:var(--c-o)}
+.q-opt .qi svg{width:20px;height:20px}
+.q-opt b{font-family:var(--f-display);font-size:.98rem;padding-right:28px}
+.q-opt small{color:var(--c-muted);font-size:.88rem;line-height:1.4}
+.q-opt .chk{position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:50%;border:2px solid rgba(247,237,232,.25);display:grid;place-items:center;transition:all .3s}
+.q-opt.func .chk{border-radius:7px}
+.q-opt .chk svg{width:12px;height:12px;opacity:0;color:var(--c-bg);transition:opacity .2s}
+.q-opt.checked{border-color:var(--c-o);background:rgba(255,106,61,.09);box-shadow:inset 0 0 0 1px var(--c-o)}
+.q-opt.checked .chk{background:var(--c-o);border-color:var(--c-o)}
+.q-opt.checked .chk svg{opacity:1}
+.q-opt:focus-within{outline:2px solid var(--c-o);outline-offset:3px}
+.q-opt .rec{display:none;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.06em;color:var(--c-o2)}
+.q-opt.is-rec .rec{display:block}
+.q-sum{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;margin-top:22px}
+.q-receipt{font-family:var(--f-mono);font-size:.86rem;padding:20px;border-radius:16px;background:#060303;border:1px solid rgba(255,106,61,.15);color:#F1D9CF;line-height:1.85;white-space:pre-wrap;margin:0}
+.q-receipt .k{color:var(--c-o)}.q-receipt .s{color:#FFB199}
+.q-price{margin-top:14px;font-family:var(--f-mono);font-size:.86rem;color:#e7cfc6}
+.q-price .c{color:#7d635c}
+.q-price b{font-family:var(--f-display);color:var(--c-w);font-size:1.3rem}
+.q-form{display:grid;gap:14px;align-content:start}
+.q-form label{display:grid;gap:6px;font-size:.85rem;color:var(--c-muted)}
+.q-form input{font:inherit;font-size:1rem;color:var(--c-w);background:rgba(10,5,5,.7);border:1px solid rgba(247,237,232,.14);border-radius:12px;padding:13px 14px;outline:none;transition:border-color .3s}
+.q-form input:focus{border-color:var(--c-o)}
+.q-form input.err{border-color:var(--c-r);animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+.q-form .btn{justify-content:center;margin-top:4px}
+.q-note{font-size:.8rem;color:var(--c-muted)}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px}
+.q-back{color:var(--c-muted);font-size:.95rem;padding:10px 4px;transition:color .3s}
+.q-back:hover{color:var(--c-w)}
+.q-back[disabled]{visibility:hidden}
+
+/* Prueba */
+.proof-card{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;padding:clamp(24px,3vw,42px);border-radius:26px;
+  border:1px solid rgba(255,106,61,.16);background:linear-gradient(120deg,rgba(31,42,68,.45),rgba(20,10,9,.92) 60%)}
+.proof-card h3{font-family:var(--f-display);font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.02em}
+.proof-card p{color:var(--c-muted);margin:10px 0 18px;max-width:48ch}
+.proof-card .brunel-link{color:var(--c-w);border-color:rgba(247,237,232,.3)}
+.proof-stat{text-align:right}
+.proof-stat b{display:block;font-family:var(--f-display);font-weight:900;font-size:clamp(3rem,7vw,5.6rem);line-height:.9;letter-spacing:-.04em;color:var(--c-o)}
+.proof-stat small{color:var(--c-muted)}
+
+/* CTA web */
+.vw-cta{min-height:85vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 70%,rgba(224,48,30,.24),transparent 60%),var(--c-bg)}
+.vw-cta h2{font-size:clamp(2.4rem,7.4vw,6.4rem);perspective:600px}
+.vw-cta p{color:var(--c-muted);max-width:48ch;margin:24px auto 32px;font-size:1.1rem}
+.vw-cta .vw-ctas{justify-content:center;margin-top:0}
+.vw-back{color:var(--c-muted);border-color:rgba(247,237,232,.2)}
+.vw-back:hover{color:var(--c-w)}
+
+@media (max-width:980px){
+  .vw-hero{grid-template-columns:1fr;padding-top:110px}
+  .builds{grid-template-columns:1fr;max-width:520px;margin-inline:auto}
+  .q-grid{grid-template-columns:1fr 1fr}
+  .q-sum{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .q-grid{grid-template-columns:1fr}
+  .q-grid.funcs{grid-template-columns:1fr 1fr}
+  .q-grid.funcs .q-opt{padding:16px}
+  .q-grid.funcs small{display:none}
+  .proof-card{grid-template-columns:1fr}
+  .proof-stat{text-align:left}
+}
+
 /* ===== Footer ===== */
 footer{padding:50px clamp(18px,5vw,64px) 40px;border-top:1px solid rgba(168,242,250,.08);display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;color:var(--muted);font-size:.88rem}
 body[data-view="asesorias"] footer{border-color:rgba(212,175,79,.12);color:var(--a-muted)}
+body[data-view="web"] footer{border-color:rgba(255,106,61,.12);color:var(--c-muted)}
 footer .logo{font-size:1.5rem}
 footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:uppercase;font-size:.66rem}
 
@@ -504,7 +670,7 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
 @media (max-width:980px){
   .nav-links{display:none}
   .brunel-inner,.metodo-inner{grid-template-columns:1fr}
-  .ring-wrap{max-width:300px}
+  .climb{max-width:340px;height:380px}
   .bento{grid-template-columns:1fr 1fr}
   .va-hero{grid-template-columns:1fr;padding-top:110px}
   .va-results-grid{grid-template-columns:1fr}
@@ -563,7 +729,7 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
     <a href="#top" class="logo" data-logo data-scroll aria-label="On Top, ir al inicio"></a>
     <nav class="nav-links" aria-label="Principal">
       <a href="#servicios" data-scroll>Servicios</a>
-      <a href="#metodo" data-scroll>110%</a>
+      <a href="#metodo" data-scroll>Método</a>
       <a href="#sistemas" data-scroll>Sistemas</a>
       <a href="#brunel" data-scroll>Caso Brunel</a>
       <a href="#contacto" data-scroll>Contacto</a>
@@ -595,7 +761,7 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
           <div class="logo" data-logo></div>
           <div class="tagline">Consultoría &amp; growth delivery</div>
         </div>
-        <p class="hero-sub">Hacemos las cosas al <b>110%</b>. Elige por dónde empezamos:</p>
+        <p class="hero-sub">Hacemos las cosas <b>On Top</b>. Elige por dónde empezamos:</p>
 
         <div class="doors" id="servicios">
           <a href="#asesorias" class="door door--food" data-go="asesorias" style="--acc-rgb:231,169,59" aria-label="Asesorías para restaurantes">
@@ -644,24 +810,22 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
       </div>
     </section>
 
-    <!-- 110% -->
+    <!-- Método On Top -->
     <section class="section metodo" id="metodo">
       <div class="metodo-inner">
-        <div class="ring-wrap">
-          <svg class="ring" viewBox="0 0 400 400" aria-hidden="true">
-            <defs><linearGradient id="gTurq" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A8F2FA"/><stop offset=".5" stop-color="#00C2D8"/><stop offset="1" stop-color="#00808F"/></linearGradient></defs>
-            <circle class="track" cx="200" cy="200" r="150"/>
-            <circle class="ticks" cx="200" cy="200" r="128"/>
-            <circle class="arc1" cx="200" cy="200" r="150" transform="rotate(-90 200 200)"/>
-            <circle class="track2" cx="200" cy="200" r="174"/>
-            <circle class="arc2" cx="200" cy="200" r="174" transform="rotate(-90 200 200)"/>
-          </svg>
-          <div class="counter"><div class="num"><span id="count">110</span><sup>%</sup></div><small>de compromiso</small></div>
+        <div class="climb" aria-hidden="true">
+          <div class="climb-track"><div class="climb-fill"></div></div>
+          <div class="climb-levels">
+            <div class="lv" data-lv="2"><b>On Top</b><span>Lo que nadie te pidió, pero necesitabas</span></div>
+            <div class="lv" data-lv="1"><b>Mejor</b><span>Optimizado con datos reales</span></div>
+            <div class="lv" data-lv="0"><b>Bien</b><span>Lo que nos pediste, bien hecho</span></div>
+          </div>
+          <div class="climb-ball"><svg viewBox="0 0 24 24"><path d="M12 19.5V5M5.5 11.2L12 4.6l6.5 6.6" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
         <div class="metodo-text">
           <span class="eyebrow">El estándar On Top</span>
-          <h2 class="h-display" id="metodoTitle" data-hl="110%.">No hacemos lo justo. Hacemos el 110%.</h2>
-          <p class="lead">El 100% es hacer bien lo que nos pides. El 10% extra es lo que hace que se note: lo que nadie te pidió, pero tu negocio necesitaba.</p>
+          <h2 class="h-display" id="metodoTitle" data-hl="On,Top.">No hacemos lo justo. Hacemos las cosas On Top.</h2>
+          <p class="lead">Hacer bien lo que nos pides es el punto de partida. Estar On Top es ir más arriba: hacer lo que nadie te pidió, pero tu negocio necesitaba.</p>
           <ul class="pillars">
             <li><span class="pn">01</span><div><b>Datos antes que opiniones</b><span>Revisamos tus números reales antes de proponer nada.</span></div></li>
             <li><span class="pn">02</span><div><b>Lo hacemos, no solo lo recomendamos</b><span>Growth delivery: ejecutamos el plan contigo.</span></div></li>
@@ -953,9 +1117,175 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
     </section>
   </main>
 
+  <!-- ======================================================
+       INTERFAZ 3 — PÁGINAS Y SISTEMAS WEB
+       ====================================================== -->
+  <main id="v-web" class="view-code" hidden>
+    <section class="vw-hero">
+      <canvas id="vwRain" aria-hidden="true"></canvas>
+      <div class="vw-text">
+        <div class="logo vw-logo" data-logo></div>
+        <div class="vw-tag">Páginas y sistemas web</div>
+        <span class="vw-eyebrow">// landing · tienda en línea · sistemas a medida</span>
+        <h1 class="vw-h1" id="vwTitle" data-hl="trabaja">Una página que trabaja por ti</h1>
+        <p class="vw-sub">Vende, responde y ordena tu negocio mientras tú haces otra cosa. Diseñamos y programamos todo: desde la landing hasta el backend, el dashboard, los pedidos y el stock.</p>
+        <div class="vw-ctas">
+          <a class="btn btn-o" href="#vw-cotizador" data-scroll>Cotizar mi proyecto</a>
+          <a class="btn btn-line-c" data-wa-key="web"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg> WhatsApp</a>
+        </div>
+      </div>
+      <div class="vw-term-wrap" aria-hidden="true">
+        <div class="term">
+          <div class="term-bar"><i></i><i></i><i></i><span>ontop — terminal</span></div>
+          <pre id="vwTerm"></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="vw-section vw-builds" id="vw-builds">
+      <div class="vw-wrap">
+        <span class="vw-eye">// lo que construimos</span>
+        <h2 class="vw-h2" id="vwBuildTitle">Del código a tus ventas.</h2>
+        <div class="builds">
+          <article class="build">
+            <div class="win"><div class="win-bar"><i></i><i></i><i></i></div>
+              <svg viewBox="0 0 300 180" aria-hidden="true">
+                <rect class="wf" x="14" y="12" width="272" height="72" rx="8"/>
+                <rect class="wf" x="14" y="96" width="84" height="70" rx="8"/><rect class="wf" x="108" y="96" width="84" height="70" rx="8"/><rect class="wf" x="202" y="96" width="84" height="70" rx="8"/>
+                <rect class="fl" x="30" y="28" width="120" height="8" rx="4" fill="#F7EDE8"/>
+                <rect class="fl" x="30" y="44" width="86" height="6" rx="3" fill="rgba(247,237,232,.4)"/>
+                <rect class="fl" x="30" y="60" width="58" height="14" rx="7" fill="#FF6A3D"/>
+                <rect class="fl" x="180" y="22" width="92" height="52" rx="6" fill="rgba(224,48,30,.4)"/>
+                <circle class="fl" cx="40" cy="118" r="9" fill="rgba(255,106,61,.6)"/><rect class="fl" x="28" y="136" width="56" height="5" rx="2.5" fill="rgba(247,237,232,.35)"/>
+                <circle class="fl" cx="134" cy="118" r="9" fill="rgba(255,106,61,.6)"/><rect class="fl" x="122" y="136" width="56" height="5" rx="2.5" fill="rgba(247,237,232,.35)"/>
+                <circle class="fl" cx="228" cy="118" r="9" fill="rgba(255,106,61,.6)"/><rect class="fl" x="216" y="136" width="56" height="5" rx="2.5" fill="rgba(247,237,232,.35)"/>
+              </svg>
+            </div>
+            <div class="build-body"><h3>Landing page</h3><p>Tu negocio presentado en una página rápida y clara, que convierte visitas en clientes.</p>
+              <ul><li>Diseño a medida</li><li>Botón directo a WhatsApp</li><li>Lista para Google y redes</li></ul></div>
+          </article>
+          <article class="build">
+            <div class="win"><div class="win-bar"><i></i><i></i><i></i></div>
+              <svg viewBox="0 0 300 180" aria-hidden="true">
+                <rect class="wf" x="14" y="12" width="82" height="74" rx="8"/><rect class="wf" x="109" y="12" width="82" height="74" rx="8"/><rect class="wf" x="204" y="12" width="82" height="74" rx="8"/>
+                <rect class="wf" x="14" y="96" width="82" height="74" rx="8"/><rect class="wf" x="109" y="96" width="82" height="74" rx="8"/><rect class="wf" x="204" y="96" width="82" height="74" rx="8"/>
+                <rect class="fl" x="22" y="20" width="66" height="40" rx="5" fill="rgba(224,48,30,.35)"/><rect class="fl" x="22" y="68" width="34" height="7" rx="3" fill="#FF6A3D"/>
+                <rect class="fl" x="117" y="20" width="66" height="40" rx="5" fill="rgba(255,106,61,.35)"/><rect class="fl" x="117" y="68" width="34" height="7" rx="3" fill="#FF6A3D"/>
+                <rect class="fl" x="212" y="20" width="66" height="40" rx="5" fill="rgba(138,15,18,.55)"/><rect class="fl" x="212" y="68" width="34" height="7" rx="3" fill="#FF6A3D"/>
+                <rect class="fl" x="22" y="104" width="66" height="40" rx="5" fill="rgba(255,106,61,.3)"/><rect class="fl" x="22" y="152" width="34" height="7" rx="3" fill="#FF6A3D"/>
+                <rect class="fl" x="117" y="104" width="66" height="40" rx="5" fill="rgba(224,48,30,.3)"/><rect class="fl" x="117" y="152" width="34" height="7" rx="3" fill="#FF6A3D"/>
+                <rect class="fl" x="212" y="104" width="66" height="40" rx="5" fill="rgba(247,237,232,.18)"/><rect class="fl" x="212" y="152" width="34" height="7" rx="3" fill="#FF6A3D"/>
+              </svg>
+            </div>
+            <div class="build-body"><h3>Tienda en línea</h3><p>Vende 24/7 con tu catálogo, carrito y pagos en línea.</p>
+              <ul><li>Catálogo y carrito</li><li>Pagos con tarjeta</li><li>Inventario automático</li></ul></div>
+          </article>
+          <article class="build">
+            <div class="win"><div class="win-bar"><i></i><i></i><i></i></div>
+              <svg viewBox="0 0 300 180" aria-hidden="true">
+                <rect class="wf" x="14" y="12" width="56" height="156" rx="8"/>
+                <rect class="wf" x="80" y="12" width="62" height="34" rx="6"/><rect class="wf" x="152" y="12" width="62" height="34" rx="6"/><rect class="wf" x="224" y="12" width="62" height="34" rx="6"/>
+                <rect class="wf" x="80" y="56" width="206" height="62" rx="6"/>
+                <line class="wf" x1="80" y1="134" x2="286" y2="134"/><line class="wf" x1="80" y1="150" x2="286" y2="150"/><line class="wf" x1="80" y1="166" x2="286" y2="166"/>
+                <rect class="fl" x="22" y="24" width="40" height="7" rx="3" fill="#FF6A3D"/><rect class="fl" x="22" y="40" width="34" height="5" rx="2.5" fill="rgba(247,237,232,.3)"/><rect class="fl" x="22" y="52" width="38" height="5" rx="2.5" fill="rgba(247,237,232,.3)"/><rect class="fl" x="22" y="64" width="30" height="5" rx="2.5" fill="rgba(247,237,232,.3)"/>
+                <rect class="fl" x="88" y="24" width="30" height="10" rx="3" fill="#F7EDE8"/><rect class="fl" x="160" y="24" width="26" height="10" rx="3" fill="#F7EDE8"/><rect class="fl" x="232" y="24" width="18" height="10" rx="3" fill="#FF6A3D"/>
+                <polyline class="fl" points="88,108 112,100 136,104 160,88 184,92 208,76 232,80 256,66 278,62" fill="none" stroke="#FF6A3D" stroke-width="2.4" stroke-linejoin="round"/>
+                <rect class="fl" x="230" y="128" width="40" height="5" rx="2.5" fill="rgba(255,106,61,.6)"/><rect class="fl" x="230" y="144" width="28" height="5" rx="2.5" fill="rgba(255,106,61,.6)"/><rect class="fl" x="230" y="160" width="12" height="5" rx="2.5" fill="#E0301E"/>
+              </svg>
+            </div>
+            <div class="build-body"><h3>Sistema con panel</h3><p>El backend que ordena tu operación: pedidos, stock y ventas en un solo lugar.</p>
+              <ul><li>Dashboard de ventas</li><li>Seguimiento de pedidos</li><li>Control de stock</li></ul></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="vw-section vw-quote" id="vw-cotizador">
+      <div class="vw-wrap">
+        <span class="vw-eye">// cotizador</span>
+        <h2 class="vw-h2" id="vwQuoteTitle" data-hl="pasos.">Arma tu proyecto en 3 pasos.</h2>
+        <div class="quote">
+          <ol class="q-steps">
+            <li class="on" data-step="0"><span>01</span>Tipo</li>
+            <li data-step="1"><span>02</span>Funciones</li>
+            <li data-step="2"><span>03</span>Resumen</li>
+          </ol>
+          <div class="q-progress"><i></i></div>
+
+          <div class="q-panel" data-panel="0">
+            <h3>¿Qué necesitas?</h3>
+            <p class="q-hint">Elige el tipo de proyecto. Siempre se puede crecer después.</p>
+            <div class="q-grid" role="radiogroup" aria-label="Tipo de proyecto">
+              <label class="q-opt"><input type="radio" name="tipo" value="landing"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg></span><b>Landing page</b><small>Una página para presentar tu negocio y recibir clientes.</small><span class="rec">★ recomendado</span></label>
+              <label class="q-opt"><input type="radio" name="tipo" value="tienda"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.5 12h-11z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span><b>Tienda en línea</b><small>Catálogo, carrito y pagos para vender 24/7.</small><span class="rec">★ recomendado</span></label>
+              <label class="q-opt"><input type="radio" name="tipo" value="sistema"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><b>Sistema con panel</b><small>Backend a medida con dashboard, pedidos y stock.</small><span class="rec">★ recomendado</span></label>
+            </div>
+          </div>
+
+          <div class="q-panel" data-panel="1" hidden>
+            <h3>¿Qué funciones quieres?</h3>
+            <p class="q-hint">Marcamos las recomendadas para tu proyecto. Cambia lo que quieras.</p>
+            <div class="q-grid funcs">
+              <label class="q-opt func"><input type="checkbox" name="func" value="chatbot"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M9 10h.01M13 10h.01M17 10h.01"/></svg></span><b>Chatbot con IA</b><small>Responde a tus clientes 24/7.</small><span class="rec">★ recomendado</span></label>
+              <label class="q-opt func"><input type="checkbox" name="func" value="inventario"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></span><b>Inventario y stock</b><small>Se descuenta solo con cada venta.</small><span class="rec">★ recomendado</span></label>
+              <label class="q-opt func"><input type="checkbox" name="func" value="pagos"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6 15h4"/></svg></span><b>Pagos en línea</b><small>Tarjeta de crédito y débito.</small><span class="rec">★ recomendado</span></label>
+              <label class="q-opt func"><input type="checkbox" name="func" value="panel"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span><b>Panel de ventas</b><small>Tus números en tiempo real.</small><span class="rec">★ recomendado</span></label>
+              <label class="q-opt func"><input type="checkbox" name="func" value="pedidos"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><b>Seguimiento de pedidos</b><small>Tu cliente sabe dónde va su pedido.</small><span class="rec">★ recomendado</span></label>
+              <label class="q-opt func"><input type="checkbox" name="func" value="dominio"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><b>Dominio y hosting</b><small>tunegocio.com, listo y en línea.</small><span class="rec">★ recomendado</span></label>
+            </div>
+          </div>
+
+          <div class="q-panel" data-panel="2" hidden>
+            <h3>Tu resumen</h3>
+            <p class="q-hint">Revisa y envíalo. Se abre WhatsApp con el mensaje ya escrito.</p>
+            <div class="q-sum">
+              <div><pre class="q-receipt"></pre><div class="q-price"></div></div>
+              <div class="q-form">
+                <label>Tu nombre *<input id="qName" type="text" autocomplete="name" placeholder="Ej. Andrea"></label>
+                <label>Tu negocio (opcional)<input id="qBiz" type="text" autocomplete="organization" placeholder="Ej. Café La Ronda"></label>
+                <button class="btn btn-o q-send" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg> Enviar por WhatsApp</button>
+                <span class="q-note">Te respondemos con una propuesta clara y sin compromiso.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-nav">
+            <button class="q-back" type="button" disabled>← Atrás</button>
+            <button class="btn btn-o q-next" type="button" disabled>Siguiente →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vw-section vw-proof">
+      <div class="vw-wrap">
+        <div class="proof-card">
+          <div>
+            <span class="vw-eye">// hecho por On Top</span>
+            <h3>Brunel Brand</h3>
+            <p>Tienda en línea de camisas para hombre, con inventario automático por talla y panel de ventas.</p>
+            <a class="brunel-link" href="https://brunelbrand.com" target="_blank" rel="noopener">Ver brunelbrand.com
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+          </div>
+          <div class="proof-stat"><b>+<span id="vwProofNum">900</span></b><small>prendas entregadas</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vw-section vw-cta">
+      <h2 class="vw-h2" id="vwCtaTitle" data-hl="construimos?">¿Lo construimos?</h2>
+      <p>Cuéntanos tu idea por WhatsApp o arma tu cotización. Te respondemos con una propuesta clara.</p>
+      <div class="vw-ctas">
+        <a class="btn btn-o" data-wa-key="web"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg> Escribir por WhatsApp</a>
+        <a class="btn btn-line-c" href="#vw-cotizador" data-scroll>Ir al cotizador</a>
+      </div>
+      <button class="va-back vw-back" data-home>← Volver al inicio</button>
+    </section>
+  </main>
+
   <footer>
     <div><div class="logo" data-logo></div><span class="ft-tag">Consultoría &amp; growth delivery</span></div>
-    <div>© <span id="year"></span> On Top. Hacemos las cosas al 110%.</div>
+    <div>© <span id="year"></span> On Top. Hacemos las cosas On Top.</div>
   </footer>
 
   <button id="toTop" aria-label="Volver arriba">
@@ -984,6 +1314,14 @@ const WA_MSGS = {
   asesorias: 'Hola On Top 👋, tengo un restaurante y quiero un diagnóstico de mis ventas en Rappi, Uber Eats y PedidosYa.',
   web:       'Hola On Top 👋, quiero cotizar una página o sistema web.'
 };
+
+/* Precios del cotizador (opcional). Déjalos en 0 para NO mostrar precios.
+   Si pones valores, el resumen muestra "desde $X" sumando tipo + funciones. */
+const PRECIOS = {
+  landing: 0, tienda: 0, sistema: 0,
+  chatbot: 0, inventario: 0, pagos: 0, panel: 0, pedidos: 0, dominio: 0
+};
+const MONEDA = '$';
 
 (() => {
 'use strict';
@@ -1241,6 +1579,124 @@ const RouteFX = (() => {
   return { play };
 })();
 
+
+/* =========================================================
+   CodeFX: transición "código" — la pantalla se desintegra en
+   caracteres que se arremolinan y vuelven a armar el logo
+   ========================================================= */
+const CodeFX = (() => {
+  const cv = $('#tfx'), ctx = cv.getContext('2d');
+  const GLYPHS = ['{', '}', '<', '/>', '0', '1', ';', '=>', '(', ')', '[', ']', '=', '*', '</>', '#'];
+  const COLS = ['120,170,180', '247,237,232', '255,106,61', '224,48,30', '160,22,24'];
+  let atlas = null, aFs = 0, cw = 0, chH = 0, W = 0, H = 0;
+  function buildAtlas(fs) {
+    if (atlas && aFs === fs) return;
+    aFs = fs; cw = Math.ceil(fs * 2.4); chH = Math.ceil(fs * 1.5);
+    atlas = document.createElement('canvas'); atlas.width = cw * GLYPHS.length * DPR; atlas.height = chH * COLS.length * DPR;
+    const c = atlas.getContext('2d'); c.scale(DPR, DPR);
+    c.font = `700 ${fs}px ui-monospace, Menlo, Consolas, monospace`; c.textAlign = 'center'; c.textBaseline = 'middle';
+    COLS.forEach((col, ci) => { c.fillStyle = `rgb(${col})`; GLYPHS.forEach((g, gi) => c.fillText(g, gi * cw + cw / 2, ci * chH + chH / 2)); });
+  }
+  const glyph = (gi, ci, x, y, s) => ctx.drawImage(atlas, gi * cw * DPR, ci * chH * DPR, cw * DPR, chH * DPR, x - cw * s / 2, y - chH * s / 2, cw * s, chH * s);
+  const easeIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  // Puntos de destino: dibuja el logo en un canvas oculto y toma muestras
+  function sample(logo) {
+    const r = logo.getBoundingClientRect(), fs = parseFloat(getComputedStyle(logo).fontSize);
+    const w = Math.ceil(r.width), h = Math.ceil(r.height); if (!w || !h) return [];
+    const oc = document.createElement('canvas'); oc.width = w; oc.height = h;
+    const c = oc.getContext('2d');
+    c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.font = `800 ${fs}px Unbounded, 'Arial Black', sans-serif`;
+    $$('.ch', logo).forEach(ch => {
+      const q = ch.getBoundingClientRect(), mx = q.left - r.left + q.width / 2, my = q.top - r.top + q.height / 2;
+      if (ch.classList.contains('logo-o')) { c.beginPath(); c.arc(mx, my, q.width / 2, 0, 6.283); c.fill(); }
+      else c.fillText(ch.textContent, mx, my + fs * .03);
+    });
+    const data = c.getImageData(0, 0, w, h).data, step = Math.max(4, Math.round(fs / (IS_TOUCH ? 8 : 12))), out = [];
+    for (let y = 0; y < h; y += step) for (let x = 0; x < w; x += step) if (data[(y * w + x) * 4 + 3] > 128) out.push({ x: r.left + x, y: r.top + y });
+    return out;
+  }
+
+  function play(x, y, o) {
+    W = innerWidth; H = innerHeight; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cv.style.display = 'block';
+    let step = IS_TOUCH ? 21 : 15; const maxN = IS_TOUCH ? 1500 : 5200;
+    while (Math.ceil(W / step) * Math.ceil(H / step) > maxN) step++;
+    buildAtlas(IS_TOUCH ? 12 : 11);
+    const R = Math.hypot(Math.max(x, W - x), Math.max(y, H - y));
+    const T1 = .6, T2 = 1.45, T3 = 2.35, T4 = 2.9;
+    const ps = [];
+    for (let gy = step / 2; gy < H + step / 2; gy += step) for (let gx = step / 2; gx < W + step / 2; gx += step) {
+      ps.push({ x: gx, y: gy, vx: 0, vy: 0, g: (Math.random() * GLYPHS.length) | 0, c: Math.random() < .12 ? 1 : 0,
+        c2: [2, 2, 3, 3, 4, 1][(Math.random() * 6) | 0], born: (Math.hypot(gx - x, gy - y) / R) * T1 * .92,
+        sw: T1 + Math.random() * .35, t: null, sx: gx, sy: gy, delay: Math.random() * .3, s: .8 + Math.random() * .5 });
+    }
+    const cx = W / 2, cy = H / 2;
+    let covered = false, revealed = false, done = false;
+    const t0 = performance.now(); let last = t0;
+    function end() {
+      if (done) return; done = true;
+      cv.style.display = 'none'; ctx.clearRect(0, 0, W, H);
+      if (!covered && o.onCovered) o.onCovered();
+      if (!revealed && o.onReveal) o.onReveal();
+      o.onDone && o.onDone();
+    }
+    setTimeout(end, 5500);
+    function frame(now) {
+      if (done) return;
+      const t = (now - t0) / 1000, dt = Math.min((now - last) / 16.67, 3); last = now;
+      ctx.clearRect(0, 0, W, H);
+      // fondo negro que se expande desde el clic
+      ctx.globalAlpha = t < T3 ? 1 : Math.max(0, 1 - (t - T3) / (T4 - T3 - .1));
+      ctx.fillStyle = '#0A0505';
+      if (t < T1) { ctx.beginPath(); ctx.arc(x, y, R * (t / T1), 0, 6.283); ctx.fill(); } else ctx.fillRect(0, 0, W, H);
+      if (!covered && t >= T1) {
+        covered = true;
+        let tg = o.onCovered ? (o.onCovered() || []) : [];
+        if (tg.length > ps.length) { const k = Math.ceil(tg.length / ps.length); tg = tg.filter((_, i) => i % k === 0); }
+        const idx = ps.map((_, i) => i);
+        for (let i = idx.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; const tmp = idx[i]; idx[i] = idx[j]; idx[j] = tmp; }
+        tg.forEach((p, k) => { ps[idx[k]].t = p; });
+      }
+      if (!revealed && t >= T3 - .15) { revealed = true; o.onReveal && o.onReveal(); }
+      const fadeT = t > T3 ? Math.max(0, 1 - (t - T3) / (T4 - T3)) : 1;
+      for (const p of ps) {
+        if (t < p.born) continue;
+        let a = Math.min(1, (t - p.born) / .15), s = p.s;
+        if (t < T1) {
+          if (Math.random() < .03) p.g = (Math.random() * GLYPHS.length) | 0;
+        } else if (t < T2 || !p.t) {
+          // remolino
+          if (t > p.sw) p.c = p.c2;
+          const dx = p.x - cx, dy = p.y - cy, d = Math.hypot(dx, dy) || 1, k = t - T1;
+          const radial = (!p.t && t >= T2) ? 1.6 : (k < .35 ? .9 : -.4);
+          p.vx += (-dy / d * 1.1 + dx / d * radial + (Math.random() - .5) * .6) * dt;
+          p.vy += (dx / d * 1.1 + dy / d * radial + (Math.random() - .5) * .6) * dt;
+          p.vx *= .93; p.vy *= .93; p.x += p.vx * dt * 1.6; p.y += p.vy * dt * 1.6;
+          if (Math.random() < .02) p.g = (Math.random() * GLYPHS.length) | 0;
+          if (!p.t && t >= T2) a *= Math.max(0, 1 - (t - T2) / .6);
+          p.sx = p.x; p.sy = p.y;
+        } else {
+          // se juntan formando el logo
+          const e = easeIO(Math.min(Math.max((t - T2 - p.delay) / .75, 0), 1));
+          p.x = p.sx + (p.t.x - p.sx) * e; p.y = p.sy + (p.t.y - p.sy) * e;
+          s = p.s + (.75 - p.s) * e;
+          if (e > .95 && p.c > 2) p.c = Math.random() < .5 ? 1 : 2;
+          a *= fadeT;
+        }
+        if (a <= .01) continue;
+        ctx.globalAlpha = a; glyph(p.g, p.c, p.x, p.y, s);
+      }
+      ctx.globalAlpha = 1;
+      if (t >= T4) { end(); return; }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  return { play, sample };
+})();
+
 /* =========================================================
    Partículas que suben (fondo del inicio y brasas de cocina)
    ========================================================= */
@@ -1289,7 +1745,7 @@ function risingParticles(cv, section, colors, opt = {}) {
    Navegación entre interfaces (inicio ⇄ asesorías ⇄ web)
    ========================================================= */
 const homeEl = $('#home');
-const VIEW_EL = { home: homeEl, asesorias: $('#v-asesorias') };
+const VIEW_EL = { home: homeEl, asesorias: $('#v-asesorias'), web: $('#v-web') };
 const built = {};
 let current = 'home', busy = false;
 const stOf = (el) => HAS_GSAP ? ScrollTrigger.getAll().filter(st => st.trigger && el.contains(st.trigger)) : [];
@@ -1335,6 +1791,33 @@ const VIEWS = {
         onDone: () => { gsap.set(chars, { autoAlpha: 1, scale: 1 }); gsap.set('#v-asesorias .va-logo .arr', { y: 0, autoAlpha: 1 }); busy = false; }
       });
     }
+  },
+  web: {
+    enter(x, y, fromPop) {
+      if (busy || current === 'web') return;
+      busy = true;
+      if (!fromPop) history.pushState({ v: 'web' }, '', '#web');
+      if (!HAS_GSAP || REDUCED) { swapTo('web'); busy = false; return; }
+      let chars = [];
+      CodeFX.play(x, y, {
+        onCovered: () => {
+          swapTo('web');
+          const logo = $('#v-web .vw-logo');
+          chars = $$('.ch', logo);
+          if (WEB.heroIn) WEB.heroIn.pause(0);
+          const pts = CodeFX.sample(logo);
+          gsap.set(chars, { autoAlpha: 0 });
+          return pts;
+        },
+        onReveal: () => {
+          gsap.to(chars, { autoAlpha: 1, duration: .5, stagger: .05, ease: 'power2.out' });
+          const r = $('#v-web .vw-logo .logo-o').getBoundingClientRect();
+          FX.ring(r.left + r.width / 2, r.top + r.height / 2, { r0: r.width / 2, r1: r.width * 2.5, max: 35, c: '255,106,61', w: 2 });
+          if (WEB.heroIn) WEB.heroIn.play();
+        },
+        onDone: () => { gsap.set(chars, { autoAlpha: 1 }); busy = false; }
+      });
+    }
   }
 };
 
@@ -1359,7 +1842,8 @@ function enterView(name, x, y, acc) {
 }
 
 addEventListener('popstate', (e) => {
-  const v = (e.state && e.state.v) || (location.hash === '#asesorias' ? 'asesorias' : 'home');
+  const h = location.hash.slice(1);
+  const v = (e.state && e.state.v) || (VIEWS[h] ? h : 'home');
   if (v === current) return;
   if (busy) return;
   if (v === 'home') goHome(innerWidth / 2, innerHeight / 2, true);
@@ -1575,16 +2059,25 @@ function runIntro() {
    SCROLL del INICIO
    ========================================================= */
 function initScroll() {
-  if (!HAS_GSAP) return;
+  if (!HAS_GSAP) return; // sin GSAP la escalera se ve completa por CSS
   const metodoChars = splitChars($('#metodoTitle'));
   splitChars($('#brunelTitle'));
   const sisChars = splitChars($('#sisTitle'));
   const ctaChars = splitChars($('#ctaTitle'));
-  const count = $('#count'), ringWrap = $('.ring-wrap'), arc1 = $('.arc1'), arc2 = $('.arc2');
-  const C1 = 2 * Math.PI * 150, C2 = 2 * Math.PI * 174;
+  const climb = $('.climb'), ball = $('.climb-ball'), fill = $('.climb-fill'), lvs = $$('.lv');
+  let topHit = false;
+  const stair = (p) => { const s = p * 2, i = Math.min(Math.floor(s), 1), f = s - i, e = f < .15 ? 0 : f > .85 ? 1 : (f - .15) / .7; return Math.min((i + e * e * (3 - 2 * e)) / 2, 1); };
+  const setClimb = (raw) => {
+    const p = stair(raw), travel = climb.clientHeight - 56;
+    gsap.set(ball, { y: -travel * p });
+    fill.style.transform = `scaleY(${p})`;
+    lvs.forEach(l => l.classList.toggle('on', p >= (+l.dataset.lv) * .5 - .02));
+    const top = p > .985; climb.classList.toggle('top', top);
+    if (top && !topHit) { const r = ball.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + r.height / 2, 40, '215,250,60', 5); FX.ring(r.left + r.width / 2, r.top + r.height / 2, { r0: 30, r1: 160, max: 35, c: '215,250,60' }); }
+    topHit = top;
+  };
   const line = $('#chartLine'), lineLen = line.getTotalLength();
   const kpis = $$('#brunel [data-count]');
-  const setCount = (v) => { count.textContent = Math.round(v); ringWrap.classList.toggle('over', v > 100.5); };
 
   gsap.matchMedia().add({
     desk: '(min-width: 981px) and (prefers-reduced-motion: no-preference)',
@@ -1593,14 +2086,12 @@ function initScroll() {
   }, (ctx) => {
     const { desk, red } = ctx.conditions;
     if (red) {
-      setCount(110);
-      gsap.set(arc1, { strokeDasharray: C1, strokeDashoffset: 0 });
-      gsap.set(arc2, { strokeDasharray: C2, strokeDashoffset: C2 * .9 });
+      climb.classList.remove('anim');
       kpis.forEach(k => k.textContent = Number(k.dataset.count).toLocaleString('es'));
       $$('.smil').forEach(s => s.remove());
       return;
     }
-    setCount(0);
+    climb.classList.add('anim'); topHit = false; setClimb(0);
     kpis.forEach(k => k.textContent = '0');
 
     // 1) Inicio
@@ -1610,21 +2101,16 @@ function initScroll() {
       .to('.hero-sub', { y: -60, autoAlpha: 0, ease: 'none' }, 0)
       .to('.doors', { y: -90, ease: 'none' }, 0);
 
-    // 2) 110%
-    gsap.set(arc1, { strokeDasharray: C1, strokeDashoffset: C1 });
-    gsap.set(arc2, { strokeDasharray: C2, strokeDashoffset: C2 });
-    const v = { n: 0 };
+    // 2) Método On Top: la flecha sube por los niveles Bien → Mejor → On Top
+    const v = { p: 0 };
     gsap.timeline({ defaults: { ease: 'none' },
       scrollTrigger: desk ? { trigger: '.metodo', start: 'top top', end: '+=220%', pin: true, scrub: .8 }
                           : { trigger: '.metodo', start: 'top 75%', end: 'bottom 75%', scrub: .8 } })
-      .to(v, { n: 100, duration: 5, onUpdate: () => setCount(v.n) }, 0)
-      .to(arc1, { strokeDashoffset: 0, duration: 5 }, 0)
+      .to(v, { p: 1, duration: 6, onUpdate: () => setClimb(v.p) }, 0)
       .fromTo(metodoChars, { autoAlpha: .07, yPercent: 45, rotation: 10 }, { autoAlpha: 1, yPercent: 0, rotation: 0, stagger: .085, duration: .6, ease: 'power2.out' }, 0)
       .from('.metodo .lead', { autoAlpha: 0, y: 30, duration: 1 }, 3)
       .from('.pillars li', { autoAlpha: 0, x: 70, stagger: .55, duration: 1, ease: 'power2.out' }, 3.8)
-      .to(v, { n: 110, duration: 1.6, onUpdate: () => setCount(v.n) }, 5)
-      .to(arc2, { strokeDashoffset: C2 * .9, duration: 1.6 }, 5)
-      .fromTo('.ring', { scale: 1 }, { scale: 1.06, duration: .5, ease: 'power2.out', yoyo: true, repeat: 1 }, 5.6)
+      .fromTo(ball, { scale: 1 }, { scale: 1.25, duration: .4, ease: 'power2.out', yoyo: true, repeat: 1 }, 6)
       .to({}, { duration: .8 });
 
     // 3) Marquesina
@@ -1818,6 +2304,204 @@ const BUILD = {
   }
 };
 
+
+/* =========================================================
+   INTERFAZ 3 — PÁGINAS WEB
+   ========================================================= */
+const WEB = { heroIn: null };
+const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function codeRain(cv, section) {
+  if (!cv) return;
+  const ctx = cv.getContext('2d'); const fs = IS_TOUCH ? 14 : 15; const G = '{}<>/=;01()[]*#$'.split('');
+  let W = 0, H = 0, cols = 0, drops = [], raf = 0, lastT = 0;
+  function resize() {
+    const r = cv.getBoundingClientRect(); W = r.width; H = r.height; if (!W) return;
+    cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cols = Math.ceil(W / (fs * 1.4)); drops = Array.from({ length: cols }, () => Math.random() * -H / fs);
+    ctx.fillStyle = '#0A0505'; ctx.fillRect(0, 0, W, H);
+  }
+  function frame(now) {
+    raf = requestAnimationFrame(frame);
+    if (now - lastT < 45) return; lastT = now;
+    ctx.fillStyle = 'rgba(10,5,5,.14)'; ctx.fillRect(0, 0, W, H);
+    ctx.font = `${fs}px ui-monospace, Menlo, monospace`;
+    for (let i = 0; i < cols; i++) {
+      const y = drops[i] * fs;
+      if (y > 0) {
+        ctx.fillStyle = Math.random() < .08 ? 'rgba(247,237,232,.6)' : (Math.random() < .5 ? 'rgba(255,106,61,.38)' : 'rgba(224,48,30,.38)');
+        ctx.fillText(G[(Math.random() * G.length) | 0], i * fs * 1.4, y);
+      }
+      if (y > H && Math.random() > .975) drops[i] = 0;
+      drops[i] += .5 + (i % 3) * .15;
+    }
+  }
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 200); });
+  resize();
+  if (REDUCED) return;
+  new IntersectionObserver(([en]) => {
+    if (en.isIntersecting) { if (!W) resize(); if (!raf) raf = requestAnimationFrame(frame); }
+    else if (raf) { cancelAnimationFrame(raf); raf = 0; }
+  }).observe(section);
+}
+
+function termLoop() {
+  const el = $('#vwTerm'); if (!el) return;
+  const script = [
+    { c: 'ontop crear --negocio "tu-negocio"' },
+    { o: 'diseñando landing' }, { o: 'tienda en línea + pagos' }, { o: 'backend + base de datos' },
+    { o: 'dashboard de ventas' }, { o: 'seguimiento de pedidos' }, { o: 'chatbot IA entrenado' },
+    { c: 'ontop publicar' },
+    { live: 'tu-negocio.com está en línea' }
+  ];
+  const out = (txt, ok) => `  <span class="t-dim">▸</span> ${esc(txt)}<span class="t-dim"> ${'.'.repeat(Math.max(2, 26 - txt.length))}</span> ${ok ? '<span class="t-ok">✓</span>' : '<span class="t-spin">…</span>'}`;
+  const cmd = (txt) => `<span class="t-p">$</span> ${esc(txt)}`;
+  const live = (txt) => `  <span class="t-live">●</span> ${esc(txt)}`;
+  if (REDUCED) { el.innerHTML = script.map(s => s.c ? cmd(s.c) : s.o ? out(s.o, true) : live(s.live)).join('\n'); return; }
+  let lines = [], i = 0;
+  const render = (extra) => { el.innerHTML = lines.concat(extra === undefined ? '' : extra).join('\n') + '<span class="t-caret"></span>'; };
+  function next() {
+    if (i >= script.length) { setTimeout(() => { lines = []; i = 0; next(); }, 3400); return; }
+    const s = script[i++];
+    if (s.c) {
+      let k = 0;
+      (function type() {
+        k++; render(cmd(s.c.slice(0, k)));
+        if (k < s.c.length) setTimeout(type, 38 + Math.random() * 40);
+        else { lines.push(cmd(s.c)); setTimeout(next, 380); }
+      })();
+    } else if (s.o) {
+      render(out(s.o, false));
+      setTimeout(() => { lines.push(out(s.o, true)); render(); setTimeout(next, 120); }, 260 + Math.random() * 280);
+    } else { lines.push(live(s.live)); render(); setTimeout(next, 200); }
+  }
+  next();
+}
+
+function initQuote() {
+  const q = $('.quote'); if (!q) return;
+  const panels = $$('.q-panel', q), stepsLi = $$('.q-steps li', q), bar = $('.q-progress i', q), back = $('.q-back', q), nextB = $('.q-next', q);
+  const NAMES = { landing: 'Landing page', tienda: 'Tienda en línea', sistema: 'Sistema con panel', chatbot: 'Chatbot con IA', inventario: 'Inventario y stock',
+    pagos: 'Pagos en línea', panel: 'Panel de ventas', pedidos: 'Seguimiento de pedidos', dominio: 'Dominio y hosting' };
+  const REC = { landing: ['dominio', 'chatbot'], tienda: ['pagos', 'inventario', 'dominio'], sistema: ['panel', 'inventario', 'pedidos', 'dominio'] };
+  const tipoIn = $$('input[name="tipo"]', q), funcIn = $$('input[name="func"]', q);
+  let step = 0, touched = false, animating = false;
+  const tipo = () => (tipoIn.find(i => i.checked) || {}).value;
+  const funcs = () => funcIn.filter(i => i.checked).map(i => i.value);
+  const sync = () => $$('.q-opt', q).forEach(l => l.classList.toggle('checked', $('input', l).checked));
+  function applyRec() {
+    const r = REC[tipo()] || [];
+    funcIn.forEach(inp => { const is = r.includes(inp.value); inp.closest('.q-opt').classList.toggle('is-rec', is); if (!touched) inp.checked = is; });
+    sync();
+  }
+  function summary() {
+    const t = tipo(), fs = funcs();
+    const list = fs.length ? '\n' + fs.map(f => `    <span class="s">"${NAMES[f]}"</span>,`).join('\n') + '\n  ' : ' ';
+    $('.q-receipt', q).innerHTML = `<span class="k">const</span> proyecto = {\n  tipo: <span class="s">"${NAMES[t] || '—'}"</span>,\n  funciones: [${list}],\n};`;
+    const base = PRECIOS[t] || 0, pe = $('.q-price', q);
+    if (base > 0) { const tot = base + fs.reduce((a, f) => a + (PRECIOS[f] || 0), 0); pe.innerHTML = `<span class="c">// inversión estimada</span><br>desde <b>${MONEDA}${tot.toLocaleString('es')}</b>`; }
+    else pe.innerHTML = '<span class="c">// precio</span><br>Te enviamos la propuesta con precio por WhatsApp.';
+  }
+  function ui() {
+    stepsLi.forEach((li, i) => { li.classList.toggle('on', i === step); li.classList.toggle('done', i < step); });
+    bar.style.width = ((step + 1) / 3 * 100) + '%';
+    back.disabled = step === 0; nextB.hidden = step === 2; nextB.disabled = !tipo();
+  }
+  function go(n) {
+    if (n === step || n < 0 || n > 2 || animating) return;
+    if (n > 0 && !tipo()) { const g = $('.q-grid', panels[0]); g.classList.remove('shake'); void g.offsetWidth; return; }
+    const from = panels[step], to = panels[n], dir = n > step ? 1 : -1;
+    if (n === 2) summary();
+    step = n; ui();
+    const topY = q.getBoundingClientRect().top;
+    if (topY < 0) scrollTo({ top: scrollY + topY - 90, behavior: REDUCED ? 'auto' : 'smooth' });
+    if (!HAS_GSAP || REDUCED) { from.hidden = true; to.hidden = false; return; }
+    animating = true;
+    gsap.to(from, { x: -40 * dir, autoAlpha: 0, filter: 'blur(4px)', duration: .22, ease: 'power2.in', onComplete: () => {
+      from.hidden = true; gsap.set(from, { clearProps: 'all' });
+      to.hidden = false;
+      gsap.fromTo(to, { x: 40 * dir, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: .45, ease: 'expo.out', clearProps: 'transform', onComplete: () => { animating = false; } });
+      gsap.from($$('.q-opt, .q-receipt, .q-price, .q-form > *', to), { y: 16, autoAlpha: 0, stagger: .04, duration: .4, ease: 'power2.out', clearProps: 'transform,opacity,visibility' });
+    } });
+  }
+  tipoIn.forEach(i => i.addEventListener('change', () => { sync(); applyRec(); ui(); if (step === 0) setTimeout(() => go(1), 380); }));
+  funcIn.forEach(i => i.addEventListener('change', () => { touched = true; sync(); }));
+  nextB.addEventListener('click', () => go(step + 1));
+  back.addEventListener('click', () => go(step - 1));
+  stepsLi.forEach((li, i) => li.addEventListener('click', () => go(i)));
+  $('.q-send', q).addEventListener('click', () => {
+    const nameI = $('#qName'), bizI = $('#qBiz'), name = nameI.value.trim();
+    if (!name) { nameI.classList.remove('err'); void nameI.offsetWidth; nameI.classList.add('err'); nameI.focus(); return; }
+    const biz = bizI.value.trim(), fs = funcs().map(f => NAMES[f]);
+    const msg = `Hola On Top 👋, soy ${name}${biz ? ` de ${biz}` : ''}. Quiero cotizar:\n• Tipo: ${NAMES[tipo()]}\n• Funciones: ${fs.length ? fs.join(', ') : 'por definir'}\n¿Me ayudan con una propuesta?`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+  });
+  $('#qName').addEventListener('input', e => e.target.classList.remove('err'));
+  ui();
+}
+
+BUILD.web = function () {
+  splitChars($('#vwTitle')); splitChars($('#vwQuoteTitle'));
+  const ctaChars = splitChars($('#vwCtaTitle'));
+  codeRain($('#vwRain'), $('.vw-hero'));
+  termLoop();
+  initQuote();
+  if (!HAS_GSAP || REDUCED) return;
+
+  WEB.heroIn = gsap.timeline({ paused: true })
+    .from('.vw-tag', { autoAlpha: 0, letterSpacing: '1em', duration: 1, ease: 'expo.out' }, 0)
+    .from('.vw-eyebrow', { autoAlpha: 0, x: -30, duration: .6, ease: 'power3.out' }, .1)
+    .from('#vwTitle .c', { yPercent: 110, autoAlpha: 0, rotationX: -80, stagger: .022, duration: .8, ease: 'expo.out' }, .15)
+    .from('.vw-sub', { autoAlpha: 0, y: 20, duration: .7 }, .45)
+    .from('.vw-ctas > *', { autoAlpha: 0, y: 20, stagger: .1, duration: .6 }, .55)
+    .from('.term', { autoAlpha: 0, rotationX: 40, y: 80, transformPerspective: 1200, duration: 1.2, ease: 'expo.out' }, .25);
+
+  const proofEl = $('#vwProofNum'); proofEl.textContent = '0';
+  const bt = $('#vwBuildTitle'), btFinal = bt.textContent; bt.setAttribute('aria-label', btFinal);
+  const G = '{}<>/=;01#*';
+  const compile = (p) => { const n = Math.floor(p * btFinal.length * 1.08); bt.textContent = [...btFinal].map((ch, i) => (ch === ' ' || i < n) ? ch : G[(Math.random() * G.length) | 0]).join(''); };
+
+  gsap.matchMedia().add({ desk: '(min-width: 981px)', mob: '(max-width: 980px)' }, () => {
+    // Hero: la terminal se inclina hacia atrás al bajar
+    gsap.timeline({ scrollTrigger: { trigger: '.vw-hero', start: 'top top', end: 'bottom top', scrub: true } })
+      .to('.term', { rotationX: 28, yPercent: -12, scale: .92, autoAlpha: .25, transformPerspective: 1200, ease: 'none' }, 0)
+      .to('.vw-text', { yPercent: -10, autoAlpha: .2, ease: 'none' }, 0);
+
+    // Título que se "compila" con el scroll
+    ScrollTrigger.create({ trigger: '.vw-builds', start: 'top 85%', end: 'top 35%', scrub: true,
+      onUpdate: self => compile(self.progress), onRefresh: self => compile(self.progress), onLeave: () => { bt.textContent = btFinal; } });
+
+    // Wireframes que se dibujan y luego se "renderizan"
+    $$('.build').forEach(b => {
+      const wfs = $$('.wf', b);
+      wfs.forEach(p => { const L = p.getTotalLength ? p.getTotalLength() : 400; p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+      gsap.timeline({ scrollTrigger: { trigger: b, start: 'top 88%', end: 'top 30%', scrub: 1 } })
+        .from(b, { y: 80, autoAlpha: 0, duration: .6 }, 0)
+        .to(wfs, { strokeDashoffset: 0, stagger: .05, duration: 1, ease: 'none' }, .2)
+        .from($$('.fl', b), { autoAlpha: 0, scale: .4, stagger: .04, duration: .5, ease: 'back.out(2)' }, 1.1)
+        .from($$('.build-body > *', b), { y: 20, autoAlpha: 0, stagger: .08, duration: .5 }, .7);
+    });
+
+    // Cotizador: el título entra de lado y la caja se levanta
+    gsap.timeline({ scrollTrigger: { trigger: '.vw-quote', start: 'top 80%', end: 'top 25%', scrub: 1 } })
+      .from('#vwQuoteTitle .w', { xPercent: -40, autoAlpha: 0, stagger: .1, duration: .6 }, 0)
+      .from('.quote', { y: 90, rotationX: -18, autoAlpha: 0, transformPerspective: 1200, transformOrigin: '50% 0%', duration: 1 }, .2)
+      .from('.q-steps li', { y: 16, autoAlpha: 0, stagger: .08, duration: .4 }, .6);
+
+    // Prueba: la tarjeta entra con inclinación y el número cuenta
+    const pn = { v: 0 };
+    gsap.timeline({ scrollTrigger: { trigger: '.vw-proof', start: 'top 85%', end: 'center 50%', scrub: 1 } })
+      .from('.proof-card', { xPercent: 25, skewX: -12, autoAlpha: 0, duration: 1 }, 0)
+      .to(pn, { v: 900, duration: 1, ease: 'none', onUpdate: () => proofEl.textContent = Math.round(pn.v) }, .3);
+
+    // CTA: letras que giran como un tablero
+    gsap.from(ctaChars, { rotationY: 90, scale: .3, autoAlpha: 0, transformPerspective: 600, stagger: .05, ease: 'back.out(2)',
+      scrollTrigger: { trigger: '.vw-cta', start: 'top 85%', end: 'center 55%', scrub: 1 } });
+    gsap.from('.vw-cta p, .vw-cta .vw-ctas, .vw-back', { y: 30, autoAlpha: 0, stagger: .1,
+      scrollTrigger: { trigger: '.vw-cta', start: 'top 55%', end: 'top 30%', scrub: 1 } });
+  });
+};
+
 /* ---------- Arranque ---------- */
 heroIn = buildHeroIn();
 risingParticles($('#heroCanvas'), $('.hero'), ['0,194,216', '168,242,250', '0,194,216', '168,242,250', '215,250,60']);
@@ -1825,7 +2509,7 @@ initDoors();
 initTyper();
 initChrome();
 initScroll();
-if (location.hash === '#asesorias') { pendingView = 'asesorias'; history.replaceState({ v: 'home' }, '', location.pathname + location.search); }
+if (VIEWS[location.hash.slice(1)]) { pendingView = location.hash.slice(1); history.replaceState({ v: 'home' }, '', location.pathname + location.search); }
 else history.replaceState({ v: 'home' }, '', location.href);
 runIntro();
 })();
