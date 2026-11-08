@@ -4,16 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>On Top — Consultoría & growth delivery</title>
-<meta name="description" content="On Top: hacemos las cosas al 110%. Asesorías para restaurantes en Rappi, Uber Eats y PedidosYa, y páginas y sistemas web.">
+<meta name="description" content="On Top: hacemos las cosas al 110%. Asesorías para restaurantes en Rappi, Uber Eats y PedidosYa, y páginas y sistemas web a medida.">
 <meta name="theme-color" content="#020B13">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%2300C2D8'/%3E%3Cpath d='M16 24V9M10 15l6-6 6 6' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Unbounded:wght@500;700;800;900&display=swap" rel="stylesheet">
 <script>
-  /* Marca que hay JS y que la intro va a correr (evita parpadeos) */
   document.documentElement.classList.add('js','intro-on');
-  /* Seguro: si algo falla, a los 6 s se muestra la web igual */
   setTimeout(function(){ if(!window.__ontopReady){ document.documentElement.classList.remove('intro-on','lock'); var i=document.getElementById('intro'); if(i) i.remove(); } }, 6000);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -24,31 +22,56 @@
    1) COLORES Y TIPOGRAFÍAS — cambia aquí la identidad
    ========================================================= */
 :root{
-  /* Azules */
+  /* --- Inicio (marca On Top) --- */
   --ink:#020B13;        /* azul casi negro (fondo) */
   --ink-2:#041824;
   --deep:#05263B;       /* azul profundo de marca */
   --deep-2:#0B3A57;
-  /* Turquesas */
   --turq:#00C2D8;       /* turquesa de marca */
   --turq-d:#00808F;     /* turquesa oscuro */
   --turq-dd:#04495A;
   --ice:#A8F2FA;        /* turquesa hielo */
   --ice-2:#E3FBFE;
-  /* Limas */
   --lime:#D7FA3C;       /* lima de marca */
   --lime-m:#B5CF4A;     /* lima apagado */
-  /* Texto */
   --text:#E6F3F6;
   --muted:#8FA9B4;
-  /* Tipografías */
-  --f-display:'Unbounded', 'Arial Black', sans-serif;
-  --f-body:'Outfit', system-ui, sans-serif;
-  --f-mono:ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* --- Asesorías (restaurante / cocina) --- */
+  --a-bg:#0C0A08;       /* negro cálido */
+  --a-bg2:#15100C;
+  --a-y:#D4AF4F;        /* amarillo opaco */
+  --a-y2:#A88B3D;
+  --a-w:#F6EFE3;        /* blanco cálido */
+  --a-o:#C9673A;        /* naranja opaco */
+  --a-o2:#E08A55;
+  --a-b:#5A3A24;        /* café */
+  --a-b2:#2A1B12;       /* café oscuro */
+  --a-muted:#B3A391;
+
+  /* --- Tipografías --- */
+  --f-display:'Unbounded','Arial Black',sans-serif;
+  --f-body:'Outfit',system-ui,sans-serif;
+  --f-mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+
+  /* --- Variables que cambian según la sección (no tocar) --- */
+  --logo-o:radial-gradient(circle at 32% 26%,#5BEAF7 0%,var(--turq) 42%,var(--turq-d) 100%);
+  --logo-glow:rgba(0,194,216,.55);
+  --tt-prog:var(--lime);
+  --bar:linear-gradient(90deg,var(--turq),var(--ice),var(--lime));
+}
+body[data-view="asesorias"]{
+  --logo-fg:var(--a-w);
+  --logo-o:radial-gradient(circle at 32% 26%,#ECA676 0%,var(--a-o) 45%,var(--a-b) 100%);
+  --logo-glow:rgba(201,103,58,.55);
+  --tt-prog:var(--a-y);
+  --bar:linear-gradient(90deg,var(--a-o),var(--a-y),var(--a-w));
+  background:var(--a-bg);
 }
 
 /* ===== Base ===== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;background:var(--ink)}
 body{font-family:var(--f-body);color:var(--text);background:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
 html.lock,html.lock body{overflow:hidden;height:100%}
@@ -62,9 +85,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .logo{font-family:var(--f-display);font-weight:800;letter-spacing:-.02em;display:inline-flex;align-items:center;line-height:1;white-space:nowrap;color:var(--logo-fg,#fff)}
 .logo .ch{display:inline-block}
 .logo .sp{display:inline-block;width:.3em}
-.logo-o{position:relative;width:.84em;height:.84em;margin:0 .03em;border-radius:50%;
-  background:var(--logo-o,radial-gradient(circle at 32% 26%,#5BEAF7 0%,var(--turq) 42%,var(--turq-d) 100%));
-  box-shadow:0 0 .32em rgba(0,194,216,.55),inset 0 -.05em .12em rgba(0,0,0,.28)}
+.logo-o{position:relative;width:.84em;height:.84em;margin:0 .04em 0 0;border-radius:50%;background:var(--logo-o);
+  box-shadow:0 0 .32em var(--logo-glow),inset 0 -.05em .12em rgba(0,0,0,.28)}
 .logo-o .arr{position:absolute;inset:0;display:grid;place-items:center;color:var(--logo-arrow,#fff)}
 .logo-o .arr svg{width:58%;height:58%;overflow:visible}
 
@@ -75,10 +97,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-2%)}60%{transform:translate(-2%,-4%)}80%{transform:translate(4%,2%)}100%{transform:translate(0,0)}}
 .vignette{position:fixed;inset:0;pointer-events:none;z-index:85;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(0,0,0,.45) 100%)}
 #fx{position:fixed;inset:0;width:100%;height:100%;z-index:80;pointer-events:none}
+#tfx{position:fixed;inset:0;width:100%;height:100%;z-index:78;pointer-events:none;display:none}
 .cursor-glow{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;pointer-events:none;z-index:70;
-  background:radial-gradient(circle,rgba(0,194,216,.075),transparent 62%);opacity:0;transition:opacity .6s}
-.progress-bar{position:fixed;top:0;left:0;right:0;height:2px;z-index:50;transform-origin:0 50%;transform:scaleX(0);
-  background:linear-gradient(90deg,var(--turq),var(--ice),var(--lime));box-shadow:0 0 12px rgba(0,194,216,.8)}
+  background:radial-gradient(circle,var(--logo-glow),transparent 62%);opacity:0;transition:opacity .6s;mix-blend-mode:normal}
+.cursor-glow.on{opacity:.13}
+.progress-bar{position:fixed;top:0;left:0;right:0;height:2px;z-index:50;transform-origin:0 50%;transform:scaleX(0);background:var(--bar);box-shadow:0 0 12px var(--logo-glow)}
 
 /* ===== Intro ===== */
 #intro{position:fixed;inset:0;z-index:50;display:none;place-items:center;
@@ -89,6 +112,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #portalDisc{position:fixed;z-index:55;border-radius:50%;pointer-events:none;visibility:hidden;will-change:transform;
   background:radial-gradient(circle,var(--ice-2) 0%,var(--turq) 30%,var(--turq-d) 62%,var(--turq-dd) 85%,var(--ink) 100%)}
 #app{position:relative;z-index:60;background:var(--ink)}
+body[data-view="asesorias"] #app{background:var(--a-bg)}
 .intro-on #app{clip-path:circle(0px at 50% 50%)}
 
 /* ===== Botones ===== */
@@ -101,7 +125,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn svg{width:18px;height:18px}
 
 /* ===== Navegación ===== */
-.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;
   padding:18px clamp(18px,4vw,48px);transition:background .45s,backdrop-filter .45s,padding .45s,border-color .45s;border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(2,11,19,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding-block:12px;border-color:rgba(168,242,250,.08)}
 .nav .logo{font-size:1.1rem}
@@ -110,6 +134,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--turq);transform:scaleX(0);transform-origin:right;transition:transform .4s}
 .nav-links a:hover{color:var(--ice)}
 .nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-back{display:none;align-items:center;gap:8px;font-size:.9rem;font-weight:500;color:var(--a-y);padding:9px 16px;border-radius:99px;border:1px solid rgba(212,175,79,.3);transition:background .3s}
+.nav-back:hover{background:rgba(212,175,79,.1)}
+.nav-back svg{width:16px;height:16px}
+body[data-view="asesorias"] .nav-back{display:inline-flex}
+body[data-view="asesorias"] .nav-links{display:none}
+body[data-view="asesorias"] .nav.scrolled{background:rgba(12,10,8,.72);border-color:rgba(212,175,79,.12)}
+body[data-view="asesorias"] .btn-ghost{color:var(--a-y);border-color:rgba(212,175,79,.3)}
+body[data-view="asesorias"] .btn-ghost:hover{background:rgba(212,175,79,.1)}
 
 /* ===== Hero / Inicio ===== */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:110px clamp(16px,4vw,40px) 70px;overflow:hidden;isolation:isolate}
@@ -126,7 +158,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background-image:linear-gradient(rgba(0,194,216,.32) 1px,transparent 1px),linear-gradient(90deg,rgba(0,194,216,.22) 1px,transparent 1px);
   background-size:64px 64px;animation:floorMove 2.6s linear infinite}
 @keyframes floorMove{from{transform:rotateX(68deg) translateY(0)}to{transform:rotateX(68deg) translateY(64px)}}
-#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+#heroCanvas,#vaCanvas{position:absolute;inset:0;width:100%;height:100%}
 .hero-content{position:relative;z-index:2;text-align:center;width:100%;display:flex;flex-direction:column;align-items:center}
 .hero-mark{display:flex;flex-direction:column;align-items:center;will-change:transform}
 .hero .logo{font-size:clamp(3rem,12.5vw,10.5rem);filter:drop-shadow(0 18px 50px rgba(0,0,0,.5))}
@@ -136,7 +168,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ===== Puertas ===== */
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,26px);width:min(1180px,100%);margin-top:clamp(26px,4.6vh,54px)}
-.door{--mx:50%;--my:50%;--acc:var(--turq);--acc-rgb:0,194,216;
+.door{--mx:50%;--my:50%;--acc-rgb:0,194,216;
   position:relative;display:flex;flex-direction:column;justify-content:space-between;text-align:left;
   min-height:clamp(270px,37vh,370px);padding:clamp(22px,2.4vw,34px);border-radius:26px;overflow:hidden;cursor:pointer;isolation:isolate;
   background:linear-gradient(155deg,rgba(14,64,94,.55) 0%,rgba(4,24,36,.85) 55%,rgba(2,11,19,.95) 100%);
@@ -151,19 +183,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .door-top{display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:2}
 .door-num{font-family:var(--f-display);font-size:.68rem;letter-spacing:.24em;color:var(--muted);text-transform:uppercase}
 .door-chip{font-size:.72rem;padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:var(--ice);background:rgba(2,11,19,.4);white-space:nowrap}
+.door-chip.proof{color:rgb(var(--acc-rgb));border-color:rgba(var(--acc-rgb),.35);background:rgba(var(--acc-rgb),.1);font-weight:600}
 .door-visual{position:absolute;right:0;top:64px;width:56%;z-index:0;pointer-events:none;will-change:transform}
 .door-body{position:relative;z-index:2;margin-top:auto}
 .door h2{font-family:var(--f-display);font-weight:800;font-size:clamp(1.35rem,2.4vw,2.1rem);line-height:1.04;letter-spacing:-.015em;max-width:14ch}
-.door p{color:var(--muted);margin-top:10px;max-width:40ch;font-size:.98rem}
+.door p{color:var(--muted);margin-top:10px;max-width:44ch;font-size:.98rem}
 .door-cta{display:inline-flex;align-items:center;gap:12px;margin-top:18px;font-weight:600;color:rgb(var(--acc-rgb))}
 .door-cta .ar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgb(var(--acc-rgb));color:var(--ink);transition:transform .45s cubic-bezier(.2,1.4,.4,1)}
 .door-cta .ar svg{width:16px;height:16px}
 .door:hover .door-cta .ar{transform:translateX(6px) rotate(-45deg)}
-/* Visual puerta 1: ruta de delivery */
 .route{width:100%;height:auto;overflow:visible}
 .route-dash{animation:dash 1.2s linear infinite}
 @keyframes dash{to{stroke-dashoffset:-20}}
-/* Visual puerta 2: mini terminal */
 .code-mini{margin:6px 12px 0 auto;width:92%;border-radius:14px;border:1px solid rgba(255,106,61,.22);background:rgba(10,4,4,.55);font-family:var(--f-mono);font-size:clamp(.62rem,.85vw,.78rem);color:#F4D9CF;overflow:hidden}
 .cm-bar{display:flex;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(255,106,61,.14)}
 .cm-bar i{width:8px;height:8px;border-radius:50%;background:#FF6A3D;opacity:.8}
@@ -217,29 +248,74 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .mq-row.r2{color:transparent;-webkit-text-stroke:1px rgba(0,194,216,.55)}
 .mq-row .st{color:var(--lime);-webkit-text-stroke:0;margin:0 .35em;font-size:.6em;vertical-align:.2em}
 
+/* ===== Sistemas (bento) ===== */
+.sistemas{background:radial-gradient(ellipse at 80% 20%,rgba(0,194,216,.1),transparent 55%),linear-gradient(180deg,var(--ink),#03141f 50%,var(--ink))}
+.sis-head{width:min(1180px,100%);margin:0 auto 46px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.sis-head .lead{margin-top:0;max-width:40ch}
+.bento{width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(180px,auto);gap:14px;perspective:1400px}
+.tile{--mx:50%;--my:50%;position:relative;padding:24px;border-radius:22px;overflow:hidden;isolation:isolate;
+  background:linear-gradient(160deg,rgba(11,58,87,.42),rgba(2,11,19,.88));border:1px solid rgba(168,242,250,.1);transition:border-color .4s}
+.tile::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .4s;background:radial-gradient(300px circle at var(--mx) var(--my),rgba(0,194,216,.18),transparent 65%)}
+.tile:hover{border-color:rgba(0,194,216,.35)}
+.tile:hover::before{opacity:1}
+.tile.big{grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column}
+.tile.wide{grid-column:span 2}
+.tile .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(0,194,216,.12);color:var(--turq);margin-bottom:16px}
+.tile .ic svg{width:22px;height:22px}
+.tile h3{font-family:var(--f-display);font-size:1.02rem;font-weight:700;letter-spacing:-.01em;min-height:1.3em}
+.tile p{color:var(--muted);font-size:.92rem;margin-top:6px;max-width:36ch}
+.tile .tag{position:absolute;top:22px;right:22px;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lime)}
+.be-diagram{flex:1;margin-top:18px;min-height:200px}
+.be-diagram svg{width:100%;height:100%}
+.be-diagram .ln{fill:none;stroke:rgba(0,194,216,.45);stroke-width:1.5;stroke-dasharray:4 6;animation:dash 1.4s linear infinite}
+.be-diagram .nd{fill:rgba(2,16,26,.95);stroke:rgba(168,242,250,.25)}
+.be-diagram .core{fill:rgba(0,194,216,.15);stroke:var(--turq)}
+.be-diagram text{font-family:var(--f-body);font-size:12px;fill:#cfe7ec;text-anchor:middle}
+.mini-bars{display:flex;align-items:flex-end;gap:6px;height:70px;margin-top:18px}
+.mini-bars i{flex:1;border-radius:6px 6px 2px 2px;background:linear-gradient(var(--turq),rgba(0,194,216,.15));transform-origin:bottom;animation:breathe 3s ease-in-out infinite}
+.mini-bars i:nth-child(odd){animation-delay:-1.2s}
+.mini-bars i:last-child{background:linear-gradient(var(--lime),rgba(215,250,60,.2))}
+@keyframes breathe{50%{transform:scaleY(.82)}}
+.track-steps{display:flex;align-items:center;margin-top:18px;gap:0}
+.track-steps i{width:12px;height:12px;border-radius:50%;border:2px solid rgba(168,242,250,.3);flex:none}
+.track-steps b{flex:1;height:2px;background:rgba(168,242,250,.15);position:relative;overflow:hidden}
+.track-steps b::after{content:"";position:absolute;inset:0;background:var(--turq);transform:translateX(-100%);animation:fillx 3.2s ease-in-out infinite}
+.track-steps b:nth-of-type(2)::after{animation-delay:.6s}.track-steps b:nth-of-type(3)::after{animation-delay:1.2s}
+@keyframes fillx{40%,70%{transform:none}100%{transform:translateX(100%)}}
+.track-labels{display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:8px}
+.stock-meter{height:8px;border-radius:9px;background:rgba(168,242,250,.08);margin-top:18px;overflow:hidden}
+.stock-meter i{display:block;height:100%;width:72%;border-radius:9px;background:linear-gradient(90deg,var(--turq-d),var(--turq));animation:stock 4s ease-in-out infinite}
+@keyframes stock{50%{width:22%;background:linear-gradient(90deg,#B4652A,#FFB46B)}}
+
 /* ===== Caso Brunel ===== */
 .brunel{min-height:100vh;display:flex;align-items:center;overflow:hidden;
-  background:radial-gradient(ellipse at 80% 40%,rgba(0,194,216,.13),transparent 55%),radial-gradient(ellipse at 10% 90%,rgba(215,250,60,.05),transparent 50%),var(--ink)}
+  background:radial-gradient(ellipse at 80% 40%,rgba(0,194,216,.13),transparent 55%),radial-gradient(ellipse at 10% 90%,rgba(201,165,92,.07),transparent 50%),var(--ink)}
 .brunel-inner{width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,5vw,80px);align-items:center}
 .brunel h2{font-size:clamp(1.8rem,3.4vw,3rem);perspective:600px}
-.feats{list-style:none;margin-top:30px;display:grid;gap:18px}
+#brunelTitle .hl{color:#D9B86C}
+.feats{list-style:none;margin-top:28px;display:grid;gap:18px}
 .feats li{position:relative;padding-left:26px}
 .feats li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:var(--turq);box-shadow:0 0 12px var(--turq)}
 .feats .fl{position:absolute;left:4.5px;top:1.4em;bottom:-18px;width:1px;background:linear-gradient(var(--turq),transparent);transform-origin:top}
 .feats li:last-child .fl{display:none}
 .feats b{display:block;color:#fff;font-weight:600}
 .feats span:not(.fl){color:var(--muted);font-size:.96rem}
+.brunel-meta{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:30px}
+.brunel-stat{font-family:var(--f-display);font-weight:800;font-size:1.6rem;color:#D9B86C;line-height:1}
+.brunel-stat small{display:block;font-family:var(--f-body);font-weight:400;font-size:.78rem;color:var(--muted);margin-top:6px}
+.brunel-link{display:inline-flex;align-items:center;gap:8px;color:var(--ice);font-weight:600;border-bottom:1px solid rgba(168,242,250,.3);padding-bottom:2px}
+.brunel-link:hover{color:#fff;border-color:#fff}
 .dash-wrap{perspective:1400px}
-.dash{display:grid;grid-template-columns:132px 1fr 1fr;grid-template-areas:"bar bar bar" "side kpi kpi" "side chart store" "side inv inv";gap:12px;padding:14px;border-radius:22px;
-  background:linear-gradient(160deg,rgba(10,53,80,.72),rgba(2,11,19,.94));border:1px solid rgba(168,242,250,.13);box-shadow:0 50px 120px -40px rgba(0,194,216,.35),inset 0 1px 0 rgba(255,255,255,.05);font-size:.8rem}
-.card{background:rgba(2,16,26,.78);border:1px solid rgba(168,242,250,.08);border-radius:14px;padding:12px 14px}
+.dash{--bn:#1F2A44;--gold:#C9A55C;display:grid;grid-template-columns:132px 1fr 1fr;grid-template-areas:"bar bar bar" "side kpi kpi" "side chart store" "side inv inv";gap:12px;padding:14px;border-radius:22px;
+  background:linear-gradient(160deg,rgba(31,42,68,.85),rgba(6,10,20,.95));border:1px solid rgba(201,165,92,.2);box-shadow:0 50px 120px -40px rgba(0,194,216,.3),inset 0 1px 0 rgba(255,255,255,.05);font-size:.8rem}
+.card{background:rgba(8,13,26,.8);border:1px solid rgba(201,165,92,.1);border-radius:14px;padding:12px 14px}
 .d-bar{grid-area:bar;display:flex;align-items:center;gap:10px;padding:8px 12px}
-.d-bar i{width:9px;height:9px;border-radius:50%;background:rgba(168,242,250,.25)}
-.d-bar .url{margin-left:10px;flex:1;max-width:280px;padding:5px 12px;border-radius:99px;background:rgba(168,242,250,.06);color:var(--muted);font-family:var(--f-mono);font-size:.72rem}
+.d-bar i{width:9px;height:9px;border-radius:50%;background:rgba(201,165,92,.35)}
+.d-bar .url{margin-left:10px;flex:1;max-width:280px;padding:5px 12px;border-radius:99px;background:rgba(201,165,92,.08);color:#cdbf9f;font-family:var(--f-mono);font-size:.72rem}
 .d-side{grid-area:side;display:flex;flex-direction:column;gap:6px}
-.d-side .brand{font-family:var(--f-display);font-weight:800;font-size:.95rem;margin-bottom:10px;color:#fff}
+.d-side .brand{font-family:var(--f-display);font-weight:800;font-size:.9rem;letter-spacing:.14em;margin-bottom:10px;color:var(--gold)}
 .d-side .it{padding:7px 10px;border-radius:9px;color:var(--muted)}
-.d-side .it.on{background:rgba(0,194,216,.14);color:var(--ice)}
+.d-side .it.on{background:rgba(201,165,92,.14);color:#F1E3C2}
 .d-kpis{grid-area:kpi;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .kpi small{display:block;color:var(--muted);font-size:.7rem}
 .kpi strong{display:block;font-family:var(--f-display);font-size:clamp(1rem,1.5vw,1.3rem);margin-top:4px;color:#fff}
@@ -248,12 +324,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .d-chart{grid-area:chart}
 .d-chart svg{width:100%;height:auto;display:block;margin-top:6px}
 .d-store{grid-area:store;display:flex;flex-direction:column;gap:8px}
-.prod{aspect-ratio:1.5;border-radius:10px;background:radial-gradient(circle at 60% 35%,rgba(0,194,216,.35),transparent 60%),linear-gradient(160deg,#0B3A57,#041824);display:grid;place-items:center}
-.prod svg{width:46%;height:auto}
-.d-store .row{display:flex;justify-content:space-between;align-items:center}
-.d-store .add{padding:7px;border-radius:9px;background:var(--lime);color:var(--ink);text-align:center;font-weight:600;font-size:.74rem}
+.prod{aspect-ratio:1.5;border-radius:10px;background:radial-gradient(circle at 55% 35%,rgba(201,165,92,.28),transparent 60%),linear-gradient(160deg,#2A3756,#111a2e);display:grid;place-items:center}
+.prod svg{width:44%;height:auto}
+.d-store .row{display:flex;justify-content:space-between;align-items:center;gap:6px;color:#e9e2d2}
+.sizes{display:flex;gap:5px}
+.sizes span{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;border:1px solid rgba(201,165,92,.3);font-size:.62rem;color:#cdbf9f}
+.sizes span.on{background:var(--gold);color:#111;border-color:var(--gold)}
+.d-store .add{padding:7px;border-radius:9px;background:var(--gold);color:#111;text-align:center;font-weight:600;font-size:.74rem}
 .d-inv{grid-area:inv}
-.inv-row{display:grid;grid-template-columns:1.2fr 1.6fr 52px;gap:12px;align-items:center;padding:6px 0;border-top:1px solid rgba(168,242,250,.06);color:var(--muted)}
+.inv-row{display:grid;grid-template-columns:1.5fr 1.5fr 56px;gap:12px;align-items:center;padding:6px 0;border-top:1px solid rgba(201,165,92,.07);color:var(--muted)}
 .inv-row:first-of-type{border-top:0}
 .inv-bar{height:6px;border-radius:9px;background:rgba(168,242,250,.08);overflow:hidden}
 .inv-bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--turq-d),var(--turq))}
@@ -273,8 +352,133 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cta p{position:relative;color:var(--muted);margin:26px auto 34px;max-width:46ch;font-size:1.1rem}
 .cta .btn{position:relative}
 
+/* =========================================================
+   ASESORÍAS (interfaz 2) — ambiente de restaurante
+   ========================================================= */
+.view-food{background:var(--a-bg);color:var(--a-w)}
+.view-food .hl{color:var(--a-y)}
+.view-food ::selection{background:var(--a-y);color:var(--a-bg)}
+.va-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--a-o2);margin-bottom:20px}
+.va-eyebrow::before{content:"";width:30px;height:1px;background:currentColor}
+.va-h2{font-family:var(--f-display);font-weight:800;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.04;letter-spacing:-.03em}
+.va-lead{color:var(--a-muted);font-size:clamp(1.02rem,1.3vw,1.16rem);max-width:52ch;margin-top:18px}
+.va-section{position:relative;padding:clamp(90px,13vh,150px) clamp(18px,5vw,64px)}
+.va-wrap{width:min(1180px,100%);margin:0 auto}
+.btn-y{background:var(--a-y);color:#1A120B;box-shadow:0 10px 40px -10px rgba(212,175,79,.55)}
+.btn-y:hover{box-shadow:0 14px 50px -8px rgba(212,175,79,.8)}
+.btn-line{border:1px solid rgba(246,239,227,.22);color:var(--a-w)}
+.btn-line:hover{background:rgba(246,239,227,.06)}
+
+/* Hero */
+.va-hero{position:relative;min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,80px);align-items:center;
+  padding:120px clamp(18px,5vw,64px) 80px;overflow:hidden;isolation:isolate}
+.va-bg{position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse at 12% 18%,rgba(201,103,58,.24),transparent 55%),radial-gradient(ellipse at 88% 85%,rgba(212,175,79,.13),transparent 55%),radial-gradient(ellipse at 60% 45%,rgba(90,58,36,.38),transparent 62%)}
+.va-text{position:relative;z-index:2}
+.va-logo{font-size:clamp(2.2rem,6.2vw,5.2rem)}
+.va-tag{font-family:var(--f-display);font-weight:500;font-size:clamp(.6rem,.95vw,.8rem);letter-spacing:.4em;text-transform:uppercase;color:var(--a-y);margin:14px 0 34px}
+.va-h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2.1rem,4.9vw,4.3rem);line-height:1.02;letter-spacing:-.03em;max-width:13ch}
+.va-sub{color:var(--a-muted);font-size:clamp(1.02rem,1.35vw,1.2rem);max-width:46ch;margin-top:20px}
+.va-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.va-phone-wrap{position:relative;z-index:2;perspective:1200px}
+
+/* Teléfono con ranking */
+.phone{--ih:64px;position:relative;width:min(330px,84vw);margin:auto;border-radius:42px;padding:12px;
+  background:linear-gradient(160deg,#2A1B12,#0F0B08);border:1px solid rgba(212,175,79,.22);
+  box-shadow:0 50px 120px -30px rgba(201,103,58,.4),inset 0 0 0 5px #0A0806}
+.ph-screen{position:relative;border-radius:32px;background:var(--a-w);color:#1A120B;overflow:hidden;padding:14px 14px 18px}
+.ph-notch{width:86px;height:22px;border-radius:99px;background:#0A0806;margin:0 auto 14px}
+.ph-search{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;background:#EADFCC;color:#8A7560;font-size:.76rem}
+.ph-search svg{width:14px;height:14px}
+.ph-tabs{display:flex;gap:6px;margin:12px 0}
+.ph-tabs i{font-style:normal;font-size:.68rem;padding:6px 10px;border-radius:99px;background:#EADFCC;color:#6b5847}
+.ph-tabs i.on{background:#1A120B;color:var(--a-w)}
+.ph-label{font-weight:700;font-size:.8rem;margin-bottom:8px}
+.ph-list{position:relative;height:calc(var(--ih) * 5)}
+.ph-item{position:absolute;left:0;right:0;top:0;height:calc(var(--ih) - 8px);display:flex;align-items:center;gap:10px;padding:8px 10px 8px 8px;border-radius:14px;background:#fff;box-shadow:0 2px 0 rgba(0,0,0,.04);will-change:transform}
+.ph-thumb{width:40px;height:40px;border-radius:10px;flex:none}
+.ph-info{min-width:0}
+.ph-item b{display:block;font-size:.8rem;white-space:nowrap}
+.ph-item small{color:#8A7560;font-size:.66rem;white-space:nowrap}
+.ph-rank{margin-left:auto;font-family:var(--f-display);font-weight:800;font-size:.78rem;color:#B9A892}
+.ph-item.ours{background:#1A120B;color:var(--a-w);box-shadow:0 12px 30px -8px rgba(201,103,58,.65);z-index:3}
+.ph-item.ours small{color:var(--a-y)}
+.ph-item.ours .ph-rank{color:var(--a-y)}
+.ph-promo{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:6px;background:var(--a-o);color:#fff;font-size:.58rem;font-weight:700;vertical-align:1px}
+.ph-crown{position:absolute;top:-9px;right:10px;padding:2px 9px;border-radius:99px;background:var(--a-y);color:#1A120B;font-size:.6rem;font-weight:800;letter-spacing:.06em}
+.ph-foot{margin-top:6px;padding:10px 12px;border-radius:12px;background:#1A120B;color:var(--a-w);font-size:.72rem;display:flex;justify-content:space-between;align-items:center}
+.ph-foot b{color:var(--a-y)}
+
+/* Resultados */
+.va-results-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:44px}
+.va-card{position:relative;border-radius:24px;padding:clamp(22px,2.6vw,34px);overflow:hidden;
+  background:linear-gradient(160deg,rgba(90,58,36,.38),rgba(21,16,12,.92));border:1px solid rgba(212,175,79,.15)}
+.va-card .kick{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--a-muted)}
+.stat-big .num{font-family:var(--f-display);font-weight:900;font-size:clamp(4rem,10vw,8.6rem);line-height:.92;letter-spacing:-.05em;color:var(--a-y);margin-top:10px;font-variant-numeric:tabular-nums}
+.stat-big .num sup{font-size:.4em;vertical-align:top;color:var(--a-o2)}
+.stat-big p{color:var(--a-w);font-size:1.1rem;margin-top:8px;max-width:30ch}
+.stat-big p b{color:var(--a-y)}
+.bars{display:flex;align-items:flex-end;gap:8px;height:130px;margin-top:26px}
+.bars i{flex:1;border-radius:8px 8px 3px 3px;background:linear-gradient(var(--a-o),rgba(201,103,58,.18));transform-origin:bottom}
+.bars i:last-child{background:linear-gradient(var(--a-y),rgba(212,175,79,.25));box-shadow:0 0 30px rgba(212,175,79,.35)}
+.bars-legend{display:flex;justify-content:space-between;color:var(--a-muted);font-size:.72rem;margin-top:8px}
+.va-side{display:grid;gap:16px}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--a-y)}
+.pulse-dot{width:9px;height:9px;border-radius:50%;background:var(--a-y);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(212,175,79,.6)}70%{box-shadow:0 0 0 14px rgba(212,175,79,0)}100%{box-shadow:0 0 0 0 rgba(212,175,79,0)}}
+.client{font-family:var(--f-display);font-weight:800;font-size:clamp(1.25rem,2.1vw,1.7rem);margin-top:14px;line-height:1.12}
+.va-card .small{color:var(--a-muted);font-size:.94rem;margin-top:8px}
+.apps{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.apps span{padding:8px 14px;border-radius:99px;border:1px solid rgba(246,239,227,.15);font-weight:600;font-size:.86rem}
+
+/* Comandas (qué hacemos) */
+.va-tickets-sec{min-height:100vh;display:flex;align-items:center}
+.printer{position:relative;z-index:2;height:24px;margin-top:44px;border-radius:12px;background:linear-gradient(#2A1B12,#120C08);border:1px solid rgba(212,175,79,.2);box-shadow:inset 0 -6px 10px rgba(0,0,0,.6),0 20px 40px -20px rgba(0,0,0,.8)}
+.printer::after{content:"";position:absolute;left:3%;right:3%;bottom:6px;height:3px;border-radius:3px;background:#040302}
+.printer::before{content:"";position:absolute;right:16px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--a-y);box-shadow:0 0 10px var(--a-y)}
+.tickets{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px);padding:0 4%;margin-top:-10px}
+.ticket{position:relative;background:#F3EBDD;color:#24170F;padding:30px 22px 40px;transform-origin:50% 0;
+  box-shadow:0 30px 50px -30px rgba(0,0,0,.8);
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x}
+.tk-head{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;color:#7A6350;padding-bottom:12px;border-bottom:1px dashed rgba(36,23,15,.3)}
+.ticket h3{font-family:var(--f-display);font-weight:800;font-size:clamp(1.1rem,1.6vw,1.4rem);line-height:1.1;margin:16px 0 14px}
+.ticket ul{list-style:none;display:grid;gap:10px}
+.ticket li{display:grid;grid-template-columns:30px 1fr;font-size:.94rem;line-height:1.35}
+.ticket li::before{content:"1x";font-family:var(--f-mono);font-weight:700;color:var(--a-o)}
+.tk-foot{display:flex;justify-content:space-between;gap:10px;margin-top:18px;padding-top:12px;border-top:1px dashed rgba(36,23,15,.3);font-family:var(--f-mono);font-size:.72rem;color:#5A3A24}
+.tk-foot b{color:#24170F}
+
+/* Pasos (ruta) */
+.va-steps{min-height:100vh;display:flex;align-items:center}
+.route-wrap{position:relative;margin-top:30px}
+.route-svg{width:100%;height:auto;overflow:visible;display:block}
+.route-base{fill:none;stroke:rgba(212,175,79,.18);stroke-width:2;stroke-dasharray:4 8}
+.route-live{fill:none;stroke:var(--a-y);stroke-width:3;stroke-linecap:round}
+.stop .o{fill:var(--a-bg);stroke:rgba(212,175,79,.45);stroke-width:2;transition:fill .4s}
+.stop .halo{fill:rgba(212,175,79,.18);opacity:0;transition:opacity .4s}
+.stop.on .o{fill:var(--a-y);stroke:var(--a-y)}
+.stop.on .halo{opacity:1}
+.stop text{font-family:var(--f-display);font-weight:700;font-size:13px;fill:var(--a-bg);text-anchor:middle;dominant-baseline:central}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,30px);margin-top:10px;position:relative}
+.step{padding:24px;border-radius:20px;border:1px solid rgba(212,175,79,.12);background:rgba(21,16,12,.75);opacity:.28;transform:translateY(24px);transition:opacity .6s,transform .7s cubic-bezier(.2,1.2,.4,1),border-color .6s}
+.step.on{opacity:1;transform:none;border-color:rgba(212,175,79,.45)}
+.step .sn{font-family:var(--f-display);color:var(--a-o2);font-size:.8rem}
+.step h3{font-family:var(--f-display);font-size:1.18rem;line-height:1.15;margin-top:10px}
+.step p{color:var(--a-muted);margin-top:8px;font-size:.95rem}
+.vline{display:none}
+
+/* CTA asesorías */
+.va-cta{min-height:85vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 70%,rgba(201,103,58,.24),transparent 60%),var(--a-bg)}
+.va-cta h2{font-size:clamp(2.4rem,7vw,6rem);max-width:12ch}
+.va-cta p{color:var(--a-muted);max-width:48ch;margin:24px auto 32px;font-size:1.1rem}
+.va-back{margin-top:28px;color:var(--a-muted);font-size:.92rem;border-bottom:1px solid rgba(246,239,227,.2);padding-bottom:2px;transition:color .3s}
+.va-back:hover{color:var(--a-w)}
+
 /* ===== Footer ===== */
 footer{padding:50px clamp(18px,5vw,64px) 40px;border-top:1px solid rgba(168,242,250,.08);display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;color:var(--muted);font-size:.88rem}
+body[data-view="asesorias"] footer{border-color:rgba(212,175,79,.12);color:var(--a-muted)}
 footer .logo{font-size:1.5rem}
 footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:uppercase;font-size:.66rem}
 
@@ -284,8 +488,8 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
 #toTop.show{opacity:1;transform:none;pointer-events:auto}
 #toTop .tt-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 #toTop .tt-ring circle{fill:none;stroke-width:2}
-#toTop .tt-o{position:absolute;inset:8px;border-radius:50%;display:grid;place-items:center;overflow:visible;
-  background:radial-gradient(circle at 32% 26%,#5BEAF7,var(--turq) 42%,var(--turq-d));box-shadow:0 0 26px rgba(0,194,216,.55);transition:transform .4s cubic-bezier(.2,1.5,.4,1)}
+#toTop .tt-prog{stroke:var(--tt-prog)}
+#toTop .tt-o{position:absolute;inset:8px;border-radius:50%;display:grid;place-items:center;overflow:visible;background:var(--logo-o);box-shadow:0 0 26px var(--logo-glow);transition:transform .4s cubic-bezier(.2,1.5,.4,1)}
 #toTop:hover .tt-o{transform:scale(1.08)}
 #toTop .tt-arr{width:22px;height:22px;color:#fff;display:block}
 
@@ -301,19 +505,36 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
   .nav-links{display:none}
   .brunel-inner,.metodo-inner{grid-template-columns:1fr}
   .ring-wrap{max-width:300px}
+  .bento{grid-template-columns:1fr 1fr}
+  .va-hero{grid-template-columns:1fr;padding-top:110px}
+  .va-results-grid{grid-template-columns:1fr}
+  .tickets{grid-template-columns:1fr;max-width:460px;margin-inline:auto}
+  .printer{max-width:520px;margin-inline:auto}
+  .route-svg{display:none}
+  .steps{grid-template-columns:1fr;padding-left:32px}
+  .steps::before{content:"";position:absolute;left:9px;top:0;bottom:0;width:2px;background:rgba(212,175,79,.15)}
+  .vline{display:block;position:absolute;left:9px;top:0;bottom:0;width:2px;background:var(--a-y);transform-origin:top;transform:scaleY(0)}
+  .step::before{content:"";position:absolute;left:-29px;top:28px;width:12px;height:12px;border-radius:50%;background:var(--a-bg);border:2px solid var(--a-y)}
+  .step{position:relative}
 }
 @media (max-width:760px){
   .doors{grid-template-columns:1fr}
   .door{min-height:290px}
-  .door-visual{width:72%;opacity:.55;top:48px}
-  .door-chip{display:none}
+  .door-visual{width:72%;opacity:.55;top:52px}
+  .door-chip:not(.proof){display:none}
   .dash{grid-template-columns:1fr 1fr;grid-template-areas:"bar bar" "kpi kpi" "chart chart" "inv store"}
   .d-side{display:none}
   .d-kpis{gap:8px}
   .kpi{padding:10px}
-  .inv-row{grid-template-columns:1fr 1fr;}
+  .inv-row{grid-template-columns:1fr 1fr}
   .inv-row .ok,.inv-row .lo{display:none}
   .nav .btn-ghost span{display:none}
+  .tile.big{grid-row:span 1}
+  .be-diagram{min-height:170px}
+}
+@media (max-width:520px){
+  .bento{grid-template-columns:1fr}
+  .tile.big,.tile.wide{grid-column:span 1}
 }
 @media (max-width:420px){ .prod{aspect-ratio:2.6} .dash{grid-template-areas:"bar bar" "kpi kpi" "chart chart" "inv inv" "store store"} }
 
@@ -321,10 +542,11 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
   .grain{display:none}
+  .step{opacity:1;transform:none}
 }
 </style>
 </head>
-<body>
+<body data-view="home">
 
 <!-- ================= INTRO ================= -->
 <div id="intro" aria-hidden="true">
@@ -342,17 +564,24 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
     <nav class="nav-links" aria-label="Principal">
       <a href="#servicios" data-scroll>Servicios</a>
       <a href="#metodo" data-scroll>110%</a>
+      <a href="#sistemas" data-scroll>Sistemas</a>
       <a href="#brunel" data-scroll>Caso Brunel</a>
       <a href="#contacto" data-scroll>Contacto</a>
     </nav>
-    <a class="btn btn-ghost" data-wa="Hola On Top 👋, quiero más información.">
+    <button class="nav-back" data-home>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Inicio
+    </button>
+    <a class="btn btn-ghost" id="navWa" data-wa-key="home">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
       <span>Escríbenos</span>
     </a>
   </header>
 
-  <main>
-    <!-- ===== INICIO ===== -->
+  <!-- ======================================================
+       INTERFAZ 1 — INICIO
+       ====================================================== -->
+  <main id="home">
     <section class="hero" id="top">
       <div class="hero-bg" aria-hidden="true">
         <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
@@ -369,17 +598,14 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
         <p class="hero-sub">Hacemos las cosas al <b>110%</b>. Elige por dónde empezamos:</p>
 
         <div class="doors" id="servicios">
-          <!-- Puerta 1 -->
           <a href="#asesorias" class="door door--food" data-go="asesorias" style="--acc-rgb:231,169,59" aria-label="Asesorías para restaurantes">
             <div class="door-top">
               <span class="door-num">01 — Restaurantes</span>
-              <span class="door-chip">Rappi · Uber Eats · PedidosYa</span>
+              <span class="door-chip proof">▲ +35% con Taco Bell</span>
             </div>
             <div class="door-visual" aria-hidden="true">
               <svg class="route" viewBox="0 0 320 120">
-                <defs>
-                  <linearGradient id="gRoute" x1="0" x2="1"><stop offset="0" stop-color="#E7A93B" stop-opacity=".25"/><stop offset="1" stop-color="#E7A93B"/></linearGradient>
-                </defs>
+                <defs><linearGradient id="gRoute" x1="0" x2="1"><stop offset="0" stop-color="#E7A93B" stop-opacity=".25"/><stop offset="1" stop-color="#E7A93B"/></linearGradient></defs>
                 <path id="routePath" class="route-dash" d="M84 92 C 140 100, 110 46, 170 50 S 250 30, 292 18" fill="none" stroke="url(#gRoute)" stroke-width="2" stroke-dasharray="3 7"/>
                 <circle cx="84" cy="92" r="8" fill="none" stroke="#E7A93B" stroke-width="2"/>
                 <circle cx="84" cy="92" r="2.6" fill="#E7A93B"/>
@@ -399,40 +625,31 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
             </div>
           </a>
 
-          <!-- Puerta 2 -->
           <a href="#web" class="door door--code" data-go="web" style="--acc-rgb:255,106,61" aria-label="Páginas y sistemas web">
             <div class="door-top">
               <span class="door-num">02 — Tecnología</span>
-              <span class="door-chip">Landing · Tienda · IA · Dashboard</span>
+              <span class="door-chip">Backend · Dashboard · IA</span>
             </div>
             <div class="door-visual" aria-hidden="true">
-              <div class="code-mini">
-                <div class="cm-bar"><i></i><i></i><i></i></div>
-                <pre><code id="typer"></code><span class="caret"></span></pre>
-              </div>
+              <div class="code-mini"><div class="cm-bar"><i></i><i></i><i></i></div><pre><code id="typer"></code><span class="caret"></span></pre></div>
             </div>
             <div class="door-body">
               <h2>Páginas y sistemas web</h2>
-              <p>Landing, tienda en línea, chatbot con IA, inventario y panel de ventas.</p>
+              <p>Landing, tiendas en línea, chatbot con IA y sistemas a medida: backend, dashboard, pedidos y stock.</p>
               <span class="door-cta">Entrar <span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
             </div>
           </a>
         </div>
-
         <div class="scroll-cue" aria-hidden="true">Desliza<i></i></div>
       </div>
     </section>
 
-    <!-- ===== 110% ===== -->
+    <!-- 110% -->
     <section class="section metodo" id="metodo">
       <div class="metodo-inner">
         <div class="ring-wrap">
           <svg class="ring" viewBox="0 0 400 400" aria-hidden="true">
-            <defs>
-              <linearGradient id="gTurq" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#A8F2FA"/><stop offset=".5" stop-color="#00C2D8"/><stop offset="1" stop-color="#00808F"/>
-              </linearGradient>
-            </defs>
+            <defs><linearGradient id="gTurq" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A8F2FA"/><stop offset=".5" stop-color="#00C2D8"/><stop offset="1" stop-color="#00808F"/></linearGradient></defs>
             <circle class="track" cx="200" cy="200" r="150"/>
             <circle class="ticks" cx="200" cy="200" r="128"/>
             <circle class="arc1" cx="200" cy="200" r="150" transform="rotate(-90 200 200)"/>
@@ -441,7 +658,6 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
           </svg>
           <div class="counter"><div class="num"><span id="count">110</span><sup>%</sup></div><small>de compromiso</small></div>
         </div>
-
         <div class="metodo-text">
           <span class="eyebrow">El estándar On Top</span>
           <h2 class="h-display" id="metodoTitle" data-hl="110%.">No hacemos lo justo. Hacemos el 110%.</h2>
@@ -455,37 +671,102 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
       </div>
     </section>
 
-    <!-- ===== Marquesina ===== -->
     <section class="marquee" aria-hidden="true">
       <div class="mq-row r1"><div class="mq-track">RAPPI<span class="st">✦</span>UBER EATS<span class="st">✦</span>PEDIDOSYA<span class="st">✦</span>RAPPI<span class="st">✦</span>UBER EATS<span class="st">✦</span>PEDIDOSYA<span class="st">✦</span>RAPPI<span class="st">✦</span>UBER EATS<span class="st">✦</span>PEDIDOSYA<span class="st">✦</span></div></div>
-      <div class="mq-row r2"><div class="mq-track">LANDING<span class="st">✦</span>TIENDA EN LÍNEA<span class="st">✦</span>CHATBOT IA<span class="st">✦</span>INVENTARIO<span class="st">✦</span>DASHBOARD<span class="st">✦</span>LANDING<span class="st">✦</span>TIENDA EN LÍNEA<span class="st">✦</span>CHATBOT IA<span class="st">✦</span>INVENTARIO<span class="st">✦</span>DASHBOARD<span class="st">✦</span></div></div>
+      <div class="mq-row r2"><div class="mq-track">BACKEND<span class="st">✦</span>DASHBOARD<span class="st">✦</span>TIENDA EN LÍNEA<span class="st">✦</span>CHATBOT IA<span class="st">✦</span>STOCK<span class="st">✦</span>PEDIDOS<span class="st">✦</span>BACKEND<span class="st">✦</span>DASHBOARD<span class="st">✦</span>TIENDA EN LÍNEA<span class="st">✦</span>CHATBOT IA<span class="st">✦</span></div></div>
     </section>
 
-    <!-- ===== Caso Brunel ===== -->
+    <!-- Sistemas -->
+    <section class="section sistemas" id="sistemas">
+      <div class="sis-head">
+        <div>
+          <span class="eyebrow">Tecnología a medida</span>
+          <h2 class="h-display" id="sisTitle" data-hl="ti.">Sistemas que trabajan por ti.</h2>
+        </div>
+        <p class="lead">No solo hacemos páginas bonitas: construimos toda la estructura que mueve tu negocio, de la tienda al panel de control.</p>
+      </div>
+      <div class="bento">
+        <article class="tile big">
+          <span class="tag">El corazón</span>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+          <h3 data-scramble>Backend a medida</h3>
+          <p>La estructura que sostiene todo: datos, usuarios, pedidos y procesos conectados en un solo lugar.</p>
+          <div class="be-diagram" aria-hidden="true">
+            <svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet">
+              <path class="ln" d="M210 110 L70 40"/><path class="ln" d="M210 110 L350 40"/><path class="ln" d="M210 110 L70 180"/><path class="ln" d="M210 110 L350 180"/>
+              <rect class="core" x="150" y="85" width="120" height="50" rx="14"/><text x="210" y="114">API + datos</text>
+              <rect class="nd" x="20" y="22" width="100" height="36" rx="10"/><text x="70" y="44">Tienda</text>
+              <rect class="nd" x="300" y="22" width="100" height="36" rx="10"/><text x="350" y="44">Dashboard</text>
+              <rect class="nd" x="20" y="162" width="100" height="36" rx="10"/><text x="70" y="184">Chatbot IA</text>
+              <rect class="nd" x="300" y="162" width="100" height="36" rx="10"/><text x="350" y="184">Stock</text>
+            </svg>
+          </div>
+        </article>
+        <article class="tile">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg></div>
+          <h3 data-scramble>Landing pages</h3><p>Una página que vende desde el primer clic.</p>
+        </article>
+        <article class="tile">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.5 12h-11z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div>
+          <h3 data-scramble>Tienda en línea</h3><p>Catálogo, carrito y pagos con tu marca.</p>
+        </article>
+        <article class="tile">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M9 10h.01M13 10h.01M17 10h.01"/></svg></div>
+          <h3 data-scramble>Chatbot con IA</h3><p>Responde a tus clientes 24/7, en tu web o WhatsApp.</p>
+        </article>
+        <article class="tile">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6 15h4"/></svg></div>
+          <h3 data-scramble>Pagos en línea</h3><p>Cobra con tarjeta de crédito y débito, integrado a tu tienda.</p>
+        </article>
+        <article class="tile wide">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+          <h3 data-scramble>Dashboard de ventas</h3><p>Ventas, pedidos y productos top en una sola pantalla, en tiempo real.</p>
+          <div class="mini-bars" aria-hidden="true"><i style="height:40%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:66%"></i><i style="height:60%"></i><i style="height:78%"></i><i style="height:72%"></i><i style="height:95%"></i></div>
+        </article>
+        <article class="tile">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+          <h3 data-scramble>Seguimiento de pedidos</h3><p>Tu cliente sabe dónde está su pedido. Tú también.</p>
+          <div class="track-steps" aria-hidden="true"><i></i><b></b><i></i><b></b><i></i><b></b><i></i></div>
+          <div class="track-labels" aria-hidden="true"><span>Recibido</span><span>En camino</span><span>Entregado</span></div>
+        </article>
+        <article class="tile">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></div>
+          <h3 data-scramble>Control de stock</h3><p>Se descuenta solo con cada venta y te avisa antes de quedarte sin nada.</p>
+          <div class="stock-meter" aria-hidden="true"><i></i></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Caso Brunel -->
     <section class="section brunel" id="brunel">
       <div class="brunel-inner">
         <div class="brunel-text">
           <span class="eyebrow">Caso de éxito</span>
-          <h2 class="h-display" id="brunelTitle" data-hl="Brunel:">Brunel: su tienda en línea, con inventario y panel de ventas.</h2>
-          <p class="lead">Construimos para Brunel un sistema completo: sus clientes compran en línea, el inventario se actualiza solo y el equipo ve sus ventas en un panel claro.</p>
+          <h2 class="h-display" id="brunelTitle" data-hl="Brunel,Brand:">Brunel Brand: su tienda en línea, con inventario y panel de ventas.</h2>
+          <p class="lead">Brunel vende camisas y polos para hombre desde Quito. Construimos su tienda en brunelbrand.com y el sistema detrás: los clientes compran en línea, el inventario se actualiza solo y el equipo ve sus ventas en un panel claro.</p>
           <ol class="feats">
-            <li><span class="fl"></span><b>Tienda en línea</b><span>Catálogo y carrito de compras con su marca.</span></li>
-            <li><span class="fl"></span><b>Inventario automático</b><span>Cada venta descuenta stock y avisa cuando algo se está acabando.</span></li>
-            <li><span class="fl"></span><b>Panel de ventas</b><span>Ventas, pedidos y productos más vendidos en una sola pantalla.</span></li>
+            <li><span class="fl"></span><b>Tienda en línea</b><span>Catálogo por categorías, tallas y carrito de compras.</span></li>
+            <li><span class="fl"></span><b>Inventario automático</b><span>Cada venta descuenta stock por talla y avisa cuando algo se está acabando.</span></li>
+            <li><span class="fl"></span><b>Panel de ventas</b><span>Ventas, pedidos y camisas más vendidas en una sola pantalla.</span></li>
           </ol>
+          <div class="brunel-meta">
+            <div class="brunel-stat">+900<small>prendas entregadas</small></div>
+            <a class="brunel-link" href="https://brunelbrand.com" target="_blank" rel="noopener">Ver brunelbrand.com
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+          </div>
         </div>
 
         <div class="dash-wrap">
-          <div class="dash" aria-label="Vista ilustrativa del panel de Brunel">
-            <div class="d-bar card" data-piece><i></i><i></i><i></i><span class="url">brunel.com/panel</span></div>
+          <div class="dash" aria-label="Vista ilustrativa del panel de Brunel Brand">
+            <div class="d-bar card" data-piece><i></i><i></i><i></i><span class="url">brunelbrand.com/panel</span></div>
             <div class="d-side card" data-piece>
-              <div class="brand">Brunel</div>
-              <div class="it on">Ventas</div><div class="it">Inventario</div><div class="it">Tienda</div><div class="it">Clientes</div>
+              <div class="brand">BRUNEL</div>
+              <div class="it on">Ventas</div><div class="it">Inventario</div><div class="it">Camisas</div><div class="it">Polos</div><div class="it">Clientes</div>
             </div>
             <div class="d-kpis">
-              <div class="kpi card" data-piece><small>Ventas del día</small><strong>$<span data-count="1284">0</span></strong><em>▲ vs. ayer</em></div>
-              <div class="kpi card" data-piece><small>Pedidos</small><strong data-count="37">0</strong><em>▲ en curso</em></div>
-              <div class="kpi card warn" data-piece><small>Stock bajo</small><strong data-count="4">0</strong><em>productos</em></div>
+              <div class="kpi card" data-piece><small>Ventas del día</small><strong>$<span data-count="525">525</span></strong><em>▲ vs. ayer</em></div>
+              <div class="kpi card" data-piece><small>Pedidos</small><strong data-count="7">7</strong><em>▲ 2 por enviar</em></div>
+              <div class="kpi card warn" data-piece><small>Stock bajo</small><strong data-count="3">3</strong><em>tallas</em></div>
             </div>
             <div class="d-chart card" data-piece>
               <div class="card-title">Ventas <span>últimos 14 días</span></div>
@@ -494,27 +775,34 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
                 <g stroke="rgba(168,242,250,.07)"><line x1="0" y1="30" x2="300" y2="30"/><line x1="0" y1="65" x2="300" y2="65"/><line x1="0" y1="100" x2="300" y2="100"/></g>
                 <path id="chartArea" d="M0 104 L22 98 L44 102 L66 88 L88 92 L110 76 L132 80 L154 66 L176 70 L198 52 L220 58 L242 40 L264 44 L286 22 L300 18 L300 130 L0 130Z" fill="url(#gArea)"/>
                 <path id="chartLine" d="M0 104 L22 98 L44 102 L66 88 L88 92 L110 76 L132 80 L154 66 L176 70 L198 52 L220 58 L242 40 L264 44 L286 22 L300 18" fill="none" stroke="#00C2D8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-                <circle id="chartDot" cx="300" cy="18" r="4" fill="#D7FA3C"/>
+                <circle id="chartDot" cx="300" cy="18" r="4" fill="#C9A55C"/>
               </svg>
             </div>
             <div class="d-store card" data-piece>
-              <div class="prod"><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M14 22h32l-3 28H17z" fill="#00C2D8" opacity=".9"/><path d="M22 22v-4a8 8 0 0 1 16 0v4" fill="none" stroke="#A8F2FA" stroke-width="3" stroke-linecap="round"/></svg></div>
-              <div class="row"><span>Producto 01</span><b>$24</b></div>
+              <div class="prod">
+                <svg viewBox="0 0 60 60" aria-hidden="true">
+                  <path d="M18 12 L25 9 Q30 14 35 9 L42 12 L52 20 L46 27 L42 24 L42 52 L18 52 L18 24 L14 27 L8 20 Z" fill="#A9CBEA"/>
+                  <path d="M25 9 L30 17 L35 9" fill="none" stroke="#F4F8FC" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M30 17 V52" stroke="#86ABCF" stroke-width="1"/>
+                  <circle cx="30" cy="24" r="1" fill="#F4F8FC"/><circle cx="30" cy="32" r="1" fill="#F4F8FC"/><circle cx="30" cy="40" r="1" fill="#F4F8FC"/>
+                </svg>
+              </div>
+              <div class="row"><span>Camisa Oxford celeste</span><b>$75,00</b></div>
+              <div class="sizes"><span>S</span><span class="on">M</span><span>L</span></div>
               <div class="add">Agregar al carrito</div>
             </div>
             <div class="d-inv card" data-piece>
               <div class="card-title">Inventario <span>en vivo</span></div>
-              <div class="inv-row"><span>Producto 01</span><div class="inv-bar"><i style="width:82%"></i></div><span class="ok">OK</span></div>
-              <div class="inv-row"><span>Producto 02</span><div class="inv-bar"><i style="width:64%"></i></div><span class="ok">OK</span></div>
-              <div class="inv-row"><span>Producto 03</span><div class="inv-bar low"><i style="width:14%"></i></div><span class="lo">Reponer</span></div>
+              <div class="inv-row"><span>Camisa Oxford celeste</span><div class="inv-bar"><i style="width:82%"></i></div><span class="ok">OK</span></div>
+              <div class="inv-row"><span>Camisa de lino rosado</span><div class="inv-bar"><i style="width:60%"></i></div><span class="ok">OK</span></div>
+              <div class="inv-row"><span>Camisa cuadros azul noche</span><div class="inv-bar low"><i style="width:12%"></i></div><span class="lo">Reponer</span></div>
             </div>
           </div>
-          <p class="dash-note">Vista ilustrativa del panel.</p>
+          <p class="dash-note">Vista ilustrativa del panel (cifras de ejemplo).</p>
         </div>
       </div>
     </section>
 
-    <!-- ===== CTA ===== -->
     <section class="section cta" id="contacto">
       <svg class="cta-lines" viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden="true">
         <path d="M-20 640 C 300 600, 420 260, 720 300 S 1180 120, 1460 90" stroke="rgba(0,194,216,.45)"/>
@@ -523,10 +811,145 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
       </svg>
       <h2 class="h-display cta-title" id="ctaTitle" data-hl="On,Top?">¿Listo para estar On Top?</h2>
       <p>Escríbenos por WhatsApp y te contamos cómo podemos ayudarte, sin compromiso.</p>
-      <a class="btn btn-lime" data-wa="Hola On Top 👋, quiero conversar sobre mi negocio.">
+      <a class="btn btn-lime" data-wa-key="home">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
         Hablemos por WhatsApp
       </a>
+    </section>
+  </main>
+
+  <!-- ======================================================
+       INTERFAZ 2 — ASESORÍAS PARA RESTAURANTES
+       ====================================================== -->
+  <main id="v-asesorias" class="view-food" hidden>
+    <section class="va-hero">
+      <div class="va-bg" aria-hidden="true"><canvas id="vaCanvas"></canvas></div>
+      <div class="va-text">
+        <div class="logo va-logo" data-logo></div>
+        <div class="va-tag">Asesorías para restaurantes</div>
+        <span class="va-eyebrow">Rappi · Uber Eats · PedidosYa</span>
+        <h1 class="va-h1" id="vaTitle" data-hl="primero">Que tu restaurante aparezca primero</h1>
+        <p class="va-sub">Subimos tus ventas en las apps de delivery. Ordenamos tu menú, tus precios y tus reseñas para que más gente te encuentre y te pida. Tú cocinas, nosotros hacemos crecer los pedidos.</p>
+        <div class="va-ctas">
+          <a class="btn btn-y" data-wa-key="asesorias">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
+            Pedir diagnóstico
+          </a>
+          <a class="btn btn-line" href="#va-pasos" data-scroll>Cómo trabajamos</a>
+        </div>
+      </div>
+
+      <div class="va-phone-wrap" aria-hidden="true">
+        <div class="phone">
+          <div class="ph-screen">
+            <div class="ph-notch"></div>
+            <div class="ph-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Buscar restaurantes</div>
+            <div class="ph-tabs"><i class="on">Populares</i><i>Cerca de ti</i><i>Promos</i></div>
+            <div class="ph-label">Los más pedidos hoy</div>
+            <div class="ph-list">
+              <div class="ph-item" data-o="0"><span class="ph-thumb" style="background:linear-gradient(135deg,#E9C46A,#C9673A)"></span><span class="ph-info"><b>Pizzería del Centro</b><small>★ 4.5 · 30-40 min</small></span><span class="ph-rank">#1</span></div>
+              <div class="ph-item" data-o="1"><span class="ph-thumb" style="background:linear-gradient(135deg,#8AB17D,#2A5D4E)"></span><span class="ph-info"><b>Bowl &amp; Go</b><small>★ 4.4 · 25-35 min</small></span><span class="ph-rank">#2</span></div>
+              <div class="ph-item" data-o="2"><span class="ph-thumb" style="background:linear-gradient(135deg,#F4A261,#9C4A2A)"></span><span class="ph-info"><b>Burger 24</b><small>★ 4.3 · 20-30 min</small></span><span class="ph-rank">#3</span></div>
+              <div class="ph-item" data-o="3"><span class="ph-thumb" style="background:linear-gradient(135deg,#E76F51,#7A2E1F)"></span><span class="ph-info"><b>Pollo Real</b><small>★ 4.2 · 35-45 min</small></span><span class="ph-rank">#4</span></div>
+              <div class="ph-item ours"><span class="ph-crown">TOP 1</span><span class="ph-thumb" style="background:linear-gradient(135deg,#D4AF4F,#C9673A)"></span><span class="ph-info"><b>Tu restaurante<span class="ph-promo">-20%</span></b><small class="ph-rate">★ 4.1 · 25-35 min</small></span><span class="ph-rank">#5</span></div>
+            </div>
+            <div class="ph-foot"><span>Pedidos de hoy</span><b class="ph-orders">+12</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resultados -->
+    <section class="va-section va-results" id="va-resultados">
+      <div class="va-wrap">
+        <span class="va-eyebrow">Resultados reales</span>
+        <h2 class="va-h2" id="vaResTitle" data-hl="números.">Hablamos con números.</h2>
+        <div class="va-results-grid">
+          <div class="va-card stat-big">
+            <span class="kick">Taco Bell</span>
+            <div class="num">+<span id="vaNum">35</span><sup>%</sup></div>
+            <p>de crecimiento en apps de delivery con <b>Taco Bell</b>.</p>
+            <div class="bars" aria-hidden="true"><i style="height:55%"></i><i style="height:57%"></i><i style="height:54%"></i><i style="height:60%"></i><i style="height:63%"></i><i style="height:66%"></i><i style="height:70%"></i><i style="height:74%"></i></div>
+            <div class="bars-legend"><span>Antes</span><span>Con On Top</span></div>
+          </div>
+          <div class="va-side">
+            <div class="va-card">
+              <span class="status"><span class="pulse-dot"></span>En proceso de cierre</span>
+              <div class="client">Cebiches de la Rumiñahui</div>
+              <p class="small">Estamos cerrando acuerdo para llevar sus ventas en apps al siguiente nivel.</p>
+            </div>
+            <div class="va-card">
+              <span class="kick">Trabajamos en</span>
+              <div class="apps"><span>Rappi</span><span>Uber Eats</span><span>PedidosYa</span></div>
+              <p class="small">Conocemos cómo funcionan las apps por dentro y qué mueve el ranking.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué hacemos -->
+    <section class="va-section va-tickets-sec" id="va-que-hacemos">
+      <div class="va-wrap">
+        <span class="va-eyebrow">Qué hacemos</span>
+        <h2 class="va-h2" id="vaTkTitle" data-hl="cocina.">Tres pedidos que salen de nuestra cocina.</h2>
+        <div class="printer" aria-hidden="true"></div>
+        <div class="tickets">
+          <article class="ticket">
+            <div class="tk-head"><span>COMANDA #01</span><span>ON TOP</span></div>
+            <h3>Menú y fotos</h3>
+            <ul><li>Menú ordenado y fácil de pedir</li><li>Fotos y descripciones que abren el apetito</li><li>Combos pensados para subir el ticket</li></ul>
+            <div class="tk-foot"><span>TOTAL</span><b>Más clics → más pedidos</b></div>
+          </article>
+          <article class="ticket">
+            <div class="tk-head"><span>COMANDA #02</span><span>ON TOP</span></div>
+            <h3>Promociones y precios</h3>
+            <ul><li>Precios competitivos sin regalar tu margen</li><li>Promos que te suben en el ranking</li><li>Calendario de campañas por temporada</li></ul>
+            <div class="tk-foot"><span>TOTAL</span><b>Más ventas, buen margen</b></div>
+          </article>
+          <article class="ticket">
+            <div class="tk-head"><span>COMANDA #03</span><span>ON TOP</span></div>
+            <h3>Respuestas y reseñas</h3>
+            <ul><li>Reseñas respondidas a tiempo y con tu tono</li><li>Cuidamos tu calificación</li><li>Detectamos quejas repetidas y las corregimos</li></ul>
+            <div class="tk-foot"><span>TOTAL</span><b>Clientes que vuelven</b></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo trabajamos -->
+    <section class="va-section va-steps" id="va-pasos">
+      <div class="va-wrap">
+        <span class="va-eyebrow">Cómo trabajamos</span>
+        <h2 class="va-h2" id="vaStTitle" data-hl="pasos.">Del diagnóstico al crecimiento, en 3 pasos.</h2>
+        <div class="route-wrap">
+          <svg class="route-svg" viewBox="0 0 1200 200" aria-hidden="true">
+            <path id="vaRoute" class="route-base" d="M20 140 C 120 30, 160 40, 200 100 S 400 190, 600 100 S 800 10, 1000 100 S 1140 170, 1180 80"/>
+            <path id="vaRouteLive" class="route-live" d="M20 140 C 120 30, 160 40, 200 100 S 400 190, 600 100 S 800 10, 1000 100 S 1140 170, 1180 80"/>
+            <g class="stop" data-x="200"><circle class="halo" r="26"/><circle class="o" r="15"/><text>1</text></g>
+            <g class="stop" data-x="600"><circle class="halo" r="26"/><circle class="o" r="15"/><text>2</text></g>
+            <g class="stop" data-x="1000"><circle class="halo" r="26"/><circle class="o" r="15"/><text>3</text></g>
+            <g id="vaPacket"><rect x="-10" y="-10" width="20" height="20" rx="5" fill="#C9673A"/><rect x="-5" y="-5" width="10" height="10" rx="2" fill="#F6EFE3" opacity=".9"/></g>
+          </svg>
+        </div>
+        <div class="steps">
+          <div class="vline" aria-hidden="true"></div>
+          <div class="step"><span class="sn">PASO 01</span><h3>Revisamos tu perfil</h3><p>Analizamos tu menú, fotos, precios, reseñas y cómo te ve la app hoy.</p></div>
+          <div class="step"><span class="sn">PASO 02</span><h3>Armamos el plan</h3><p>Te decimos qué cambiar primero y lo ejecutamos contigo.</p></div>
+          <div class="step"><span class="sn">PASO 03</span><h3>Medimos y ajustamos</h3><p>Seguimos tus números cada semana y corregimos rápido.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA asesorías -->
+    <section class="va-section va-cta">
+      <h2 class="va-h2" id="vaCtaTitle" data-hl="diagnóstico">Pide tu diagnóstico</h2>
+      <p>Cuéntanos de tu restaurante por WhatsApp y te decimos dónde estás perdiendo ventas en las apps.</p>
+      <a class="btn btn-y" data-wa-key="asesorias">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
+        Pedir diagnóstico por WhatsApp
+      </a>
+      <button class="va-back" data-home>← Volver al inicio</button>
     </section>
   </main>
 
@@ -538,12 +961,13 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
   <button id="toTop" aria-label="Volver arriba">
     <svg class="tt-ring" viewBox="0 0 62 62" aria-hidden="true">
       <circle cx="31" cy="31" r="29" stroke="rgba(168,242,250,.15)"/>
-      <circle class="tt-prog" cx="31" cy="31" r="29" stroke="#D7FA3C" stroke-linecap="round"/>
+      <circle class="tt-prog" cx="31" cy="31" r="29" stroke-linecap="round"/>
     </svg>
     <span class="tt-o"><svg class="tt-arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5V5M5.5 11.2L12 4.6l6.5 6.6" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </button>
 </div>
 
+<canvas id="tfx" aria-hidden="true"></canvas>
 <canvas id="fx" aria-hidden="true"></canvas>
 <div class="cursor-glow" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
@@ -552,10 +976,14 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
 
 <script>
 /* =========================================================
-   2) CONFIGURACIÓN — cambia aquí tu WhatsApp
+   2) CONFIGURACIÓN — cambia aquí tu WhatsApp y los mensajes
    ========================================================= */
 const WHATSAPP_NUMBER = '593999999999';   // ← código de país + número, sin "+" ni espacios
-const WA_DEFAULT_MSG  = 'Hola On Top 👋, quiero más información.';
+const WA_MSGS = {
+  home:      'Hola On Top 👋, quiero más información.',
+  asesorias: 'Hola On Top 👋, tengo un restaurante y quiero un diagnóstico de mis ventas en Rappi, Uber Eats y PedidosYa.',
+  web:       'Hola On Top 👋, quiero cotizar una página o sistema web.'
+};
 
 (() => {
 'use strict';
@@ -573,19 +1001,23 @@ if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger);
 $('#year').textContent = new Date().getFullYear();
 
 /* ---------- WhatsApp ---------- */
-const waLink = (msg) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg || WA_DEFAULT_MSG)}`;
-$$('[data-wa]').forEach(a => { a.href = waLink(a.dataset.wa); a.target = '_blank'; a.rel = 'noopener'; });
+const waLink = (key) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WA_MSGS[key] || WA_MSGS.home)}`;
+function updateWA(view) {
+  $$('[data-wa-key]').forEach(a => { a.href = waLink(a.dataset.waKey); a.target = '_blank'; a.rel = 'noopener'; });
+  const nav = $('#navWa'); nav.href = waLink(view === 'home' ? 'home' : view);
+}
+updateWA('home');
 
-/* ---------- Logo ON TOP (se arma en todos los [data-logo]) ---------- */
+/* ---------- Logo ON TOP (la flecha va en la O de "ON") ---------- */
 const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5V5M5.5 11.2L12 4.6l6.5 6.6" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const LOGO_HTML = '<span class="ch">O</span><span class="ch">N</span><span class="sp"></span><span class="ch">T</span><span class="ch logo-o"><span class="arr">' + ARROW + '</span></span><span class="ch">P</span>';
+const LOGO_HTML = '<span class="ch logo-o"><span class="arr">' + ARROW + '</span></span><span class="ch">N</span><span class="sp"></span><span class="ch">T</span><span class="ch">O</span><span class="ch">P</span>';
 $$('[data-logo]').forEach(el => {
   el.innerHTML = LOGO_HTML;
   if (!el.hasAttribute('aria-label')) { el.setAttribute('role', 'img'); el.setAttribute('aria-label', 'On Top'); }
   $$('.ch, .sp', el).forEach(c => c.setAttribute('aria-hidden', 'true'));
 });
 
-/* ---------- Partir texto en letras ---------- */
+/* ---------- Utilidades de texto ---------- */
 function splitChars(el) {
   if (!el) return [];
   if (el.dataset.split) return $$('.c', el);
@@ -606,13 +1038,21 @@ function splitChars(el) {
   el.dataset.split = '1';
   return $$('.c', el);
 }
+function scramble(el) {
+  const final = el.dataset.text || (el.dataset.text = el.textContent);
+  el.setAttribute('aria-label', final);
+  const glyphs = '{}<>/=;01#*$';
+  let f = 0; const total = 20;
+  const iv = setInterval(() => {
+    f++;
+    el.textContent = [...final].map((ch, i) => ch === ' ' ? ' ' : (i < final.length * f / total ? ch : glyphs[(Math.random() * glyphs.length) | 0])).join('');
+    if (f >= total) { clearInterval(iv); el.textContent = final; }
+  }, 34);
+}
 
 /* ---------- Toast ---------- */
 const toastEl = $('.toast'); let toastT;
-function toast(html) {
-  toastEl.innerHTML = html; toastEl.classList.add('show');
-  clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 3200);
-}
+function toast(html) { toastEl.innerHTML = html; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 3200); }
 
 /* =========================================================
    FX: canvas global para estelas, chispas, ondas y portal
@@ -636,14 +1076,12 @@ const FX = (() => {
       spark(x, y, { vx: Math.cos(a) * s, vy: Math.sin(a) * s, c, max: 40 + Math.random() * 40, r: 1 + Math.random() * 2.6 }); }
   }
   function ring(x, y, o = {}) { if (REDUCED) return; rings.push({ x, y, r0: o.r0 || 10, r1: o.r1 || 200, life: 0, max: o.max || 40, c: o.c || '168,242,250', w: o.w || 2 }); kick(); }
-  function startTrail(get) { trail.pts.length = 0; trail.on = true; trail.get = get; kick(); }
+  function startTrail(get, color) { trail.pts.length = 0; trail.on = true; trail.get = get; trail.c = color || ['0,194,216', '227,251,254']; kick(); }
   function stopTrail() { trail.on = false; }
   function setPortal(p) { portal = p; if (p) kick(); }
-
   function loop() {
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'lighter';
-    // Estela de la flecha
     if (trail.on && trail.get) {
       const p = trail.get();
       if (p && p.y > -60) {
@@ -657,25 +1095,22 @@ const FX = (() => {
     ctx.lineCap = 'round';
     for (let i = 1; i < trail.pts.length; i++) {
       const a = trail.pts[i - 1], b = trail.pts[i], al = Math.max(b.a, 0);
-      ctx.strokeStyle = `rgba(0,194,216,${al * .35})`; ctx.lineWidth = 22 * al;
+      ctx.strokeStyle = `rgba(${trail.c[0]},${al * .35})`; ctx.lineWidth = 22 * al;
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      ctx.strokeStyle = `rgba(227,251,254,${al * .95})`; ctx.lineWidth = 4.5 * al;
+      ctx.strokeStyle = `rgba(${trail.c[1]},${al * .95})`; ctx.lineWidth = 4.5 * al;
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
     }
-    // Chispas
     for (let i = parts.length - 1; i >= 0; i--) {
       const p = parts[i]; p.life++; p.vx *= p.drag; p.vy = p.vy * p.drag + p.g; p.x += p.vx; p.y += p.vy;
       const t = 1 - p.life / p.max; if (t <= 0) { parts.splice(i, 1); continue; }
       ctx.fillStyle = `rgba(${p.c},${t})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (.4 + t * .6), 0, 6.283); ctx.fill();
     }
-    // Ondas expansivas
     for (let i = rings.length - 1; i >= 0; i--) {
       const r = rings[i]; r.life++; const t = r.life / r.max; if (t >= 1) { rings.splice(i, 1); continue; }
       const e = 1 - Math.pow(1 - t, 3), rad = r.r0 + (r.r1 - r.r0) * e;
       ctx.strokeStyle = `rgba(${r.c},${(1 - t) * .9})`; ctx.lineWidth = r.w * (1 - t) + .5;
       ctx.beginPath(); ctx.arc(r.x, r.y, rad, 0, 6.283); ctx.stroke();
     }
-    // Borde de neón del portal
     if (portal) {
       const { x, y, r } = portal;
       [[40, .07, '0,194,216'], [20, .14, '0,194,216'], [9, .32, '168,242,250'], [2.5, .95, '227,251,254']].forEach(([w, al, c]) => {
@@ -690,18 +1125,136 @@ const FX = (() => {
 })();
 
 /* =========================================================
-   Partículas del fondo del inicio (suben, como "On Top")
+   RouteFX: transición "delivery" — pedidos que viajan por
+   rutas curvas desde el clic y arman la nueva interfaz
    ========================================================= */
-function initHeroParticles() {
-  const cv = $('#heroCanvas'), hero = $('.hero'); if (!cv) return;
+const RouteFX = (() => {
+  const cv = $('#tfx'), ctx = cv.getContext('2d');
+  let W = 0, H = 0;
+  const size = () => { W = innerWidth; H = innerHeight; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0); };
+  const easeIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const expoIO = t => t <= 0 ? 0 : t >= 1 ? 1 : t < .5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2;
+  const bez = (a, b, c, d, t) => { const u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d; };
+  const pt = (c, t) => [bez(c[0], c[2], c[4], c[6], t), bez(c[1], c[3], c[5], c[7], t)];
+  function curve(x0, y0, x1, y1, bend) {
+    const dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy) || 1, nx = -dy / len, ny = dx / len;
+    const b1 = (Math.random() - .5) * bend * len, b2 = (Math.random() - .5) * bend * len;
+    return [x0, y0, x0 + dx * .3 + nx * b1, y0 + dy * .3 + ny * b1, x0 + dx * .7 + nx * b2, y0 + dy * .7 + ny * b2, x1, y1];
+  }
+  function drawCurve(c, e, col, a) {
+    const n = 18; ctx.strokeStyle = `rgba(${col},${a})`; ctx.beginPath();
+    ctx.moveTo(c[0], c[1]);
+    for (let i = 1; i <= n; i++) { const p = pt(c, e * i / n); ctx.lineTo(p[0], p[1]); }
+    ctx.stroke();
+  }
+  function drawPacket(x, y, ang, p) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+    const s = p.size;
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = `rgba(${p.col},.22)`; ctx.beginPath(); ctx.arc(0, 0, s * 2.2, 0, 6.283); ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = `rgb(${p.col})`;
+    if (p.dot) { ctx.beginPath(); ctx.arc(0, 0, s * .7, 0, 6.283); ctx.fill(); }
+    else if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(-s, -s * .8, s * 2, s * 1.6, 2.5); ctx.fill(); }
+    else ctx.fillRect(-s, -s * .8, s * 2, s * 1.6);
+    ctx.restore();
+  }
+
+  function play(x, y, o) {
+    size(); cv.style.display = 'block';
+    const R = Math.hypot(Math.max(x, W - x), Math.max(y, H - y)) + 30;
+    const N = o.count || (IS_TOUCH ? 34 : 64);
+    const TA = o.coverAt || 1.0;
+    const ps = [];
+    for (let i = 0; i < N; i++) {
+      const wx = W * (.05 + Math.random() * .9), wy = H * (.08 + Math.random() * .84);
+      ps.push({ c: curve(x, y, wx, wy, .9), d: .5 + Math.random() * .45, delay: Math.random() * .3, c2: null, d2: 0, delay2: 0,
+        col: o.colors[i % o.colors.length], size: 3 + Math.random() * 3.5, dot: Math.random() < .35, arrived: false, ti: -1 });
+    }
+    const t0 = performance.now();
+    let covered = false, tCovered = 0, veilA = 1, lineA = 1, done = false;
+    const arrivedSet = new Set();
+    function end() {
+      if (done) return; done = true;
+      cv.style.display = 'none'; ctx.clearRect(0, 0, W, H);
+      if (!covered && o.onCovered) o.onCovered();
+      o.onDone && o.onDone();
+    }
+    setTimeout(end, 5000); // seguro
+
+    function frame(now) {
+      if (done) return;
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, W, H);
+      // velo que se expande desde el clic
+      const vr = R * expoIO(Math.min(t / (TA - .04), 1));
+      if (covered) veilA = Math.max(0, 1 - (t - tCovered - .1) / .22);
+      if (veilA > 0) {
+        ctx.globalAlpha = veilA; ctx.fillStyle = o.veil;
+        ctx.beginPath(); ctx.arc(x, y, vr, 0, 6.283); ctx.fill(); ctx.globalAlpha = 1;
+        if (!covered) { ctx.strokeStyle = o.rim; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(x, y, vr, 0, 6.283); ctx.stroke(); }
+      }
+      // cuando el velo cubre todo: cambiamos de interfaz y redirigimos los pedidos
+      if (!covered && t >= TA) {
+        covered = true; tCovered = t;
+        const targets = o.onCovered ? o.onCovered() : null;
+        ps.forEach((p, i) => {
+          const pos = pt(p.c, 1); let tx, ty;
+          if (targets && targets.length) { p.ti = i % targets.length; tx = targets[p.ti].x + (Math.random() - .5) * 10; ty = targets[p.ti].y + (Math.random() - .5) * 10; }
+          else { const a = Math.random() * 6.283; tx = pos[0] + Math.cos(a) * 260; ty = pos[1] + Math.sin(a) * 260; }
+          p.c2 = curve(pos[0], pos[1], tx, ty, .75); p.d2 = .55 + Math.random() * .5; p.delay2 = Math.random() * .35;
+        });
+      }
+      if (covered && t > tCovered + .85) lineA = Math.max(0, 1 - (t - tCovered - .85) / .6);
+
+      ctx.setLineDash([3, 6]); ctx.lineWidth = 1.1;
+      let alive = 0;
+      for (const p of ps) {
+        const ta = Math.min(Math.max((t - p.delay) / p.d, 0), 1), ea = easeIO(ta);
+        if (lineA > 0 && ea > 0) drawCurve(p.c, ea, p.col, .3 * lineA);
+        let hx, hy, hc, he;
+        if (!p.c2) { [hx, hy] = pt(p.c, ea); hc = p.c; he = ea; alive++; if (ta <= 0) continue; }
+        else {
+          const tb = Math.min(Math.max((t - tCovered - p.delay2) / p.d2, 0), 1), eb = easeIO(tb);
+          if (lineA > 0 && eb > 0) drawCurve(p.c2, eb, p.col, .24 * lineA);
+          [hx, hy] = pt(p.c2, eb); hc = p.c2; he = eb;
+          if (tb >= 1) {
+            if (!p.arrived) {
+              p.arrived = true;
+              if (p.ti >= 0 && !arrivedSet.has(p.ti)) { arrivedSet.add(p.ti); o.onArrive && o.onArrive(p.ti, hx, hy); }
+            }
+            continue;
+          }
+          alive++;
+        }
+        ctx.setLineDash([]);
+        const back = pt(hc, Math.max(he - .02, 0));
+        drawPacket(hx, hy, Math.atan2(hy - back[1], hx - back[0]), p);
+        ctx.setLineDash([3, 6]);
+      }
+      ctx.setLineDash([]);
+      if (covered && alive === 0 && veilA <= 0 && lineA <= 0) { end(); return; }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  return { play };
+})();
+
+/* =========================================================
+   Partículas que suben (fondo del inicio y brasas de cocina)
+   ========================================================= */
+function risingParticles(cv, section, colors, opt = {}) {
+  if (!cv) return;
   const ctx = cv.getContext('2d');
-  const COLORS = ['0,194,216', '168,242,250', '215,250,60'];
-  let W = 0, H = 0, ps = [], raf = 0, visible = true;
+  let W = 0, H = 0, ps = [], raf = 0;
   const mouse = { x: -9999, y: -9999 };
-  const mk = (init) => ({ x: Math.random() * W, y: init ? Math.random() * H : H + 10, vy: -(.15 + Math.random() * .55), vx: (Math.random() - .5) * .15,
-    r: .6 + Math.random() * 1.8, c: COLORS[Math.random() < .12 ? 2 : (Math.random() < .5 ? 0 : 1)], tw: Math.random() * 6.28, ox: 0, oy: 0 });
+  const mk = (init) => ({ x: Math.random() * W, y: init ? Math.random() * H : H + 10,
+    vy: -(.15 + Math.random() * (opt.embers ? .9 : .55)), vx: (Math.random() - .5) * .15,
+    r: .6 + Math.random() * (opt.embers ? 2.2 : 1.8), c: colors[(Math.random() * colors.length) | 0],
+    tw: Math.random() * 6.28, wob: Math.random() * 6.28, ox: 0, oy: 0 });
   function resize() {
-    const r = cv.getBoundingClientRect(); W = r.width; H = r.height;
+    const r = cv.getBoundingClientRect(); W = r.width; H = r.height; if (!W || !H) return;
     cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     const n = Math.round(Math.min(IS_TOUCH ? 40 : 110, (W * H) / (IS_TOUCH ? 16000 : 12000)));
     ps = Array.from({ length: n }, () => mk(true));
@@ -710,13 +1263,14 @@ function initHeroParticles() {
     ctx.clearRect(0, 0, W, H);
     for (const p of ps) {
       if (move) {
-        p.y += p.vy; p.x += p.vx; p.tw += .03;
+        p.y += p.vy; p.wob += .02; p.x += p.vx + (opt.embers ? Math.sin(p.wob) * .3 : 0); p.tw += .03;
         const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
         if (d2 < 16900) { const d = Math.sqrt(d2) || 1, f = (130 - d) / 130; p.ox += (dx / d) * f * 2.4; p.oy += (dy / d) * f * 2.4; }
         p.ox *= .92; p.oy *= .92;
         if (p.y < -10) Object.assign(p, mk(false));
       }
-      ctx.fillStyle = `rgba(${p.c},${.35 + Math.sin(p.tw) * .3})`;
+      const fade = opt.embers ? Math.min(1, p.y / (H * .6)) : 1;
+      ctx.fillStyle = `rgba(${p.c},${(.35 + Math.sin(p.tw) * .3) * fade})`;
       ctx.beginPath(); ctx.arc(p.x + p.ox, p.y + p.oy, p.r, 0, 6.283); ctx.fill();
     }
   }
@@ -726,25 +1280,100 @@ function initHeroParticles() {
   if (REDUCED) { draw(false); return; }
   addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; }, { passive: true });
   new IntersectionObserver(([en]) => {
-    visible = en.isIntersecting;
-    if (visible && !raf) raf = requestAnimationFrame(frame);
-    if (!visible && raf) { cancelAnimationFrame(raf); raf = 0; }
-  }).observe(hero);
+    if (en.isIntersecting) { if (!W) resize(); if (!raf) raf = requestAnimationFrame(frame); }
+    else if (raf) { cancelAnimationFrame(raf); raf = 0; }
+  }).observe(section);
 }
 
 /* =========================================================
-   Puertas: inclinación 3D, brillo que sigue al mouse y chispas
+   Navegación entre interfaces (inicio ⇄ asesorías ⇄ web)
    ========================================================= */
-const VIEWS = {}; // ← Etapas 2 y 3 registran aquí sus interfaces: VIEWS.asesorias / VIEWS.web
+const homeEl = $('#home');
+const VIEW_EL = { home: homeEl, asesorias: $('#v-asesorias') };
+const built = {};
+let current = 'home', busy = false;
+const stOf = (el) => HAS_GSAP ? ScrollTrigger.getAll().filter(st => st.trigger && el.contains(st.trigger)) : [];
+
+function swapTo(name) {
+  const fromEl = VIEW_EL[current], toEl = VIEW_EL[name];
+  stOf(fromEl).forEach(st => st.disable());
+  fromEl.hidden = true; toEl.hidden = false;
+  document.body.dataset.view = name; current = name;
+  updateWA(name);
+  window.scrollTo(0, 0);
+  if (BUILD[name] && !built[name]) { built[name] = true; BUILD[name](); }
+  stOf(toEl).forEach(st => st.enable());
+  if (HAS_GSAP) ScrollTrigger.refresh();
+}
+
+const VIEWS = {
+  asesorias: {
+    enter(x, y, fromPop) {
+      if (busy || current === 'asesorias') return;
+      busy = true;
+      if (!fromPop) history.pushState({ v: 'asesorias' }, '', '#asesorias');
+      if (!HAS_GSAP || REDUCED) { swapTo('asesorias'); busy = false; return; }
+      let chars = [];
+      RouteFX.play(x, y, {
+        veil: '#0C0A08', rim: 'rgba(212,175,79,.7)',
+        colors: ['212,175,79', '201,103,58', '246,239,227', '224,138,85'],
+        onCovered: () => {
+          swapTo('asesorias');
+          chars = $$('#v-asesorias .va-logo .ch');
+          gsap.set(chars, { autoAlpha: 0, scale: 0 });
+          gsap.set('#v-asesorias .va-logo .arr', { y: 20, autoAlpha: 0 });
+          if (FOOD.heroIn) FOOD.heroIn.pause(0);
+          setTimeout(() => FOOD.heroIn && FOOD.heroIn.play(), 650);
+          return chars.map(c => { const r = c.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+        },
+        onArrive: (i, hx, hy) => {
+          const c = chars[i]; if (!c) return;
+          gsap.to(c, { autoAlpha: 1, scale: 1, duration: .6, ease: 'back.out(3)' });
+          if (c.classList.contains('logo-o')) gsap.to('#v-asesorias .va-logo .arr', { y: 0, autoAlpha: 1, duration: .5, delay: .25, ease: 'back.out(2.5)' });
+          FX.burst(hx, hy, 14, i % 2 ? '212,175,79' : '201,103,58', 3.5);
+        },
+        onDone: () => { gsap.set(chars, { autoAlpha: 1, scale: 1 }); gsap.set('#v-asesorias .va-logo .arr', { y: 0, autoAlpha: 1 }); busy = false; }
+      });
+    }
+  }
+};
+
+function goHome(x, y, fromPop) {
+  if (busy || current === 'home') return;
+  busy = true;
+  if (!fromPop) history.pushState({ v: 'home' }, '', location.pathname + location.search);
+  if (!HAS_GSAP || REDUCED) { swapTo('home'); busy = false; return; }
+  RouteFX.play(x, y, {
+    veil: '#020B13', rim: 'rgba(0,194,216,.75)', count: IS_TOUCH ? 22 : 36, coverAt: .85,
+    colors: ['0,194,216', '168,242,250', '215,250,60'],
+    onCovered: () => { swapTo('home'); if (heroIn) heroIn.restart(); return null; },
+    onDone: () => { busy = false; }
+  });
+}
+
 function enterView(name, x, y, acc) {
   if (VIEWS[name]) return VIEWS[name].enter(x, y);
   FX.burst(x, y, 70, acc, 7);
   FX.ring(x, y, { r1: Math.max(innerWidth, innerHeight) * .55, max: 50, c: acc, w: 3 });
-  toast(name === 'asesorias'
-    ? 'Etapa 2 en camino: aquí arranca la transición de <b>Asesorías</b>.'
-    : 'Etapa 3 en camino: aquí arranca la transición de <b>Páginas web</b>.');
+  toast('Etapa 3 en camino: aquí arranca la transición de <b>Páginas web</b>.');
 }
 
+addEventListener('popstate', (e) => {
+  const v = (e.state && e.state.v) || (location.hash === '#asesorias' ? 'asesorias' : 'home');
+  if (v === current) return;
+  if (busy) return;
+  if (v === 'home') goHome(innerWidth / 2, innerHeight / 2, true);
+  else if (VIEWS[v]) VIEWS[v].enter(innerWidth / 2, innerHeight / 2, true);
+});
+
+$$('[data-home]').forEach(b => b.addEventListener('click', (e) => {
+  const r = b.getBoundingClientRect();
+  goHome(e.clientX || r.left + r.width / 2, e.clientY || r.top + r.height / 2);
+}));
+
+/* =========================================================
+   Puertas: inclinación 3D, brillo y chispas
+   ========================================================= */
 function initDoors() {
   $$('.door').forEach(door => {
     const acc = getComputedStyle(door).getPropertyValue('--acc-rgb').trim() || '0,194,216';
@@ -768,37 +1397,38 @@ function initDoors() {
     door.addEventListener('click', e => {
       e.preventDefault();
       const r = door.getBoundingClientRect();
-      const x = e.clientX || r.left + r.width / 2, y = e.clientY || r.top + r.height / 2;
-      enterView(door.dataset.go, x, y, acc);
+      enterView(door.dataset.go, e.clientX || r.left + r.width / 2, e.clientY || r.top + r.height / 2, acc);
     });
   });
+  // brillo en las tarjetas del bento
+  if (!IS_TOUCH) $$('.tile').forEach(t => t.addEventListener('pointermove', e => {
+    const r = t.getBoundingClientRect();
+    t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
 }
 
-/* Mini terminal que escribe código en la puerta 2 */
 function initTyper() {
   const el = $('#typer'); if (!el) return;
   const lines = [
     '<span class="k">const</span> ventas = <span class="k">await</span> tienda.vender();',
     '<span class="k">if</span> (stock &lt; 5) avisar(<span class="s">"reponer"</span>);',
-    'panel.actualizar({ hoy: ventas });',
+    'pedido.estado = <span class="s">"en camino"</span>;',
     'chatbot.responder(cliente); <span class="m">// 24/7</span>'
   ];
   if (REDUCED) { el.innerHTML = lines.join('\n'); return; }
-  // Escribe usando el texto plano y luego pinta con colores
   const plain = lines.map(l => l.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<'));
   let li = 0, ci = 0, done = [];
   (function tick() {
     if (li >= lines.length) { setTimeout(() => { li = 0; ci = 0; done = []; tick(); }, 2400); return; }
     ci++;
-    const cur = plain[li].slice(0, ci).replace(/</g, '&lt;');
-    el.innerHTML = done.concat(cur).join('\n');
+    el.innerHTML = done.concat(plain[li].slice(0, ci).replace(/</g, '&lt;')).join('\n');
     if (ci >= plain[li].length) { done.push(lines[li]); li++; ci = 0; setTimeout(tick, 420); }
     else setTimeout(tick, 34 + Math.random() * 40);
   })();
 }
 
 /* =========================================================
-   Volver arriba + barra de progreso + navegación
+   Volver arriba + barra de progreso + anclas
    ========================================================= */
 function initChrome() {
   const btn = $('#toTop'), prog = $('#toTop .tt-prog'), arr = $('#toTop .tt-arr'), bar = $('.progress-bar'), nav = $('.nav');
@@ -820,38 +1450,37 @@ function initChrome() {
         .to(arr, { y: -110, scaleY: 1.3, autoAlpha: 0, duration: .4, ease: 'expo.in' })
         .set(arr, { y: 30, scaleY: 1 })
         .to(arr, { y: 0, autoAlpha: 1, duration: .6, ease: 'back.out(2)' }, '+=.35');
-      const cx = r.left + r.width / 2;
       FX.startTrail(() => { const a = arr.getBoundingClientRect(); return { x: a.left + a.width / 2, y: a.top + a.height }; });
       setTimeout(FX.stopTrail, 520);
-      FX.ring(cx, r.top + r.height / 2, { r0: 30, r1: 110, max: 30 });
+      FX.ring(r.left + r.width / 2, r.top + r.height / 2, { r0: 30, r1: 110, max: 30 });
     }
     scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
   });
 
   $$('[data-scroll]').forEach(a => a.addEventListener('click', e => {
-    const id = a.getAttribute('href'); const t = id && $(id); if (!t) return;
+    const id = a.getAttribute('href'); if (!id || id[0] !== '#') return;
+    if (id === '#top') { e.preventDefault(); if (current !== 'home') { const r = a.getBoundingClientRect(); goHome(r.left + r.width / 2, r.top + r.height / 2); } else scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' }); return; }
+    const t = $(id); if (!t) return;
     e.preventDefault();
-    const y = id === '#top' ? 0 : t.getBoundingClientRect().top + scrollY - 10;
-    scrollTo({ top: y, behavior: REDUCED ? 'auto' : 'smooth' });
+    scrollTo({ top: t.getBoundingClientRect().top + scrollY - 10, behavior: REDUCED ? 'auto' : 'smooth' });
   }));
 
-  // Brillo que sigue al cursor (solo escritorio)
   if (HAS_GSAP && !IS_TOUCH && !REDUCED) {
     const g = $('.cursor-glow');
     const gx = gsap.quickTo(g, 'x', { duration: .7, ease: 'power3' }), gy = gsap.quickTo(g, 'y', { duration: .7, ease: 'power3' });
-    addEventListener('pointermove', e => { g.style.opacity = 1; gx(e.clientX); gy(e.clientY); }, { passive: true });
+    addEventListener('pointermove', e => { g.classList.add('on'); gx(e.clientX); gy(e.clientY); }, { passive: true });
   }
 }
 
 /* =========================================================
-   Entrada del inicio (después del portal)
+   Entrada del inicio
    ========================================================= */
 let heroIn = null;
 function buildHeroIn() {
   if (!HAS_GSAP || REDUCED) return null;
   return gsap.timeline({ paused: true })
     .from('.hero-mark .logo .ch', { yPercent: 115, autoAlpha: 0, duration: 1, stagger: .06, ease: 'expo.out' })
-    .from('.hero-mark .logo-o .arr', { y: 40, autoAlpha: 0, duration: .7, ease: 'back.out(2.2)' }, .4)
+    .from('.hero-mark .logo-o .arr', { y: 40, autoAlpha: 0, duration: .7, ease: 'back.out(2.2)' }, .3)
     .from('.tagline', { autoAlpha: 0, letterSpacing: '1em', duration: 1.2, ease: 'expo.out' }, .2)
     .from('.hero-sub', { autoAlpha: 0, y: 20, duration: .8, ease: 'power3.out' }, .45)
     .from('.door', { y: 100, rotationX: -30, autoAlpha: 0, transformPerspective: 1100, duration: 1.15, stagger: .12, ease: 'expo.out' }, .4)
@@ -860,8 +1489,9 @@ function buildHeroIn() {
 }
 
 /* =========================================================
-   INTRO: logo → flecha se dispara → portal turquesa → inicio
+   INTRO
    ========================================================= */
+let pendingView = null;
 function runIntro() {
   const intro = $('#intro'), app = $('#app'), disc = $('#portalDisc');
   let finished = false, tl = null, cx = innerWidth / 2, cy = innerHeight / 2, d = 80, R = 1000;
@@ -876,13 +1506,14 @@ function runIntro() {
     intro.remove(); disc.remove();
     if (heroIn && !heroIn.isActive() && heroIn.progress() === 0) heroIn.play();
     if (HAS_GSAP) ScrollTrigger.refresh();
+    if (pendingView && VIEWS[pendingView]) { const v = pendingView; pendingView = null; setTimeout(() => VIEWS[v].enter(innerWidth / 2, innerHeight / 2, false), REDUCED ? 0 : 500); }
   }
 
   if (!HAS_GSAP || REDUCED) {
     if (HAS_GSAP) {
       ROOT.classList.remove('intro-on');
-      gsap.to(intro, { autoAlpha: 0, duration: .5, delay: .3, onComplete: finish });
       gsap.set(intro.querySelector('.logo'), { visibility: 'visible' });
+      gsap.to(intro, { autoAlpha: 0, duration: .5, delay: .3, onComplete: finish });
     } else finish();
     return;
   }
@@ -918,18 +1549,15 @@ function runIntro() {
 
     tl = gsap.timeline({ onComplete: finish });
     tl.from(chars, { yPercent: 120, autoAlpha: 0, duration: .8, stagger: .07, ease: 'expo.out' }, .1)
-      .from(O, { scale: 0, rotation: -140, duration: .9, ease: 'back.out(1.8)' }, .3)
-      .from(arr, { y: 24, autoAlpha: 0, duration: .5, ease: 'power3.out' }, .75)
-      // la flecha se agacha… y se dispara
+      .from(O, { scale: 0, rotation: -140, duration: .9, ease: 'back.out(1.8)' }, .1)
+      .from(arr, { y: 24, autoAlpha: 0, duration: .5, ease: 'power3.out' }, .6)
       .to(arr, { y: 7, scaleY: .78, duration: .22, ease: 'power2.in' }, 1.15)
       .add(() => { FX.startTrail(getArrow); FX.ring(cx, cy, { r0: d * .5, r1: d * 1.8, max: 30, w: 2 }); }, 1.37)
       .to(arr, { y: () => -(cy + d * 2), scaleY: 1.4, duration: .55, ease: 'expo.in' }, 1.37)
       .to(hint, { autoAlpha: 0, duration: .3 }, 1.4)
       .add(() => FX.stopTrail(), 1.95)
-      // las letras se disuelven, la O se carga
       .to(chars, { autoAlpha: 0, y: -14, filter: 'blur(8px)', duration: .45, stagger: .03, ease: 'power2.in' }, 1.82)
       .to(O, { scale: 1.18, duration: .25, ease: 'power2.out' }, 1.88)
-      // el círculo se abre como portal
       .set(disc, { visibility: 'visible' }, 2.12).set(O, { autoAlpha: 0 }, 2.12)
       .add(() => FX.ring(cx, cy, { r0: d * .6, r1: R, max: 55, c: '215,250,60', w: 3 }), 2.15)
       .to(disc, { scale: () => (R * 2.25) / d, duration: 1.05, ease: 'expo.inOut' }, 2.12)
@@ -937,7 +1565,6 @@ function runIntro() {
       .add(() => { if (heroIn) heroIn.play(); }, 2.75);
   };
 
-  // Esperar tipografías para medir bien la O
   let started = false;
   const go = () => { if (!started) { started = true; requestAnimationFrame(start); } };
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
@@ -945,29 +1572,26 @@ function runIntro() {
 }
 
 /* =========================================================
-   SCROLL: cada sección con su propia animación
+   SCROLL del INICIO
    ========================================================= */
 function initScroll() {
   if (!HAS_GSAP) return;
-
   const metodoChars = splitChars($('#metodoTitle'));
   splitChars($('#brunelTitle'));
+  const sisChars = splitChars($('#sisTitle'));
   const ctaChars = splitChars($('#ctaTitle'));
   const count = $('#count'), ringWrap = $('.ring-wrap'), arc1 = $('.arc1'), arc2 = $('.arc2');
   const C1 = 2 * Math.PI * 150, C2 = 2 * Math.PI * 174;
   const line = $('#chartLine'), lineLen = line.getTotalLength();
-  const kpis = $$('[data-count]');
+  const kpis = $$('#brunel [data-count]');
   const setCount = (v) => { count.textContent = Math.round(v); ringWrap.classList.toggle('over', v > 100.5); };
 
-  const mm = gsap.matchMedia();
-  mm.add({
+  gsap.matchMedia().add({
     desk: '(min-width: 981px) and (prefers-reduced-motion: no-preference)',
     mob: '(max-width: 980px) and (prefers-reduced-motion: no-preference)',
     red: '(prefers-reduced-motion: reduce)'
   }, (ctx) => {
     const { desk, red } = ctx.conditions;
-
-    /* --- Movimiento reducido: todo en su estado final, sin animaciones fuertes --- */
     if (red) {
       setCount(110);
       gsap.set(arc1, { strokeDasharray: C1, strokeDashoffset: 0 });
@@ -976,27 +1600,24 @@ function initScroll() {
       $$('.smil').forEach(s => s.remove());
       return;
     }
-
     setCount(0);
+    kpis.forEach(k => k.textContent = '0');
 
-    /* 1) INICIO: al bajar, el logo se aleja y se desenfoca; parallax en fondo y puertas */
+    // 1) Inicio
     gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
       .to('.hero-mark', { scale: .8, yPercent: -45, autoAlpha: 0, filter: 'blur(10px)', ease: 'none' }, 0)
       .to('.hero-bg', { yPercent: 22, ease: 'none' }, 0)
       .to('.hero-sub', { y: -60, autoAlpha: 0, ease: 'none' }, 0)
       .to('.doors', { y: -90, ease: 'none' }, 0);
 
-    /* 2) 110%: contador + anillo que se pasa del 100% + título letra por letra */
+    // 2) 110%
     gsap.set(arc1, { strokeDasharray: C1, strokeDashoffset: C1 });
     gsap.set(arc2, { strokeDasharray: C2, strokeDashoffset: C2 });
     const v = { n: 0 };
-    const mt = gsap.timeline({
-      defaults: { ease: 'none' },
-      scrollTrigger: desk
-        ? { trigger: '.metodo', start: 'top top', end: '+=220%', pin: true, scrub: .8 }
-        : { trigger: '.metodo', start: 'top 75%', end: 'bottom 75%', scrub: .8 }
-    });
-    mt.to(v, { n: 100, duration: 5, onUpdate: () => setCount(v.n) }, 0)
+    gsap.timeline({ defaults: { ease: 'none' },
+      scrollTrigger: desk ? { trigger: '.metodo', start: 'top top', end: '+=220%', pin: true, scrub: .8 }
+                          : { trigger: '.metodo', start: 'top 75%', end: 'bottom 75%', scrub: .8 } })
+      .to(v, { n: 100, duration: 5, onUpdate: () => setCount(v.n) }, 0)
       .to(arc1, { strokeDashoffset: 0, duration: 5 }, 0)
       .fromTo(metodoChars, { autoAlpha: .07, yPercent: 45, rotation: 10 }, { autoAlpha: 1, yPercent: 0, rotation: 0, stagger: .085, duration: .6, ease: 'power2.out' }, 0)
       .from('.metodo .lead', { autoAlpha: 0, y: 30, duration: 1 }, 3)
@@ -1006,32 +1627,34 @@ function initScroll() {
       .fromTo('.ring', { scale: 1 }, { scale: 1.06, duration: .5, ease: 'power2.out', yoyo: true, repeat: 1 }, 5.6)
       .to({}, { duration: .8 });
 
-    /* 3) Marquesina: se mueve con el scroll y se inclina según la velocidad */
+    // 3) Marquesina
     const skew = gsap.quickTo('.mq-row', 'skewX', { duration: .4, ease: 'power3' });
     gsap.timeline({ scrollTrigger: { trigger: '.marquee', start: 'top bottom', end: 'bottom top', scrub: true,
       onUpdate: (self) => skew(gsap.utils.clamp(-12, 12, self.getVelocity() / -250)) } })
       .fromTo('.r1 .mq-track', { xPercent: 0 }, { xPercent: -28, ease: 'none' }, 0)
       .fromTo('.r2 .mq-track', { xPercent: -28 }, { xPercent: 0, ease: 'none' }, 0);
 
-    /* 4) Brunel: el panel llega desarmado y se reconstruye pieza por pieza */
+    // 4) Sistemas: tarjetas que se levantan en 3D + títulos que se decodifican
+    gsap.from(sisChars, { autoAlpha: 0, yPercent: 80, rotationX: -90, stagger: .02, ease: 'power2.out',
+      scrollTrigger: { trigger: '.sistemas', start: 'top 80%', end: 'top 35%', scrub: 1 } });
+    gsap.from('.tile', { rotationX: -75, y: 90, autoAlpha: 0, transformOrigin: '50% 100%', stagger: .12, ease: 'power2.out',
+      scrollTrigger: { trigger: '.bento', start: 'top 88%', end: 'bottom 80%', scrub: 1 } });
+    $$('.tile [data-scramble]').forEach(h => ScrollTrigger.create({ trigger: h, start: 'top 80%', once: true, onEnter: () => scramble(h) }));
+
+    // 5) Brunel: el panel se reconstruye
     const sc = desk ? 420 : 160;
     gsap.set(line, { strokeDasharray: lineLen, strokeDashoffset: lineLen });
-    const bt = gsap.timeline({
-      defaults: { ease: 'power2.out' },
-      scrollTrigger: desk
-        ? { trigger: '.brunel', start: 'top top', end: '+=240%', pin: true, scrub: 1 }
-        : { trigger: '.brunel', start: 'top 70%', end: 'bottom 85%', scrub: 1 }
-    });
+    const bt = gsap.timeline({ defaults: { ease: 'power2.out' },
+      scrollTrigger: desk ? { trigger: '.brunel', start: 'top top', end: '+=240%', pin: true, scrub: 1 }
+                          : { trigger: '.brunel', start: 'top 70%', end: 'bottom 85%', scrub: 1 } });
     bt.from('#brunelTitle .w', { yPercent: 110, autoAlpha: 0, rotationX: -70, stagger: .1, duration: .8 }, 0)
       .from('.brunel .lead', { autoAlpha: 0, y: 24, duration: .8 }, .6)
-      .from('.dash [data-piece]', {
-        x: () => gsap.utils.random(-sc, sc), y: () => gsap.utils.random(-sc * .7, sc * .7),
-        rotation: () => gsap.utils.random(-28, 28), scale: .55, autoAlpha: 0,
-        stagger: { each: .16, from: 'random' }, duration: 1.4, ease: 'power3.out'
-      }, .2)
+      .from('.dash [data-piece]', { x: () => gsap.utils.random(-sc, sc), y: () => gsap.utils.random(-sc * .7, sc * .7),
+        rotation: () => gsap.utils.random(-28, 28), scale: .55, autoAlpha: 0, stagger: { each: .16, from: 'random' }, duration: 1.4, ease: 'power3.out' }, .2)
       .from('.dash', { rotationY: -18, rotationX: 10, duration: 2.4, ease: 'power2.out' }, .2)
       .from('.feats li', { autoAlpha: 0, x: -40, stagger: .5, duration: .8 }, 1)
       .from('.feats .fl', { scaleY: 0, stagger: .5, duration: .8 }, 1.3)
+      .from('.brunel-meta', { autoAlpha: 0, y: 20, duration: .8 }, 2.4)
       .to(line, { strokeDashoffset: 0, duration: 1.6, ease: 'none' }, 1.8)
       .from('#chartArea', { autoAlpha: 0, duration: .8 }, 2.6)
       .from('#chartDot', { scale: 0, transformOrigin: '50% 50%', duration: .4, ease: 'back.out(3)' }, 3.3)
@@ -1042,12 +1665,10 @@ function initScroll() {
     });
     bt.to({}, { duration: .6 });
 
-    /* 5) CTA: las letras llegan dispersas y se ordenan; líneas que se dibujan */
-    gsap.from(ctaChars, {
-      x: () => gsap.utils.random(-260, 260), y: () => gsap.utils.random(-220, 220), rotation: () => gsap.utils.random(-120, 120),
+    // 6) CTA
+    gsap.from(ctaChars, { x: () => gsap.utils.random(-260, 260), y: () => gsap.utils.random(-220, 220), rotation: () => gsap.utils.random(-120, 120),
       scale: () => gsap.utils.random(.3, 2), autoAlpha: 0, stagger: { each: .02, from: 'center' }, ease: 'power3.out',
-      scrollTrigger: { trigger: '.cta', start: 'top 85%', end: 'center 55%', scrub: 1 }
-    });
+      scrollTrigger: { trigger: '.cta', start: 'top 85%', end: 'center 55%', scrub: 1 } });
     $$('.cta-lines path').forEach((p, i) => {
       const L = p.getTotalLength();
       gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, ease: 'none',
@@ -1058,13 +1679,154 @@ function initScroll() {
   });
 }
 
+/* =========================================================
+   INTERFAZ 2 — ASESORÍAS: se construye la primera vez que entras
+   ========================================================= */
+const FOOD = { heroIn: null };
+const BUILD = {
+  asesorias() {
+    const view = $('#v-asesorias');
+    splitChars($('#vaTitle'));
+    splitChars($('#vaResTitle')); splitChars($('#vaTkTitle')); splitChars($('#vaStTitle'));
+    const ctaChars = splitChars($('#vaCtaTitle'));
+    risingParticles($('#vaCanvas'), $('.va-hero'), ['201,103,58', '212,175,79', '224,138,85', '246,239,227'], { embers: true });
+    $$('[data-scroll]', view).forEach(a => a.addEventListener('click', e => {
+      const t = $(a.getAttribute('href')); if (!t) return; e.preventDefault();
+      scrollTo({ top: t.getBoundingClientRect().top + scrollY - 10, behavior: REDUCED ? 'auto' : 'smooth' });
+    }));
+
+    // Ruta de los 3 pasos: ubicar paradas sobre la curva
+    const path = $('#vaRoute'), live = $('#vaRouteLive'), L = path.getTotalLength();
+    const stops = $$('.stop', view), steps = $$('.step', view);
+    const stopLens = stops.map(s => {
+      const tx = +s.dataset.x; let best = 0, bd = 1e9;
+      for (let i = 0; i <= 600; i++) { const l = L * i / 600, p = path.getPointAtLength(l), dd = Math.abs(p.x - tx); if (dd < bd) { bd = dd; best = l; } }
+      const p = path.getPointAtLength(best); s.setAttribute('transform', `translate(${p.x} ${p.y})`);
+      return best;
+    });
+    const pk = $('#vaPacket');
+    const setRoute = (p) => {
+      const l = p * L; live.style.strokeDasharray = L; live.style.strokeDashoffset = L - l;
+      const q = path.getPointAtLength(l); pk.setAttribute('transform', `translate(${q.x} ${q.y})`);
+      stopLens.forEach((sl, i) => { const on = l >= sl - 2; stops[i].classList.toggle('on', on); });
+    };
+
+    if (!HAS_GSAP || REDUCED) {
+      setRoute(1); steps.forEach(s => s.classList.add('on'));
+      // ranking en su estado final
+      const ours = $('.ph-item.ours'), others = $$('.ph-item:not(.ours)');
+      const H = 64;
+      if (HAS_GSAP) { gsap.set(ours, { y: 0 }); others.forEach((el, i) => gsap.set(el, { y: (i + 1) * H })); }
+      else { ours.style.transform = 'translateY(0)'; others.forEach((el, i) => el.style.transform = `translateY(${(i + 1) * H}px)`); }
+      ours.querySelector('.ph-rank').textContent = '#1'; others.forEach((el, i) => el.querySelector('.ph-rank').textContent = '#' + (i + 2));
+      $('.ph-rate').textContent = '★ 4.8 · 25-35 min';
+      return;
+    }
+
+    // --- Ranking animado dentro del teléfono ---
+    (function rank() {
+      const H = 64, ours = $('.ph-item.ours'), o = [0, 1, 2, 3].map(i => $(`.ph-item[data-o="${i}"]`));
+      const promo = $('.ph-promo'), crown = $('.ph-crown'), rate = $('.ph-rate'), orders = $('.ph-orders');
+      const setRank = (el, n) => el.querySelector('.ph-rank').textContent = '#' + n;
+      const tl = gsap.timeline({ repeat: -1, repeatDelay: .4, paused: true });
+      tl.call(() => { o.forEach((el, i) => setRank(el, i + 1)); setRank(ours, 5); rate.textContent = '★ 4.1 · 25-35 min'; orders.textContent = '+12'; })
+        .set(o, { y: i => i * H }).set(ours, { y: 4 * H }).set([promo, crown], { autoAlpha: 0, scale: .4 })
+        .to({}, { duration: .8 });
+      for (let s = 1; s <= 4; s++) {
+        const other = o[4 - s];
+        tl.to(ours, { y: (4 - s) * H, duration: .55, ease: 'power3.inOut' })
+          .to(other, { y: (5 - s) * H, duration: .55, ease: 'power3.inOut' }, '<')
+          .call(() => { setRank(ours, 5 - s); setRank(other, 6 - s); orders.textContent = '+' + (12 + s * 9); });
+        if (s === 1) tl.to(promo, { autoAlpha: 1, scale: 1, duration: .35, ease: 'back.out(3)' });
+        if (s === 2) tl.call(() => { rate.textContent = '★ 4.6 · 25-35 min'; });
+        if (s === 3) tl.call(() => { rate.textContent = '★ 4.8 · 25-35 min'; });
+        if (s === 4) tl.to(crown, { autoAlpha: 1, scale: 1, duration: .45, ease: 'back.out(3)' })
+                       .fromTo(ours, { scale: 1 }, { scale: 1.05, duration: .25, yoyo: true, repeat: 1, ease: 'power2.out' }, '<');
+        tl.to({}, { duration: .35 });
+      }
+      tl.to({}, { duration: 1.8 });
+      ScrollTrigger.create({ trigger: '.phone', start: 'top bottom', end: 'bottom top', onToggle: self => self.isActive ? tl.play() : tl.pause() });
+    })();
+
+    // --- Entrada del hero (la lanza la transición) ---
+    FOOD.heroIn = gsap.timeline({ paused: true })
+      .from('.va-tag', { autoAlpha: 0, letterSpacing: '1em', duration: 1, ease: 'expo.out' }, 0)
+      .from('.va-eyebrow', { autoAlpha: 0, x: -30, duration: .7, ease: 'power3.out' }, .15)
+      .from('#vaTitle .c', { yPercent: 110, autoAlpha: 0, rotation: 8, stagger: .022, duration: .8, ease: 'expo.out' }, .2)
+      .from('.va-sub', { autoAlpha: 0, y: 20, duration: .7 }, .5)
+      .from('.va-ctas > *', { autoAlpha: 0, y: 20, stagger: .1, duration: .6 }, .6)
+      .from('.phone', { autoAlpha: 0, x: 140, rotationY: -35, rotationZ: 6, transformPerspective: 1200, duration: 1.3, ease: 'expo.out' }, .25);
+
+    const numEl = $('#vaNum'); numEl.textContent = '0';
+    setRoute(0);
+
+    gsap.matchMedia().add({ desk: '(min-width: 981px)', mob: '(max-width: 980px)' }, (ctx) => {
+      const { desk } = ctx.conditions;
+
+      // Hero al bajar: el teléfono flota hacia arriba
+      gsap.timeline({ scrollTrigger: { trigger: '.va-hero', start: 'top top', end: 'bottom top', scrub: true } })
+        .to('.va-phone-wrap', { yPercent: -16, rotation: -4, ease: 'none' }, 0)
+        .to('.va-text', { yPercent: -8, autoAlpha: .2, ease: 'none' }, 0);
+
+      // Resultados: el 35% cuenta y las barras crecen
+      const r = { n: 0 };
+      gsap.timeline({ scrollTrigger: { trigger: '.va-results', start: 'top 75%', end: 'center 50%', scrub: 1 } })
+        .from('#vaResTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6 }, 0)
+        .to(r, { n: 35, duration: 2, ease: 'none', onUpdate: () => numEl.textContent = Math.round(r.n) }, .2)
+        .from('.bars i', { scaleY: 0, stagger: .12, duration: .8, ease: 'power2.out' }, .3)
+        .from('.va-side .va-card', { x: 80, autoAlpha: 0, stagger: .3, duration: 1 }, .5);
+
+      // Comandas que se imprimen
+      const tks = $$('.ticket');
+      if (desk) {
+        const tt = gsap.timeline({ scrollTrigger: { trigger: '.va-tickets-sec', start: 'top top', end: '+=170%', pin: true, scrub: 1 } });
+        tt.from('#vaTkTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6 }, 0)
+          .from('.printer', { scaleX: .6, autoAlpha: 0, duration: .6 }, .2);
+        tks.forEach((t, i) => {
+          tt.fromTo(t, { clipPath: 'inset(0% 0% 100% 0%)', y: -80 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.2, ease: 'none' }, .6 + i * 1.1)
+            .to(t, { rotation: [-2, 1.5, -1][i], duration: .4, ease: 'power2.out' }, '>-.05');
+        });
+        tt.to({}, { duration: .5 });
+      } else {
+        gsap.from('#vaTkTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, scrollTrigger: { trigger: '.va-tickets-sec', start: 'top 80%', end: 'top 50%', scrub: 1 } });
+        tks.forEach(t => gsap.fromTo(t, { clipPath: 'inset(0% 0% 100% 0%)', y: -60 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, ease: 'none',
+          scrollTrigger: { trigger: t, start: 'top 92%', end: 'top 50%', scrub: 1 } }));
+      }
+
+      // Ruta de 3 pasos: el pedido recorre la ruta y enciende cada paso
+      if (desk) {
+        const prog = { p: 0 };
+        gsap.timeline({ scrollTrigger: { trigger: '.va-steps', start: 'top top', end: '+=180%', pin: true, scrub: 1 } })
+          .from('#vaStTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6 }, 0)
+          .to(prog, { p: 1, duration: 3, ease: 'none', onUpdate: () => {
+            setRoute(prog.p);
+            const l = prog.p * L; stopLens.forEach((sl, i) => steps[i].classList.toggle('on', l >= sl - 2));
+          } }, .3)
+          .to({}, { duration: .4 });
+      } else {
+        gsap.from('#vaStTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, scrollTrigger: { trigger: '.va-steps', start: 'top 80%', end: 'top 50%', scrub: 1 } });
+        gsap.to('.vline', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 75%', end: 'bottom 60%', scrub: true } });
+        steps.forEach(s => ScrollTrigger.create({ trigger: s, start: 'top 75%', onEnter: () => s.classList.add('on'), onLeaveBack: () => s.classList.remove('on') }));
+      }
+
+      // CTA: las letras caen y rebotan
+      gsap.from(ctaChars, { y: () => gsap.utils.random(-420, -160), rotation: () => gsap.utils.random(-60, 60), autoAlpha: 0, ease: 'bounce.out',
+        stagger: { each: .04, from: 'random' }, scrollTrigger: { trigger: '.va-cta', start: 'top 85%', end: 'center 55%', scrub: 1 } });
+      gsap.from('.va-cta p, .va-cta .btn, .va-back', { y: 30, autoAlpha: 0, stagger: .1,
+        scrollTrigger: { trigger: '.va-cta', start: 'top 55%', end: 'top 30%', scrub: 1 } });
+    });
+  }
+};
+
 /* ---------- Arranque ---------- */
 heroIn = buildHeroIn();
-initHeroParticles();
+risingParticles($('#heroCanvas'), $('.hero'), ['0,194,216', '168,242,250', '0,194,216', '168,242,250', '215,250,60']);
 initDoors();
 initTyper();
 initChrome();
 initScroll();
+if (location.hash === '#asesorias') { pendingView = 'asesorias'; history.replaceState({ v: 'home' }, '', location.pathname + location.search); }
+else history.replaceState({ v: 'home' }, '', location.href);
 runIntro();
 })();
 </script>
