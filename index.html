@@ -704,6 +704,18 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
 }
 @media (max-width:420px){ .prod{aspect-ratio:2.6} .dash{grid-template-areas:"bar bar" "kpi kpi" "chart chart" "inv inv" "store store"} }
 
+/* ===== Celular: brillo que recorre las puertas + rendimiento ===== */
+.door-shine{display:none}
+@media (hover:none){
+  .grain{animation:none}
+  .door.touching::before,.door.touching::after{opacity:1}
+  .door-shine{display:block;position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;overflow:hidden}
+  .door-shine::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:50%;
+    background:linear-gradient(105deg,transparent,rgba(var(--acc-rgb),.22),rgba(255,255,255,.12),transparent);transform:skewX(-18deg) translateX(0);animation:shine 5s ease-in-out infinite}
+  .door--code .door-shine::before{animation-delay:2.5s}
+}
+@keyframes shine{0%,55%{transform:skewX(-18deg) translateX(0)}100%{transform:skewX(-18deg) translateX(420%)}}
+
 /* ===== Movimiento reducido ===== */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
@@ -765,6 +777,7 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
 
         <div class="doors" id="servicios">
           <a href="#asesorias" class="door door--food" data-go="asesorias" style="--acc-rgb:231,169,59" aria-label="Asesorías para restaurantes">
+            <span class="door-shine" aria-hidden="true"></span>
             <div class="door-top">
               <span class="door-num">01 — Restaurantes</span>
               <span class="door-chip proof">▲ +35% con Taco Bell</span>
@@ -792,6 +805,7 @@ footer .ft-tag{display:block;margin-top:8px;letter-spacing:.24em;text-transform:
           </a>
 
           <a href="#web" class="door door--code" data-go="web" style="--acc-rgb:255,106,61" aria-label="Páginas y sistemas web">
+            <span class="door-shine" aria-hidden="true"></span>
             <div class="door-top">
               <span class="door-num">02 — Tecnología</span>
               <span class="door-chip">Backend · Dashboard · IA</span>
@@ -1334,7 +1348,11 @@ const REDUCED  = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IS_TOUCH = matchMedia('(hover: none), (pointer: coarse)').matches;
 const HAS_GSAP = !!(window.gsap && window.ScrollTrigger);
 const DPR = Math.min(window.devicePixelRatio || 1, IS_TOUCH ? 1.5 : 2);
-if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger);
+if (HAS_GSAP) { gsap.registerPlugin(ScrollTrigger); ScrollTrigger.config({ ignoreMobileResize: true }); }
+/* En celular las animaciones se disparan al aparecer y se completan solas (no dependen del dedo) */
+const once = (trigger, start = 'top 82%') => ({ trigger, start, toggleActions: 'play none none none' });
+const fit = (tl, secs) => tl.timeScale(tl.duration() / secs);
+const buzz = (ms = 10) => { if (IS_TOUCH && navigator.vibrate && !REDUCED) try { navigator.vibrate(ms); } catch (e) {} };
 
 $('#year').textContent = new Date().getFullYear();
 
@@ -1522,7 +1540,7 @@ const RouteFX = (() => {
 
     function frame(now) {
       if (done) return;
-      const t = (now - t0) / 1000;
+      const t = Math.max(0, (now - t0) / 1000);
       ctx.clearRect(0, 0, W, H);
       // velo que se expande desde el clic
       const vr = R * expoIO(Math.min(t / (TA - .04), 1));
@@ -1645,12 +1663,12 @@ const CodeFX = (() => {
     setTimeout(end, 5500);
     function frame(now) {
       if (done) return;
-      const t = (now - t0) / 1000, dt = Math.min((now - last) / 16.67, 3); last = now;
+      const t = Math.max(0, (now - t0) / 1000), dt = Math.max(0, Math.min((now - last) / 16.67, 3)); last = Math.max(now, last);
       ctx.clearRect(0, 0, W, H);
       // fondo negro que se expande desde el clic
       ctx.globalAlpha = t < T3 ? 1 : Math.max(0, 1 - (t - T3) / (T4 - T3 - .1));
       ctx.fillStyle = '#0A0505';
-      if (t < T1) { ctx.beginPath(); ctx.arc(x, y, R * (t / T1), 0, 6.283); ctx.fill(); } else ctx.fillRect(0, 0, W, H);
+      if (t < T1) { ctx.beginPath(); ctx.arc(x, y, Math.max(0, R * (t / T1)), 0, 6.283); ctx.fill(); } else ctx.fillRect(0, 0, W, H);
       if (!covered && t >= T1) {
         covered = true;
         let tg = o.onCovered ? (o.onCovered() || []) : [];
@@ -2095,23 +2113,40 @@ function initScroll() {
     kpis.forEach(k => k.textContent = '0');
 
     // 1) Inicio
-    gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
-      .to('.hero-mark', { scale: .8, yPercent: -45, autoAlpha: 0, filter: 'blur(10px)', ease: 'none' }, 0)
-      .to('.hero-bg', { yPercent: 22, ease: 'none' }, 0)
-      .to('.hero-sub', { y: -60, autoAlpha: 0, ease: 'none' }, 0)
-      .to('.doors', { y: -90, ease: 'none' }, 0);
+    if (desk) {
+      gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
+        .to('.hero-mark', { scale: .8, yPercent: -45, autoAlpha: 0, filter: 'blur(10px)', ease: 'none' }, 0)
+        .to('.hero-bg', { yPercent: 22, ease: 'none' }, 0)
+        .to('.hero-sub', { y: -60, autoAlpha: 0, ease: 'none' }, 0)
+        .to('.doors', { y: -90, ease: 'none' }, 0);
+    } else {
+      gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
+        .to('.hero-mark', { yPercent: -30, autoAlpha: 0, ease: 'none' }, 0)
+        .to('.hero-sub', { autoAlpha: 0, ease: 'none' }, 0);
+    }
 
     // 2) Método On Top: la flecha sube por los niveles Bien → Mejor → On Top
-    const v = { p: 0 };
-    gsap.timeline({ defaults: { ease: 'none' },
-      scrollTrigger: desk ? { trigger: '.metodo', start: 'top top', end: '+=220%', pin: true, scrub: .8 }
-                          : { trigger: '.metodo', start: 'top 75%', end: 'bottom 75%', scrub: .8 } })
-      .to(v, { p: 1, duration: 6, onUpdate: () => setClimb(v.p) }, 0)
-      .fromTo(metodoChars, { autoAlpha: .07, yPercent: 45, rotation: 10 }, { autoAlpha: 1, yPercent: 0, rotation: 0, stagger: .085, duration: .6, ease: 'power2.out' }, 0)
-      .from('.metodo .lead', { autoAlpha: 0, y: 30, duration: 1 }, 3)
-      .from('.pillars li', { autoAlpha: 0, x: 70, stagger: .55, duration: 1, ease: 'power2.out' }, 3.8)
-      .fromTo(ball, { scale: 1 }, { scale: 1.25, duration: .4, ease: 'power2.out', yoyo: true, repeat: 1 }, 6)
-      .to({}, { duration: .8 });
+    if (desk) {
+      const v = { p: 0 };
+      gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.metodo', start: 'top top', end: '+=220%', pin: true, scrub: .8 } })
+        .to(v, { p: 1, duration: 6, onUpdate: () => setClimb(v.p) }, 0)
+        .fromTo(metodoChars, { autoAlpha: .07, yPercent: 45, rotation: 10 }, { autoAlpha: 1, yPercent: 0, rotation: 0, stagger: .085, duration: .6, ease: 'power2.out' }, 0)
+        .from('.metodo .lead', { autoAlpha: 0, y: 30, duration: 1 }, 3)
+        .from('.pillars li', { autoAlpha: 0, x: 70, stagger: .55, duration: 1, ease: 'power2.out' }, 3.8)
+        .fromTo(ball, { scale: 1 }, { scale: 1.25, duration: .4, ease: 'power2.out', yoyo: true, repeat: 1 }, 6)
+        .to({}, { duration: .8 });
+    } else {
+      const v = { p: 0 };
+      gsap.timeline({ scrollTrigger: once('.climb', 'top 78%') })
+        .to(v, { p: 1, duration: 2.4, ease: 'power1.inOut', onUpdate: () => setClimb(v.p) })
+        .fromTo(ball, { scale: 1 }, { scale: 1.25, duration: .22, ease: 'power2.out', yoyo: true, repeat: 1 });
+      gsap.timeline({ scrollTrigger: once('.metodo-text', 'top 82%') })
+        .fromTo(metodoChars, { autoAlpha: .07, yPercent: 45, rotation: 10 }, { autoAlpha: 1, yPercent: 0, rotation: 0, stagger: .018, duration: .5, ease: 'power2.out' })
+        .from('.metodo .lead', { autoAlpha: 0, y: 24, duration: .5 }, '-=.25');
+      ScrollTrigger.batch('.pillars li', { start: 'top 90%', once: true,
+        onEnter: els => gsap.fromTo(els, { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, stagger: .12, duration: .55, ease: 'power3.out' }) });
+      gsap.set('.pillars li', { autoAlpha: 0 });
+    }
 
     // 3) Marquesina
     const skew = gsap.quickTo('.mq-row', 'skewX', { duration: .4, ease: 'power3' });
@@ -2121,47 +2156,67 @@ function initScroll() {
       .fromTo('.r2 .mq-track', { xPercent: -28 }, { xPercent: 0, ease: 'none' }, 0);
 
     // 4) Sistemas: tarjetas que se levantan en 3D + títulos que se decodifican
-    gsap.from(sisChars, { autoAlpha: 0, yPercent: 80, rotationX: -90, stagger: .02, ease: 'power2.out',
-      scrollTrigger: { trigger: '.sistemas', start: 'top 80%', end: 'top 35%', scrub: 1 } });
-    gsap.from('.tile', { rotationX: -75, y: 90, autoAlpha: 0, transformOrigin: '50% 100%', stagger: .12, ease: 'power2.out',
-      scrollTrigger: { trigger: '.bento', start: 'top 88%', end: 'bottom 80%', scrub: 1 } });
-    $$('.tile [data-scramble]').forEach(h => ScrollTrigger.create({ trigger: h, start: 'top 80%', once: true, onEnter: () => scramble(h) }));
+    if (desk) {
+      gsap.from(sisChars, { autoAlpha: 0, yPercent: 80, rotationX: -90, stagger: .02, ease: 'power2.out',
+        scrollTrigger: { trigger: '.sistemas', start: 'top 80%', end: 'top 35%', scrub: 1 } });
+      gsap.from('.tile', { rotationX: -75, y: 90, autoAlpha: 0, transformOrigin: '50% 100%', stagger: .12, ease: 'power2.out',
+        scrollTrigger: { trigger: '.bento', start: 'top 88%', end: 'bottom 80%', scrub: 1 } });
+    } else {
+      gsap.from(sisChars, { autoAlpha: 0, yPercent: 80, rotationX: -90, stagger: .015, duration: .6, ease: 'power3.out', scrollTrigger: once('.sis-head') });
+      gsap.from('.sis-head .lead', { autoAlpha: 0, y: 20, duration: .6, delay: .3, scrollTrigger: once('.sis-head') });
+      gsap.set('.tile', { autoAlpha: 0, y: 70, rotationX: -45, transformPerspective: 900, transformOrigin: '50% 100%' });
+      ScrollTrigger.batch('.tile', { start: 'top 90%', once: true,
+        onEnter: els => gsap.to(els, { autoAlpha: 1, y: 0, rotationX: 0, stagger: .12, duration: .75, ease: 'power3.out' }) });
+    }
+    $$('.tile [data-scramble]').forEach(h => ScrollTrigger.create({ trigger: h, start: 'top 85%', once: true, onEnter: () => scramble(h) }));
 
     // 5) Brunel: el panel se reconstruye
-    const sc = desk ? 420 : 160;
+    const sc = desk ? 420 : 140;
     gsap.set(line, { strokeDasharray: lineLen, strokeDashoffset: lineLen });
-    const bt = gsap.timeline({ defaults: { ease: 'power2.out' },
-      scrollTrigger: desk ? { trigger: '.brunel', start: 'top top', end: '+=240%', pin: true, scrub: 1 }
-                          : { trigger: '.brunel', start: 'top 70%', end: 'bottom 85%', scrub: 1 } });
-    bt.from('#brunelTitle .w', { yPercent: 110, autoAlpha: 0, rotationX: -70, stagger: .1, duration: .8 }, 0)
+    const bt = desk ? gsap.timeline({ defaults: { ease: 'power2.out' }, scrollTrigger: { trigger: '.brunel', start: 'top top', end: '+=240%', pin: true, scrub: 1 } }) : null;
+    const btA = bt || gsap.timeline({ defaults: { ease: 'power2.out' }, scrollTrigger: once('.brunel-text', 'top 80%') });
+    const btB = bt || gsap.timeline({ defaults: { ease: 'power2.out' }, scrollTrigger: once('.dash-wrap', 'top 82%') });
+    btA.from('#brunelTitle .w', { yPercent: 110, autoAlpha: 0, rotationX: -70, stagger: .1, duration: .8 }, 0)
       .from('.brunel .lead', { autoAlpha: 0, y: 24, duration: .8 }, .6)
-      .from('.dash [data-piece]', { x: () => gsap.utils.random(-sc, sc), y: () => gsap.utils.random(-sc * .7, sc * .7),
-        rotation: () => gsap.utils.random(-28, 28), scale: .55, autoAlpha: 0, stagger: { each: .16, from: 'random' }, duration: 1.4, ease: 'power3.out' }, .2)
-      .from('.dash', { rotationY: -18, rotationX: 10, duration: 2.4, ease: 'power2.out' }, .2)
       .from('.feats li', { autoAlpha: 0, x: -40, stagger: .5, duration: .8 }, 1)
       .from('.feats .fl', { scaleY: 0, stagger: .5, duration: .8 }, 1.3)
-      .from('.brunel-meta', { autoAlpha: 0, y: 20, duration: .8 }, 2.4)
+      .from('.brunel-meta', { autoAlpha: 0, y: 20, duration: .8 }, 2.4);
+    btB.from('.dash [data-piece]', { x: () => gsap.utils.random(-sc, sc), y: () => gsap.utils.random(-sc * .7, sc * .7),
+        rotation: () => gsap.utils.random(-28, 28), scale: .55, autoAlpha: 0, stagger: { each: .16, from: 'random' }, duration: 1.4, ease: 'power3.out' }, .2)
+      .from('.dash', { rotationY: -18, rotationX: 10, duration: 2.4, ease: 'power2.out' }, .2)
       .to(line, { strokeDashoffset: 0, duration: 1.6, ease: 'none' }, 1.8)
       .from('#chartArea', { autoAlpha: 0, duration: .8 }, 2.6)
       .from('#chartDot', { scale: 0, transformOrigin: '50% 50%', duration: .4, ease: 'back.out(3)' }, 3.3)
       .from('.inv-bar i', { scaleX: 0, transformOrigin: '0 50%', stagger: .15, duration: .8 }, 2.1);
     kpis.forEach((k, i) => {
       const o = { v: 0 }, target = Number(k.dataset.count);
-      bt.to(o, { v: target, duration: 1.2, ease: 'power1.out', onUpdate: () => k.textContent = Math.round(o.v).toLocaleString('es') }, 2 + i * .15);
+      btB.to(o, { v: target, duration: 1.2, ease: 'power1.out', onUpdate: () => k.textContent = Math.round(o.v).toLocaleString('es') }, 2 + i * .15);
     });
-    bt.to({}, { duration: .6 });
+    if (bt) bt.to({}, { duration: .6 });
+    else { fit(btA, 1.8); fit(btB, 2.4); }
 
     // 6) CTA
-    gsap.from(ctaChars, { x: () => gsap.utils.random(-260, 260), y: () => gsap.utils.random(-220, 220), rotation: () => gsap.utils.random(-120, 120),
-      scale: () => gsap.utils.random(.3, 2), autoAlpha: 0, stagger: { each: .02, from: 'center' }, ease: 'power3.out',
-      scrollTrigger: { trigger: '.cta', start: 'top 85%', end: 'center 55%', scrub: 1 } });
-    $$('.cta-lines path').forEach((p, i) => {
-      const L = p.getTotalLength();
-      gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, ease: 'none',
-        scrollTrigger: { trigger: '.cta', start: 'top bottom', end: `bottom ${85 - i * 10}%`, scrub: true } });
-    });
-    gsap.from('.cta p, .cta .btn', { y: 40, autoAlpha: 0, stagger: .1, ease: 'power2.out',
-      scrollTrigger: { trigger: '.cta', start: 'top 55%', end: 'top 30%', scrub: 1 } });
+    if (desk) {
+      gsap.from(ctaChars, { x: () => gsap.utils.random(-260, 260), y: () => gsap.utils.random(-220, 220), rotation: () => gsap.utils.random(-120, 120),
+        scale: () => gsap.utils.random(.3, 2), autoAlpha: 0, stagger: { each: .02, from: 'center' }, ease: 'power3.out',
+        scrollTrigger: { trigger: '.cta', start: 'top 85%', end: 'center 55%', scrub: 1 } });
+      $$('.cta-lines path').forEach((p, i) => {
+        const L = p.getTotalLength();
+        gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, ease: 'none',
+          scrollTrigger: { trigger: '.cta', start: 'top bottom', end: `bottom ${85 - i * 10}%`, scrub: true } });
+      });
+      gsap.from('.cta p, .cta .btn', { y: 40, autoAlpha: 0, stagger: .1, ease: 'power2.out',
+        scrollTrigger: { trigger: '.cta', start: 'top 55%', end: 'top 30%', scrub: 1 } });
+    } else {
+      const ct = gsap.timeline({ scrollTrigger: once('.cta-title', 'top 85%') });
+      ct.from(ctaChars, { x: () => gsap.utils.random(-140, 140), y: () => gsap.utils.random(-160, 160), rotation: () => gsap.utils.random(-120, 120),
+          scale: () => gsap.utils.random(.3, 2), autoAlpha: 0, stagger: { each: .025, from: 'center' }, duration: .9, ease: 'power3.out' }, 0)
+        .from('.cta p, .cta .btn', { y: 30, autoAlpha: 0, stagger: .1, duration: .6, ease: 'power2.out' }, .6);
+      $$('.cta-lines path').forEach((p, i) => {
+        const L = p.getTotalLength();
+        ct.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, i * .15);
+      });
+    }
   });
 }
 
@@ -2250,17 +2305,29 @@ const BUILD = {
       const { desk } = ctx.conditions;
 
       // Hero al bajar: el teléfono flota hacia arriba
-      gsap.timeline({ scrollTrigger: { trigger: '.va-hero', start: 'top top', end: 'bottom top', scrub: true } })
+      if (desk) gsap.timeline({ scrollTrigger: { trigger: '.va-hero', start: 'top top', end: 'bottom top', scrub: true } })
         .to('.va-phone-wrap', { yPercent: -16, rotation: -4, ease: 'none' }, 0)
         .to('.va-text', { yPercent: -8, autoAlpha: .2, ease: 'none' }, 0);
+      else gsap.fromTo('.va-phone-wrap', { rotation: 3, scale: .94 }, { rotation: -3, scale: 1, ease: 'none',
+        scrollTrigger: { trigger: '.va-phone-wrap', start: 'top bottom', end: 'bottom top', scrub: true } });
 
       // Resultados: el 35% cuenta y las barras crecen
       const r = { n: 0 };
-      gsap.timeline({ scrollTrigger: { trigger: '.va-results', start: 'top 75%', end: 'center 50%', scrub: 1 } })
-        .from('#vaResTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6 }, 0)
-        .to(r, { n: 35, duration: 2, ease: 'none', onUpdate: () => numEl.textContent = Math.round(r.n) }, .2)
-        .from('.bars i', { scaleY: 0, stagger: .12, duration: .8, ease: 'power2.out' }, .3)
-        .from('.va-side .va-card', { x: 80, autoAlpha: 0, stagger: .3, duration: 1 }, .5);
+      if (desk) {
+        gsap.timeline({ scrollTrigger: { trigger: '.va-results', start: 'top 75%', end: 'center 50%', scrub: 1 } })
+          .from('#vaResTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6 }, 0)
+          .to(r, { n: 35, duration: 2, ease: 'none', onUpdate: () => numEl.textContent = Math.round(r.n) }, .2)
+          .from('.bars i', { scaleY: 0, stagger: .12, duration: .8, ease: 'power2.out' }, .3)
+          .from('.va-side .va-card', { x: 80, autoAlpha: 0, stagger: .3, duration: 1 }, .5);
+      } else {
+        gsap.from('#vaResTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6, ease: 'power3.out', scrollTrigger: once('#vaResTitle') });
+        gsap.timeline({ scrollTrigger: once('.stat-big', 'top 80%') })
+          .to(r, { n: 35, duration: 1.4, ease: 'power2.out', onUpdate: () => numEl.textContent = Math.round(r.n) }, 0)
+          .from('.bars i', { scaleY: 0, stagger: .07, duration: .6, ease: 'back.out(1.6)' }, .1);
+        gsap.set('.va-side .va-card', { autoAlpha: 0, x: 60 });
+        ScrollTrigger.batch('.va-side .va-card', { start: 'top 88%', once: true,
+          onEnter: els => gsap.to(els, { autoAlpha: 1, x: 0, stagger: .15, duration: .7, ease: 'power3.out' }) });
+      }
 
       // Comandas que se imprimen
       const tks = $$('.ticket');
@@ -2274,9 +2341,11 @@ const BUILD = {
         });
         tt.to({}, { duration: .5 });
       } else {
-        gsap.from('#vaTkTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, scrollTrigger: { trigger: '.va-tickets-sec', start: 'top 80%', end: 'top 50%', scrub: 1 } });
-        tks.forEach(t => gsap.fromTo(t, { clipPath: 'inset(0% 0% 100% 0%)', y: -60 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, ease: 'none',
-          scrollTrigger: { trigger: t, start: 'top 92%', end: 'top 50%', scrub: 1 } }));
+        gsap.from('#vaTkTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6, ease: 'power3.out', scrollTrigger: once('#vaTkTitle') });
+        gsap.from('.printer', { scaleX: .5, autoAlpha: 0, duration: .6, ease: 'power3.out', scrollTrigger: once('.printer', 'top 88%') });
+        tks.forEach((t, i) => gsap.timeline({ scrollTrigger: once(t, 'top 85%') })
+          .fromTo(t, { clipPath: 'inset(0% 0% 100% 0%)', y: -50 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: .9, ease: 'power2.inOut' })
+          .to(t, { rotation: [-1.5, 1.2, -.8][i], duration: .35, ease: 'back.out(3)' }));
       }
 
       // Ruta de 3 pasos: el pedido recorre la ruta y enciende cada paso
@@ -2290,16 +2359,25 @@ const BUILD = {
           } }, .3)
           .to({}, { duration: .4 });
       } else {
-        gsap.from('#vaStTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, scrollTrigger: { trigger: '.va-steps', start: 'top 80%', end: 'top 50%', scrub: 1 } });
-        gsap.to('.vline', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 75%', end: 'bottom 60%', scrub: true } });
-        steps.forEach(s => ScrollTrigger.create({ trigger: s, start: 'top 75%', onEnter: () => s.classList.add('on'), onLeaveBack: () => s.classList.remove('on') }));
+        gsap.from('#vaStTitle .w', { yPercent: 100, autoAlpha: 0, stagger: .1, duration: .6, ease: 'power3.out', scrollTrigger: once('#vaStTitle') });
+        const vl = $('.vline');
+        steps.forEach((s, i) => ScrollTrigger.create({ trigger: s, start: 'top 80%', once: true, onEnter: () => {
+          s.classList.add('on');
+          gsap.to(vl, { scaleY: (i + 1) / steps.length, duration: .6, ease: 'power2.out', overwrite: true });
+        } }));
       }
 
       // CTA: las letras caen y rebotan
-      gsap.from(ctaChars, { y: () => gsap.utils.random(-420, -160), rotation: () => gsap.utils.random(-60, 60), autoAlpha: 0, ease: 'bounce.out',
-        stagger: { each: .04, from: 'random' }, scrollTrigger: { trigger: '.va-cta', start: 'top 85%', end: 'center 55%', scrub: 1 } });
-      gsap.from('.va-cta p, .va-cta .btn, .va-back', { y: 30, autoAlpha: 0, stagger: .1,
-        scrollTrigger: { trigger: '.va-cta', start: 'top 55%', end: 'top 30%', scrub: 1 } });
+      if (desk) {
+        gsap.from(ctaChars, { y: () => gsap.utils.random(-420, -160), rotation: () => gsap.utils.random(-60, 60), autoAlpha: 0, ease: 'bounce.out',
+          stagger: { each: .04, from: 'random' }, scrollTrigger: { trigger: '.va-cta', start: 'top 85%', end: 'center 55%', scrub: 1 } });
+        gsap.from('.va-cta p, .va-cta .btn, .va-back', { y: 30, autoAlpha: 0, stagger: .1,
+          scrollTrigger: { trigger: '.va-cta', start: 'top 55%', end: 'top 30%', scrub: 1 } });
+      } else {
+        gsap.timeline({ scrollTrigger: once('#vaCtaTitle', 'top 85%') })
+          .from(ctaChars, { y: () => gsap.utils.random(-300, -120), rotation: () => gsap.utils.random(-60, 60), autoAlpha: 0, ease: 'bounce.out', duration: 1.1, stagger: { each: .035, from: 'random' } })
+          .from('.va-cta p, .va-cta .btn, .va-back', { y: 24, autoAlpha: 0, stagger: .1, duration: .5 }, '-=.5');
+      }
     });
   }
 };
@@ -2440,6 +2518,32 @@ function initQuote() {
   ui();
 }
 
+function buildWebMobile() {
+  const bt = $('#vwBuildTitle'), proofEl = $('#vwProofNum');
+  // la terminal se inclina suave mientras pasa
+  gsap.fromTo('.vw-term-wrap', { rotationX: 14, transformPerspective: 900 }, { rotationX: -10, ease: 'none',
+    scrollTrigger: { trigger: '.vw-term-wrap', start: 'top bottom', end: 'bottom top', scrub: true } });
+  ScrollTrigger.create({ trigger: bt, start: 'top 85%', once: true, onEnter: () => scramble(bt) });
+  $$('.build').forEach(b => {
+    const wfs = $$('.wf', b);
+    wfs.forEach(p => { const L = p.getTotalLength ? p.getTotalLength() : 400; p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+    gsap.timeline({ scrollTrigger: once(b, 'top 85%') })
+      .from(b, { y: 60, autoAlpha: 0, duration: .5, ease: 'power3.out' }, 0)
+      .to(wfs, { strokeDashoffset: 0, stagger: .03, duration: .8, ease: 'power2.inOut' }, .15)
+      .from($$('.fl', b), { autoAlpha: 0, scale: .4, stagger: .03, duration: .4, ease: 'back.out(2)' }, .7)
+      .from($$('.build-body > *', b), { y: 16, autoAlpha: 0, stagger: .07, duration: .4 }, .5);
+  });
+  gsap.from('#vwQuoteTitle .w', { xPercent: -30, autoAlpha: 0, stagger: .1, duration: .6, ease: 'power3.out', scrollTrigger: once('#vwQuoteTitle') });
+  gsap.from('.quote', { y: 60, rotationX: -14, autoAlpha: 0, transformPerspective: 1000, transformOrigin: '50% 0%', duration: .8, ease: 'power3.out', scrollTrigger: once('.quote', 'top 88%') });
+  const pn = { v: 0 };
+  gsap.timeline({ scrollTrigger: once('.proof-card', 'top 85%') })
+    .from('.proof-card', { xPercent: 20, skewX: -10, autoAlpha: 0, duration: .7, ease: 'power3.out' })
+    .to(pn, { v: 900, duration: 1.2, ease: 'power2.out', onUpdate: () => proofEl.textContent = Math.round(pn.v) }, .2);
+  gsap.timeline({ scrollTrigger: once('#vwCtaTitle', 'top 85%') })
+    .from(splitChars($('#vwCtaTitle')), { rotationY: 90, scale: .3, autoAlpha: 0, transformPerspective: 600, stagger: .05, duration: .6, ease: 'back.out(2)' })
+    .from('.vw-cta p, .vw-cta .vw-ctas, .vw-back', { y: 24, autoAlpha: 0, stagger: .1, duration: .5 }, '-=.3');
+}
+
 BUILD.web = function () {
   splitChars($('#vwTitle')); splitChars($('#vwQuoteTitle'));
   const ctaChars = splitChars($('#vwCtaTitle'));
@@ -2461,7 +2565,9 @@ BUILD.web = function () {
   const G = '{}<>/=;01#*';
   const compile = (p) => { const n = Math.floor(p * btFinal.length * 1.08); bt.textContent = [...btFinal].map((ch, i) => (ch === ' ' || i < n) ? ch : G[(Math.random() * G.length) | 0]).join(''); };
 
-  gsap.matchMedia().add({ desk: '(min-width: 981px)', mob: '(max-width: 980px)' }, () => {
+  gsap.matchMedia().add({ desk: '(min-width: 981px)', mob: '(max-width: 980px)' }, (ctx) => {
+    const { desk } = ctx.conditions;
+    if (!desk) { buildWebMobile(); return; }
     // Hero: la terminal se inclina hacia atrás al bajar
     gsap.timeline({ scrollTrigger: { trigger: '.vw-hero', start: 'top top', end: 'bottom top', scrub: true } })
       .to('.term', { rotationX: 28, yPercent: -12, scale: .92, autoAlpha: .25, transformPerspective: 1200, ease: 'none' }, 0)
@@ -2502,6 +2608,38 @@ BUILD.web = function () {
   });
 };
 
+
+/* =========================================================
+   Extras para celular: chispas al tocar, puertas que se
+   presionan en 3D y vibración suave
+   ========================================================= */
+function initTouchFX() {
+  if (!IS_TOUCH || REDUCED || !HAS_GSAP) return;
+  const COLORS = { home: ['0,194,216', '215,250,60'], asesorias: ['212,175,79', '201,103,58'], web: ['255,106,61', '224,48,30'] };
+  addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'touch' || ROOT.classList.contains('intro-on') || busy) return;
+    const c = COLORS[current] || COLORS.home;
+    FX.ring(e.clientX, e.clientY, { r0: 4, r1: 46, max: 22, c: c[0], w: 2 });
+    for (let i = 0; i < 9; i++) { const a = Math.random() * 6.283, sp = 1 + Math.random() * 2.6;
+      FX.spark(e.clientX, e.clientY, { vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - .6, c: c[i % 2], max: 24 + Math.random() * 18, r: .8 + Math.random() * 1.6 }); }
+  }, { passive: true });
+
+  $$('.door').forEach(door => {
+    const press = (e) => {
+      const r = door.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      door.style.setProperty('--mx', px * 100 + '%'); door.style.setProperty('--my', py * 100 + '%');
+      door.classList.add('touching');
+      gsap.to(door, { rotationY: (px - .5) * 12, rotationX: -(py - .5) * 10, scale: .975, transformPerspective: 900, duration: .25, ease: 'power2.out' });
+    };
+    const release = () => { door.classList.remove('touching'); gsap.to(door, { rotationX: 0, rotationY: 0, scale: 1, duration: .6, ease: 'elastic.out(1, .5)' }); };
+    door.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') press(e); }, { passive: true });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => door.addEventListener(ev, release, { passive: true }));
+    door.addEventListener('click', () => buzz(14));
+  });
+  $$('.q-opt input').forEach(i => i.addEventListener('change', () => buzz(8)));
+  $('#toTop').addEventListener('click', () => buzz(10));
+}
+
 /* ---------- Arranque ---------- */
 heroIn = buildHeroIn();
 risingParticles($('#heroCanvas'), $('.hero'), ['0,194,216', '168,242,250', '0,194,216', '168,242,250', '215,250,60']);
@@ -2509,6 +2647,7 @@ initDoors();
 initTyper();
 initChrome();
 initScroll();
+initTouchFX();
 if (VIEWS[location.hash.slice(1)]) { pendingView = location.hash.slice(1); history.replaceState({ v: 'home' }, '', location.pathname + location.search); }
 else history.replaceState({ v: 'home' }, '', location.href);
 runIntro();
